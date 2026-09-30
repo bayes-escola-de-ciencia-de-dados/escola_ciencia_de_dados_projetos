@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel Executivo · Spend Analysis</title>
+<style>
+/*__INICIO_CSS_COMPARTILHADO__*/
+/* ============================================================
+   DICIONÁRIO DE CORES - fonte única de verdade do painel
+   O JavaScript lê estas variáveis; ajuste aqui e tudo acompanha
+   ============================================================ */
+:root {
+  --cor-marca-escuro: #000D3C;
+  --cor-marca-medio: #001FBD;
+  --cor-marca-vivo: #0131FF;
+  --cor-destaque: #FF9C00;
+  --cor-laranja: #FF6200;
+
+  --cor-serie-principal: #001FBD;
+  --cor-serie-secundaria: #000D3C;
+  --cor-periodo-atual: #000D3C;
+  --cor-periodo-anterior: #9FB0E6;
+  --cor-periodo-fora: #DCE2F2;
+
+  --cor-com-contrato: #000D3C;
+  --cor-baixo-valor: #B3B3B3;
+  --cor-parcerias: #D9DCE1;
+  --cor-fora-politica: #FF6200;
+  --cor-nao-classificado: #6E6E6E;
+
+  --cor-risco-baixo: #008717;
+  --cor-risco-medio: #FF9C00;
+  --cor-risco-alto: #D93A00;
+  --cor-risco-sem: #B3B3B3;
+
+  --cor-status-bom: #008717;
+  --cor-status-atencao: #FF9C00;
+  --cor-status-critico: #D93A00;
+
+  --cor-fundo: #F1F2F4;
+  --cor-superficie: #FFFFFF;
+  --cor-borda: #E3E5E8;
+  --cor-grade: #EDEEF1;
+  --cor-texto: #0B1533;
+  --cor-texto-2: #3D4459;
+  --cor-texto-3: #6E6E6E;
+  --cor-acao-fundo: #FFF6EC;
+  --cor-acao-borda: #FFD9B0;
+
+  --fonte: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --escala: 1;
+  --raio: 12px;
+  --raio-sm: 8px;
+  --espaco: 16px;
+  --sombra: 0 1px 2px rgba(0, 13, 60, .04), 0 4px 16px rgba(0, 13, 60, .05);
+}
+
+* { box-sizing: border-box; }
+html { font-size: calc(14px * var(--escala)); scroll-padding-top: 120px; }
+body { margin: 0; background: var(--cor-fundo); color: var(--cor-texto); font-family: var(--fonte); line-height: 1.45; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* ---------- Cabeçalho ---------- */
+.cab-fundo { color: #fff; background: linear-gradient(100deg, var(--cor-marca-escuro) 0%, var(--cor-marca-escuro) 35%, var(--cor-marca-medio) 100%); }
+.cab-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 14px 28px 6px; }
+.cab-titulo { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; }
+.cab-titulo span { color: var(--cor-destaque); }
+.cab-sub { margin: 2px 0 0; font-size: .86rem; color: rgba(255, 255, 255, .72); }
+.cab-dir { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.cab-linha { display: flex; align-items: center; gap: 14px; }
+.seg { display: inline-flex; border: 1px solid rgba(255, 255, 255, .25); border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, .06); }
+.seg button { background: none; border: 0; padding: 4px 11px; font-size: .8rem; font-weight: 600; color: #fff; cursor: pointer; white-space: nowrap; }
+.seg button + button { border-left: 1px solid rgba(255, 255, 255, .2); }
+.seg button:hover { background: rgba(255, 255, 255, .12); }
+.seg button[aria-pressed="true"] { background: rgba(255, 255, 255, .24); }
+.cab-resumo { font-size: .8rem; color: rgba(255, 255, 255, .8); white-space: nowrap; }
+.cab-resumo b { color: #fff; }
+.cab-atualizacao { font-size: .74rem; color: rgba(255, 255, 255, .6); }
+
+.barra { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px 0 20px; color: #fff; background: linear-gradient(100deg, var(--cor-marca-escuro) 0%, var(--cor-marca-escuro) 35%, var(--cor-marca-medio) 100%); box-shadow: 0 2px 12px rgba(0, 13, 60, .25); }
+.abas { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.abas::-webkit-scrollbar { display: none; }
+.aba { position: relative; background: none; border: 0; padding: 11px 12px 13px; font-size: .92rem; color: rgba(255, 255, 255, .72); cursor: pointer; white-space: nowrap; border-radius: 8px 8px 0 0; }
+.aba .num { display: inline-flex; align-items: center; justify-content: center; width: 1.35em; height: 1.35em; margin-right: 6px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .45); font-size: .72rem; font-weight: 700; }
+.aba:hover { color: #fff; background: rgba(255, 255, 255, .06); }
+.aba[aria-selected="true"] { color: #fff; font-weight: 700; }
+.aba[aria-selected="true"] .num { background: var(--cor-destaque); border-color: var(--cor-destaque); color: var(--cor-marca-escuro); }
+.aba[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--cor-destaque); }
+.barra-dir { display: flex; align-items: center; gap: 10px; flex: none; }
+.migalha { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .8rem; color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .1); border: 0; border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.migalha b { color: #fff; }
+.btn-claro { height: 28px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; background: transparent; color: #fff; font-size: .8rem; cursor: pointer; white-space: nowrap; }
+.btn-claro:hover { background: rgba(255, 255, 255, .12); }
+
+.filtros { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px 12px; padding: 12px 28px 14px; }
+.filtros-rotulo { font-size: .78rem; font-weight: 700; color: rgba(255, 255, 255, .85); padding-bottom: 8px; }
+.filtro { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 130px; flex: 0 1 150px; }
+.filtro.periodo { flex-basis: 200px; }
+.filtro > label { font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .78); }
+.filtro-botao { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 32px; padding: 0 10px; background: #fff; color: var(--cor-texto); border: 1px solid transparent; border-radius: var(--raio-sm); font-size: .84rem; cursor: pointer; text-align: left; }
+.filtro-botao:hover { border-color: var(--cor-destaque); }
+.filtro-botao:focus-visible { outline: 2px solid var(--cor-destaque); outline-offset: 1px; }
+.filtro-botao .valor { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.filtro-botao .seta { flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--cor-texto-3); }
+.filtro.ativo .filtro-botao { box-shadow: inset 0 0 0 2px var(--cor-destaque); font-weight: 600; }
+.filtro.travado .filtro-botao { background: rgba(255, 255, 255, .82); cursor: not-allowed; font-weight: 600; }
+.filtro.travado .seta { display: none; }
+.limpar { align-self: flex-end; height: 32px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .35); border-radius: var(--raio-sm); background: transparent; color: #fff; font-size: .8rem; cursor: pointer; }
+.limpar:hover { background: rgba(255, 255, 255, .12); }
+
+.painel-filtro { position: absolute; top: calc(100% + 6px); left: 0; z-index: 60; width: 340px; max-width: 90vw; background: #fff; color: var(--cor-texto); border: 1px solid var(--cor-borda); border-radius: var(--raio); box-shadow: 0 12px 32px rgba(0, 13, 60, .22); padding: 10px; }
+.painel-filtro input[type="search"] { width: 100%; height: 34px; padding: 0 10px; border: 1px solid var(--cor-borda); border-radius: var(--raio-sm); font: inherit; font-size: .86rem; }
+.painel-filtro input[type="search"]:focus { outline: 2px solid var(--cor-marca-vivo); outline-offset: -1px; }
+.opcoes { max-height: 300px; overflow-y: auto; margin: 8px 0; }
+.opcao { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; font-size: .86rem; cursor: pointer; }
+.opcao:hover, .opcao.marcada { background: var(--cor-fundo); }
+.opcao input { accent-color: var(--cor-marca-vivo); width: 15px; height: 15px; margin: 0; flex: none; }
+.opcao .rot { flex: 1; min-width: 0; }
+.opcao .extra { flex: none; font-size: .76rem; color: var(--cor-texto-3); font-variant-numeric: tabular-nums; }
+.opcao.todos { font-weight: 600; border-bottom: 1px solid var(--cor-borda); border-radius: 6px 6px 0 0; margin-bottom: 4px; }
+.opcao.grupo { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--cor-texto-3); cursor: default; padding-top: 10px; }
+.opcao.grupo:hover { background: none; }
+.opcoes-nota { font-size: .74rem; color: var(--cor-texto-3); padding: 0 8px 6px; }
+.painel-rodape { display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid var(--cor-borda); }
+.btn { height: 30px; padding: 0 14px; border-radius: var(--raio-sm); border: 1px solid var(--cor-borda); background: #fff; font-size: .82rem; cursor: pointer; }
+.btn:hover { background: var(--cor-fundo); }
+.btn-primario { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; font-weight: 600; }
+.btn-primario:hover { background: var(--cor-marca-medio); }
+
+/* ---------- Contexto (lente + foco) ---------- */
+main { padding: 20px 28px 8px; max-width: 1760px; margin: 0 auto; }
+.contexto { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; padding: 14px 18px; margin-bottom: 20px; background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); box-shadow: var(--sombra); }
+.contexto .rot { font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.seg-escuro { display: inline-flex; border: 1px solid var(--cor-borda); border-radius: 999px; overflow: hidden; }
+.seg-escuro button { background: #fff; border: 0; padding: 6px 14px; font-size: .86rem; font-weight: 600; color: var(--cor-texto-2); cursor: pointer; }
+.seg-escuro button + button { border-left: 1px solid var(--cor-borda); }
+.seg-escuro button:hover { background: var(--cor-fundo); }
+.seg-escuro button[aria-pressed="true"] { background: var(--cor-marca-escuro); color: #fff; }
+.contexto .filtro { flex: 0 1 360px; min-width: 240px; }
+.contexto .filtro-botao { border-color: var(--cor-borda); height: 34px; }
+.contexto .filtro.ativo .filtro-botao { box-shadow: inset 0 0 0 2px var(--cor-marca-vivo); }
+.contexto-periodo { margin-left: auto; font-size: .84rem; color: var(--cor-texto-2); text-align: right; }
+.contexto-periodo b { color: var(--cor-texto); }
+
+/* ---------- Seções e capítulos ---------- */
+.vista[hidden] { display: none; }
+.capitulo { margin-bottom: 36px; }
+.cap-cab { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.cap-num { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--cor-marca-escuro); color: #fff; font-weight: 700; font-size: .95rem; transform: translateY(-2px); }
+.cap-cab h2 { margin: 0; font-size: 1.4rem; font-weight: 700; color: var(--cor-texto); }
+.cap-sub { margin: 0 0 16px 42px; font-size: .92rem; color: var(--cor-texto-2); }
+.cap-sub b { color: var(--cor-texto); }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--espaco); margin-bottom: var(--espaco); }
+.kpi { position: relative; background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 16px 18px 16px 22px; box-shadow: var(--sombra); overflow: hidden; }
+.kpi::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--cor-marca-escuro); }
+.kpi[data-tom="destaque"]::before { background: var(--cor-laranja); }
+.kpi[data-tom="bom"]::before { background: var(--cor-status-bom); }
+.kpi[data-tom="alerta"]::before { background: var(--cor-status-critico); }
+.kpi-rotulo { font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.kpi-valor { margin-top: 4px; font-size: 1.9rem; font-weight: 700; letter-spacing: -.02em; color: var(--cor-texto); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi[data-tom="destaque"] .kpi-valor { color: var(--cor-laranja); }
+.kpi-sub { margin-top: 4px; font-size: .8rem; color: var(--cor-texto-2); }
+.status { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 2px 9px 2px 7px; border-radius: 999px; font-size: .74rem; font-weight: 600; }
+.status[data-status="bom"] { background: #E6F4E8; color: #00640F; }
+.status[data-status="alerta"] { background: #FDECE4; color: #A82D00; }
+.status svg { width: 12px; height: 12px; }
+
+.grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco); margin-bottom: var(--espaco); }
+.cartao { background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 18px 20px 14px; box-shadow: var(--sombra); min-width: 0; }
+.cartao.largo { grid-column: 1 / -1; }
+.pergunta { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-marca-medio); margin-bottom: 4px; }
+.cartao h3 { margin: 0; font-size: 1.08rem; font-weight: 700; color: var(--cor-texto); line-height: 1.3; }
+.cartao .desc { margin: 4px 0 10px; font-size: .8rem; color: var(--cor-texto-3); }
+.legenda-mini { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; }
+.legenda-mini i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.legenda-mini i.aro { border-radius: 50%; border: 2px solid var(--cor-baixo-valor); background: #fff; }
+.legenda-mini i.ponto { border-radius: 50%; }
+.grafico { width: 100%; height: calc(320px * var(--escala)); }
+.grafico.baixo { height: calc(150px * var(--escala)); }
+.grafico.alto { height: calc(400px * var(--escala)); }
+.vazio { display: flex; align-items: center; justify-content: center; min-height: 120px; height: 100%; color: var(--cor-texto-3); font-size: .9rem; text-align: center; }
+
+.tabela-caixa { max-height: calc(440px * var(--escala)); overflow: auto; border-radius: var(--raio-sm); border: 1px solid var(--cor-borda); }
+table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+thead th { position: sticky; top: 0; z-index: 1; background: var(--cor-marca-escuro); color: #fff; font-weight: 600; text-align: left; padding: 10px 12px; white-space: nowrap; }
+tbody td { padding: 9px 12px; border-top: 1px solid var(--cor-grade); color: var(--cor-texto-2); }
+tbody tr:hover td { background: #F7F8FA; }
+tbody tr.clicavel { cursor: pointer; }
+tbody tr.clicavel:hover td { background: #EEF2FF; }
+tbody tr.clicavel:focus-visible { outline: 2px solid var(--cor-marca-vivo); outline-offset: -2px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.cen, th.cen { text-align: center; }
+td.forte { color: var(--cor-texto); font-weight: 600; }
+td.pos { color: var(--cor-marca-medio); }
+td.neg { color: #A82D00; }
+.seta-abrir { color: var(--cor-texto-3); font-weight: 700; }
+.selo { display: inline-block; min-width: 46px; padding: 2px 8px; border-radius: 999px; font-size: .74rem; font-weight: 700; color: #fff; text-align: center; white-space: nowrap; }
+.selo[data-nivel="critico"] { background: var(--cor-status-critico); }
+.selo[data-nivel="atencao"] { background: var(--cor-laranja); }
+.selo[data-nivel="monitorar"] { background: #FFE2C2; color: #8A3A00; }
+.selo[data-nivel="ok"] { background: #E6F4E8; color: #00640F; }
+.selo[data-nivel="neutro"] { background: var(--cor-grade); color: var(--cor-texto-2); }
+.barra-ferr { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.barra-ferr input { height: 32px; padding: 0 10px; border: 1px solid var(--cor-borda); border-radius: var(--raio-sm); font: inherit; font-size: .86rem; width: 280px; max-width: 100%; }
+.barra-ferr .nota { font-size: .78rem; color: var(--cor-texto-3); }
+
+.titulo-inicio { margin: 0 0 4px; font-size: 1.45rem; font-weight: 700; }
+.sub-inicio { margin: 0 0 18px; color: var(--cor-texto-2); font-size: .92rem; }
+
+.selos-grandes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--espaco); }
+.selo-grande { padding: 18px 20px; border-radius: var(--raio); border: 1px solid var(--cor-borda); background: var(--cor-superficie); }
+.selo-grande .rot { font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.selo-grande .val { margin-top: 6px; font-size: 1.6rem; font-weight: 700; }
+.selo-grande[data-nivel="bom"] { border-left: 5px solid var(--cor-status-bom); }
+.selo-grande[data-nivel="medio"] { border-left: 5px solid var(--cor-status-atencao); }
+.selo-grande[data-nivel="critico"] { border-left: 5px solid var(--cor-status-critico); }
+.selo-grande[data-nivel="neutro"] { border-left: 5px solid var(--cor-risco-sem); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.chip { border: 1px solid var(--cor-borda); background: #fff; border-radius: 999px; padding: 4px 12px; font-size: .82rem; cursor: pointer; color: var(--cor-texto-2); }
+.chip[aria-pressed="true"] { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; }
+.sinais { list-style: none; margin: 0; padding: 0; }
+.sinal { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 14px; padding: 12px 6px; border-top: 1px solid var(--cor-grade); }
+.sinal:first-child { border-top: 0; }
+.sinal-icone { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-size: .9rem; font-weight: 700; color: #fff; }
+.sinal-texto { font-size: .92rem; color: var(--cor-texto); }
+.sinal-texto small { display: block; font-size: .76rem; color: var(--cor-texto-3); margin-top: 2px; }
+.sinal-valor { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--cor-texto); white-space: nowrap; }
+
+.nav-cap { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.nav-cap button { border: 1px solid var(--cor-borda); background: #fff; border-radius: var(--raio-sm); padding: 10px 16px; font-size: .9rem; cursor: pointer; color: var(--cor-texto-2); }
+.nav-cap button.prox { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; font-weight: 600; margin-left: auto; }
+.nav-cap button:hover { filter: brightness(1.08); }
+
+.ficha .cap-num { background: var(--cor-destaque); color: var(--cor-marca-escuro); }
+.faixa-contrato { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 10px 16px; margin-bottom: 18px; border-radius: var(--raio-sm); background: #EEF2FF; border: 1px solid #D6DEFA; font-size: .86rem; color: var(--cor-texto-2); }
+.faixa-contrato b { color: var(--cor-texto); }
+.acao { padding: 12px 16px; background: var(--cor-acao-fundo); border: 1px solid var(--cor-acao-borda); border-radius: var(--raio-sm); font-size: .9rem; color: var(--cor-texto-2); }
+.acao b { color: var(--cor-laranja); }
+.nota-qualidade { margin-top: 10px; font-size: .8rem; color: var(--cor-texto-3); }
+.aviso { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--cor-marca-escuro); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: .86rem; box-shadow: 0 8px 24px rgba(0, 13, 60, .3); z-index: 90; }
+
+.rodape { text-align: center; font-size: .76rem; color: var(--cor-texto-3); padding: 20px 28px 28px; }
+
+@media (max-width: 1440px) {
+  .migalha { max-width: 200px; }
+}
+@media (max-width: 1100px) {
+  .grade { grid-template-columns: 1fr; }
+  .cab-topo { flex-direction: column; }
+  .cab-dir { align-items: flex-start; }
+  .barra { flex-wrap: wrap; }
+  .migalha { display: none; }
+  .contexto-periodo { margin-left: 0; text-align: left; }
+}
+@media (max-width: 640px) {
+  .cab-topo, .filtros, main { padding-left: 16px; padding-right: 16px; }
+  .filtro { flex: 1 1 140px; }
+  .cab-resumo { white-space: normal; }
+  .migalha { display: none; }
+}
+.carregando { position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 50; max-width: min(560px, calc(100vw - 32px));
+  padding: 18px 26px; border-radius: 12px; background: var(--cor-superficie); color: var(--cor-texto); font-family: var(--fonte); box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  font-size: 15px; font-weight: 600; text-align: center; }
+.carregando.erro { border-left: 5px solid var(--cor-status-critico); font-weight: 500; text-align: left; }
+/*__FIM_CSS_COMPARTILHADO__*/
+
+/* ---------- Específico do painel clássico ---------- */
+.cab { position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 12px rgba(0, 13, 60, .25); }
+.cab .abas { padding: 0 20px; }
+.cab .filtros { border-top: 1px solid rgba(255, 255, 255, .1); }
+.secao-cab { margin-bottom: 18px; }
+.secao-cab h2 { margin: 0; font-size: 1.35rem; font-weight: 600; color: var(--cor-texto); }
+.secao-cab p { margin: 4px 0 0; font-size: .9rem; color: var(--cor-texto-2); max-width: 120ch; }
+.insights { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: var(--espaco); }
+.insight { display: flex; gap: 12px; align-items: flex-start; background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 14px 16px; box-shadow: var(--sombra); }
+.insight .sinal-texto { flex: 1; }
+.insight .sinal-valor { margin-left: auto; padding-left: 8px; }
+.glossario td:first-child { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<header class="cab cab-fundo">
+  <div class="cab-topo">
+    <div>
+      <h1 class="cab-titulo" id="titulo"></h1>
+      <p class="cab-sub" id="subtitulo"></p>
+    </div>
+    <div class="cab-dir">
+      <div class="cab-linha">
+        <div class="seg" role="group" aria-label="Tamanho da fonte">
+          <button type="button" data-fonte="-1" aria-label="Diminuir fonte">A−</button>
+          <button type="button" data-fonte="0" aria-label="Fonte padrão">A</button>
+          <button type="button" data-fonte="1" aria-label="Aumentar fonte">A+</button>
+        </div>
+        <button type="button" class="btn-claro" id="copiar-link" title="Copia um link que reabre exatamente esta visão">Copiar link</button>
+        <div class="cab-resumo" id="resumo"></div>
+      </div>
+      <div class="cab-atualizacao" id="atualizacao"></div>
+    </div>
+  </div>
+  <nav class="abas" role="tablist" id="abas"></nav>
+  <div class="filtros" id="filtros">
+    <span class="filtros-rotulo">Filtros globais:</span>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section id="vista" role="tabpanel"></section>
+</main>
+
+<footer class="rodape" id="rodape"></footer>
+
+<script id="echarts-lib">/*__ECHARTS_LIB__*/</script>
+<script id="spend-data" type="application/json" data-url="__SPEND_URL__">__SPEND_DATA__</script>
+<script>
+function painelApp() {
+"use strict";
+
+/* ============================================================
+   1. Estrutura fixa do painel clássico (abas)
+   ============================================================ */
+const VISTAS = [
+  { id: "executivo", nome: "Executivo" },
+  { id: "tendencias", nome: "Tendências" },
+  { id: "fornecedores", nome: "Fornecedores" },
+  { id: "categorias", nome: "Categorias" },
+  { id: "pareto", nome: "Pareto & Concentração" },
+  { id: "contrato", nome: "Com / Sem Contrato" },
+  { id: "contratos", nome: "Contratos" },
+  { id: "riscos", nome: "Riscos" },
+  { id: "insights", nome: "Insights" },
+  { id: "glossario", nome: "Glossário" }
+];
+const LENTES = {
+  categoria: { nome: "Categoria", plural: "categorias", todos: "Todas as categorias" },
+  diretoria: { nome: "Diretoria", plural: "diretorias", todos: "Todas as diretorias" },
+  fornecedor: { nome: "Fornecedor", plural: "fornecedores", todos: "Todos os fornecedores" },
+  contrato: { nome: "Contrato", plural: "contratos", todos: "Todos os contratos" }
+};
+const FILTROS = [
+  { key: "gerencia", nome: "Gerência Compras" },
+  { key: "categoria", nome: "Categoria" },
+  { key: "sub1", nome: "Subcategoria 1" },
+  { key: "sub2", nome: "Subcategoria 2" },
+  { key: "sub3", nome: "Subcategoria 3" },
+  { key: "diretoria", nome: "Diretoria" },
+  { key: "contrato", nome: "Contrato" }
+];
+const DIMS_DISP = FILTROS.map(f => f.key).concat(["fornecedor"]);
+const ST = { COM: 0, BAIXO: 1, PARC: 2, FDP: 3, NC: 4 };
+const KYS_OK = 0, KYS_NEG = 1, RISCO_ALTO = 2;
+const ESCALAS = [0.875, 1, 1.125, 1.25, 1.375];
+const MIN_UNICO = 50000;
+
+/*__INICIO_COMPARTILHADO__*/
+/* ============================================================
+   2. Tema - lido do dicionário de cores do CSS
+   ============================================================ */
+const css = getComputedStyle(document.documentElement);
+const cor = n => css.getPropertyValue("--cor-" + n).trim();
+const C = {
+  serie: cor("serie-principal"), serie2: cor("serie-secundaria"),
+  atual: cor("periodo-atual"), anterior: cor("periodo-anterior"), fora: cor("periodo-fora"),
+  status: [cor("com-contrato"), cor("baixo-valor"), cor("parcerias"), cor("fora-politica"), cor("nao-classificado")],
+  risco: [cor("risco-baixo"), cor("risco-medio"), cor("risco-alto"), cor("risco-sem")],
+  fdp: cor("fora-politica"), bom: cor("status-bom"), critico: cor("status-critico"), atencao: cor("status-atencao"),
+  texto: cor("texto"), texto2: cor("texto-2"), texto3: cor("texto-3"),
+  borda: cor("borda"), grade: cor("grade"), sup: cor("superficie"), cinza: cor("baixo-valor")
+};
+const FONTE = css.getPropertyValue("--fonte").trim();
+
+/* ============================================================
+   3. Dados
+   ============================================================ */
+const DADOS = JSON.parse(document.getElementById("spend-data").textContent);
+const META = DADOS.meta, DIMS = DADOS.dims, FORN = DADOS.fornecedores;
+const TIPOS = { uint8: Uint8Array, uint16: Uint16Array, uint32: Uint32Array, int32: Int32Array, float32: Float32Array, float64: Float64Array };
+function decodificar(c) {
+  if (Array.isArray(c)) return c;
+  const bin = atob(c.b64), n = bin.length, u8 = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
+  return new TIPOS[c.dtype](u8.buffer);
+}
+const t0 = performance.now();
+const COL = {};
+for (const k in DADOS.fato.colunas) COL[k] = decodificar(DADOS.fato.colunas[k]);
+const N = DADOS.fato.n_linhas;
+const TEM_END = !!COL.enderecavel;
+const HOJE = new Date(); HOJE.setHours(0, 0, 0, 0);
+const CTR = DADOS.contratos;
+const N_ANOS = CTR.anos.length;
+const CTR_ANO = decodificar(CTR.consumo_ano);
+const CTR_DIR = { c: decodificar(CTR.diretorias.contrato), d: decodificar(CTR.diretorias.diretoria), v: decodificar(CTR.diretorias.valor), v12: decodificar(CTR.diretorias.valor_12m) };
+const diasAte = d => d ? Math.round((new Date(d + "T00:00:00") - HOJE) / 864e5) : -99999;
+const CONTRATOS = [];
+for (let i = 1; i < DIMS.contrato.length; i++) {
+  CONTRATOS.push({ i, contrato: i, id: DIMS.contrato[i], descricao: CTR.descricao[i], fornecedor: CTR.fornecedor[i], data_fim: CTR.data_fim[i], dias: diasAte(CTR.data_fim[i]), spend_12m: CTR.consumo_12m[i],
+    gerencia: CTR.gerencia[i], categoria: CTR.categoria[i], sub1: CTR.sub1[i], sub2: CTR.sub2[i], sub3: CTR.sub3[i], diretoria: CTR.diretoria[i] });
+}
+function totalCtr(i) { const v = CTR.valor_contratado[i]; return v === null || v === undefined ? null : v + CTR.valor_aportes[i]; }
+function saldoCtr(i) { const t = totalCtr(i); return t === null ? null : t - CTR.consumido[i]; }
+function anosCtr(i) { return CTR.anos.map((a, k) => CTR_ANO[i * N_ANOS + k]); }
+function dirsCtr(i) { const out = []; for (let k = 0; k < CTR_DIR.c.length; k++) if (CTR_DIR.c[k] === i) out.push({ d: CTR_DIR.d[k], v: CTR_DIR.v[k], v12: CTR_DIR.v12[k] }); return out; }
+function aportesCtr(i) { const a = CTR.aportes, out = []; for (let k = 0; k < a.contrato.length; k++) if (a.contrato[k] === i) out.push({ data: a.data[k], valor: a.valor[k] }); return out; }
+
+const PAIS = DADOS.hierarquia || {};
+const PAI_DIM = { sub1: "categoria", sub2: "sub1", sub3: "sub2" };
+const SEM_CLASS = "Sem classificação";
+const DUP = {};
+["sub1", "sub2", "sub3"].forEach(k => { const c = {}; DIMS[k].forEach(n => { c[n] = (c[n] || 0) + 1; }); DUP[k] = c; });
+function contexto(key, i) {
+  if (!PAI_DIM[key] || DUP[key][DIMS[key][i]] < 2) return "";
+  let k = key, j = i;
+  while (PAI_DIM[k]) { j = PAIS[k][j]; k = PAI_DIM[k]; if (DIMS[k][j] !== SEM_CLASS) return DIMS[k][j]; }
+  return "";
+}
+function rotulo(key, i) {
+  if (key === "contrato") return i === 0 ? DIMS.contrato[0] : `${DIMS.contrato[i]} · ${CTR.descricao[i]}`;
+  const ctx = contexto(key, i);
+  return ctx ? `${DIMS[key][i]} (${ctx})` : DIMS[key][i];
+}
+const rotuloLink = (key, i) => key === "contrato" ? DIMS.contrato[i] : rotulo(key, i);
+function indicePorRotulo(key, txt) { for (let i = 0; i < DIMS[key].length; i++) if (rotuloLink(key, i) === txt) return i; return -1; }
+console.info("[painel] decodificação", N, "linhas em", Math.round(performance.now() - t0), "ms");
+
+/* ============================================================
+   4. Períodos
+   ============================================================ */
+const MESES = DIMS.mes;
+const U = MESES.indexOf(META.ultimo_mes);
+const MN = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const rotMes = p => { const [a, m] = p.split("-"); return MN[+m - 1] + "/" + a.slice(2); };
+const anoU = +META.ultimo_mes.slice(0, 4);
+const idxMes = s => MESES.indexOf(s);
+
+function opcoesPeriodo() {
+  const ops = [{ id: "12m", nome: "Últimos 12 meses" }];
+  if (+META.ultimo_mes.slice(5) < 12) ops.push({ id: "ytd", nome: `YTD ${anoU} (jan a ${MN[+META.ultimo_mes.slice(5) - 1]})` });
+  for (let a = anoU; a >= +MESES[0].slice(0, 4); a--) {
+    if (idxMes(a + "-01") >= 0 && idxMes(a + "-12") >= 0) ops.push({ id: String(a), nome: `Ano ${a}` });
+  }
+  return ops;
+}
+function faixa(id) {
+  let c0, c1;
+  if (id === "12m") { c1 = U; c0 = U - 11; }
+  else if (id === "ytd") { c1 = U; c0 = idxMes(anoU + "-01"); }
+  else { c0 = idxMes(id + "-01"); c1 = idxMes(id + "-12"); }
+  const p0 = c0 - 12, p1 = c1 - 12;
+  return { c0: Math.max(0, c0), c1, p0, p1, prevOk: p0 >= 0, rot: `${rotMes(MESES[Math.max(0, c0)])} a ${rotMes(MESES[c1])}`, rotP: p0 >= 0 ? `${rotMes(MESES[p0])} a ${rotMes(MESES[p1])}` : "" };
+}
+
+/* ============================================================
+   5. Estado
+   ============================================================ */
+const estado = {
+  sel: Object.fromEntries(FILTROS.map(f => [f.key, null])),
+  periodo: "12m", lente: "categoria", foco: null,
+  vista: "inicio", modo: "abas", escala: 1,
+  uni: null, his: null, F: faixa("12m")
+};
+
+/* ============================================================
+   6. Motor: filtros (máscara + disponibilidade) e cubo
+   ============================================================ */
+function travadoPeloFoco(key) { return estado.foco !== null && estado.lente === key; }
+
+function passar(comFoco) {
+  const cons = [];
+  FILTROS.forEach((f, pos) => {
+    if (travadoPeloFoco(f.key) && comFoco) return;
+    const s = estado.sel[f.key];
+    if (!s) return;
+    const l = new Uint8Array(DIMS[f.key].length);
+    s.forEach(c => { l[c] = 1; });
+    cons.push({ pos, lut: l, col: COL[f.key] });
+  });
+  if (comFoco && estado.foco !== null) {
+    const l = new Uint8Array(DIMS[estado.lente].length);
+    l[estado.foco] = 1;
+    cons.push({ pos: DIMS_DISP.indexOf(estado.lente), lut: l, col: COL[estado.lente] });
+  }
+  const k = cons.length, nd = DIMS_DISP.length;
+  const dcols = DIMS_DISP.map(d => COL[d]);
+  const disp = DIMS_DISP.map(d => new Uint8Array(DIMS[d].length));
+  const idx = new Uint32Array(N);
+  let m = 0;
+  for (let i = 0; i < N; i++) {
+    let falhas = 0, ult = -1;
+    for (let j = 0; j < k; j++) {
+      if (!cons[j].lut[cons[j].col[i]]) { falhas++; ult = j; if (falhas > 1) break; }
+    }
+    if (falhas === 0) { idx[m++] = i; for (let d = 0; d < nd; d++) disp[d][dcols[d][i]] = 1; }
+    else if (falhas === 1) { const d = cons[ult].pos; disp[d][dcols[d][i]] = 1; }
+  }
+  return { idx: idx.subarray(0, m), disp, luts: cons };
+}
+
+function cubo(pass) {
+  const F = estado.F, idx = pass.idx;
+  const nF = DIMS.fornecedor.length, nC = DIMS.categoria.length, nD = DIMS.diretoria.length, nK = DIMS.contrato.length;
+  const cM = COL.mes, cF = COL.fornecedor, cC = COL.categoria, cD = COL.diretoria, cS1 = COL.sub1, cS3 = COL.sub3;
+  const cSt = COL.status, cV = COL.valor, cN = COL.n_pagamentos, cE = COL.enderecavel, cK = COL.contrato;
+  const kys = FORN.kys, risco = FORN.risco;
+  const r = {
+    T: 0, N: 0, Tp: 0, base: 0, st: new Float64Array(5), mes: new Float64Array(MESES.length),
+    forn: new Float64Array(nF), fornP: new Float64Array(nF), fornSt: new Float64Array(nF * 5),
+    cat: new Float64Array(nC), catP: new Float64Array(nC), catFdp: new Float64Array(nC), catRisco: new Float64Array(nC),
+    dir: new Float64Array(nD), dirP: new Float64Array(nD), dirFdp: new Float64Array(nD), dirRisco: new Float64Array(nD),
+    sub1: new Float64Array(DIMS.sub1.length), sub3: new Float64Array(DIMS.sub3.length), sub3F: new Int32Array(DIMS.sub3.length).fill(-1),
+    kysV: new Float64Array(4), riscoV: new Float64Array(4),
+    ctr: new Float64Array(nK), ctrP: new Float64Array(nK),
+    catForn: new Float64Array(nC * nF), mesFdp: new Float64Array(MESES.length), mesBase: new Float64Array(MESES.length)
+  };
+  for (let j = 0, n = idx.length; j < n; j++) {
+    const i = idx[j], m = cM[i], v = cV[i];
+    r.mes[m] += v;
+    if (!cE || cE[i]) { r.mesBase[m] += v; if (cSt[i] === ST.FDP) r.mesFdp[m] += v; }
+    if (m >= F.c0 && m <= F.c1) {
+      const f = cF[i], c = cC[i], d = cD[i], s = cSt[i], s3 = cS3[i];
+      r.T += v; r.N += cN[i]; r.ctr[cK[i]] += v;
+      if (!cE || cE[i]) { r.base += v; r.st[s] += v; }
+      r.forn[f] += v; r.fornSt[f * 5 + s] += v;
+      r.cat[c] += v; r.dir[d] += v; r.sub1[cS1[i]] += v; r.sub3[s3] += v; r.catForn[c * nF + f] += v;
+      const sf = r.sub3F[s3]; if (sf === -1) r.sub3F[s3] = f; else if (sf !== f) r.sub3F[s3] = -2;
+      if (s === ST.FDP) { r.catFdp[c] += v; r.dirFdp[d] += v; }
+      r.kysV[kys[f]] += v; r.riscoV[risco[f]] += v;
+      if (kys[f] === KYS_NEG || risco[f] === RISCO_ALTO) { r.catRisco[c] += v; r.dirRisco[d] += v; }
+    } else if (F.prevOk && m >= F.p0 && m <= F.p1) {
+      r.Tp += v; r.fornP[cF[i]] += v; r.ctrP[cK[i]] += v; r.catP[cC[i]] += v; r.dirP[cD[i]] += v;
+    }
+  }
+  r.fornFdp = Float64Array.from({ length: nF }, (_, f) => r.fornSt[f * 5 + ST.FDP]);
+  r.fornRisco = Float64Array.from({ length: nF }, (_, f) => (kys[f] === KYS_NEG || risco[f] === RISCO_ALTO) ? r.forn[f] : 0);
+  r.contratos = contratosDe(pass);
+  return r;
+}
+
+function contratosDe(pass) {
+  const luts = pass.luts.map(c => ({ key: DIMS_DISP[c.pos], lut: c.lut }));
+  return CONTRATOS.filter(c => luts.every(l => l.lut[c[l.key]]));
+}
+
+function aplicar() {
+  const t = performance.now();
+  estado.F = faixa(estado.periodo);
+  const pu = passar(false);
+  estado.uni = cubo(pu);
+  estado.uniPass = pu;
+  if (estado.foco !== null) { const ph = passar(true); estado.his = cubo(ph); estado.hisPass = ph; }
+  else { estado.his = estado.uni; estado.hisPass = pu; }
+  console.info("[painel] cálculo em", Math.round(performance.now() - t), "ms");
+}
+
+/* ============================================================
+   7. Formatação pt-BR
+   ============================================================ */
+const nf0 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+function brl(v) {
+  const a = Math.abs(v);
+  if (a >= 1e9) return "R$ " + nf1.format(v / 1e9) + " bi";
+  if (a >= 1e6) return "R$ " + nf1.format(v / 1e6) + " mi";
+  if (a >= 1e3) return "R$ " + nf0.format(v / 1e3) + " mil";
+  return "R$ " + nf0.format(v);
+}
+const pct = (v, d = 1) => isFinite(v) ? new Intl.NumberFormat("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d }).format(v * 100) + "%" : "-";
+const sinal = (v, d = 1) => isFinite(v) ? (v > 0 ? "+" : "") + pct(v, d) : "-";
+const pp = v => (v > 0 ? "+" : "") + nf1.format(v * 100) + " p.p.";
+const dataBR = s => s ? s.split("-").reverse().join("/") : "";
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const soma = a => { let s = 0; for (let i = 0; i < a.length; i++) s += a[i]; return s; };
+const ativos = a => { let n = 0; for (let i = 0; i < a.length; i++) if (a[i] > 0) n++; return n; };
+const var_ = (a, b) => b > 0 ? a / b - 1 : NaN;
+
+function ranking(vetor, n) {
+  const out = [];
+  for (let i = 0; i < vetor.length; i++) if (vetor[i] > 0) out.push(i);
+  out.sort((a, b) => vetor[b] - vetor[a]);
+  return n ? out.slice(0, n) : out;
+}
+function paraN(vetor, alvo) {
+  const ord = ranking(vetor), tot = soma(vetor);
+  let acc = 0, n = 0;
+  for (const i of ord) { acc += vetor[i]; n++; if (acc >= tot * alvo) break; }
+  return { n, base: ord.length };
+}
+
+/* ============================================================
+   8. Biblioteca de gráficos (ECharts)
+   ============================================================ */
+const fs = n => Math.round(n * estado.escala);
+function tooltipHtml(titulo, linhas) {
+  const l = linhas.map(x =>
+    `<div style="display:flex;align-items:center;gap:8px;margin-top:4px">` +
+    (x.cor ? `<span style="width:10px;height:10px;border-radius:3px;background:${x.cor};flex:none"></span>` : "") +
+    `<span style="color:${C.texto2};flex:1">${esc(x.rotulo)}</span>` +
+    `<b style="color:${C.texto};font-variant-numeric:tabular-nums;margin-left:16px">${x.valor}</b></div>`).join("");
+  return `<div style="font-weight:700;color:${C.texto};max-width:340px;white-space:normal">${esc(titulo)}</div>${l}`;
+}
+function base(extra) {
+  return Object.assign({
+    animationDuration: 350,
+    textStyle: { fontFamily: FONTE, fontSize: fs(12), color: C.texto2 },
+    tooltip: {
+      trigger: "item", confine: true, backgroundColor: C.sup, borderColor: C.borda, borderWidth: 1,
+      padding: [10, 12], textStyle: { color: C.texto, fontSize: fs(12), fontFamily: FONTE },
+      extraCssText: "box-shadow:0 8px 24px rgba(0,13,60,.14);border-radius:8px;"
+    }
+  }, extra);
+}
+const tip = f => Object.assign({}, base().tooltip, { formatter: f });
+function eixoValor(nome, extra) {
+  return Object.assign({
+    type: "value", name: nome, nameLocation: "end", nameGap: 10,
+    nameTextStyle: { color: C.texto3, fontSize: fs(11), align: "left" },
+    axisLabel: { color: C.texto3, fontSize: fs(11) },
+    splitLine: { lineStyle: { color: C.grade } }, axisLine: { show: false }, axisTick: { show: false }
+  }, extra);
+}
+const unidade = max => max >= 1e6 ? { d: 1e6, n: "R$ mi" } : { d: 1e3, n: "R$ mil" };
+const fmtEixo = u => v => nf1.format(v / u.d).replace(",0", "");
+const eixoMiH = (max = 1e6) => { const u = unidade(max); return eixoValor(u.n, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
+const eixoValorV = max => { const u = unidade(max); return eixoValor(u.n, { axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
+const eixoPctH = () => eixoValor("% do gasto", { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => pct(v, 0) } });
+function eixoCat(dados, extra) {
+  return Object.assign({ type: "category", data: dados, axisLabel: { color: C.texto2, fontSize: fs(11.5) }, axisLine: { lineStyle: { color: C.borda } }, axisTick: { show: false } }, extra);
+}
+const gradeH = (w, extra) => Object.assign({ left: fs(w) + 14, right: fs(96), top: 8, bottom: fs(44), containLabel: false }, extra);
+const rotY = w => ({ color: C.texto2, fontSize: fs(11.5), width: fs(w), overflow: "truncate" });
+
+const instancias = new Map();
+function desenhar(id, opcao) {
+  const alvo = document.getElementById(id);
+  if (!alvo) return;
+  let ch = instancias.get(id);
+  if (!ch || ch.isDisposed() || ch.getDom() !== alvo) {
+    if (ch && !ch.isDisposed()) ch.dispose();
+    alvo.innerHTML = "";
+    ch = echarts.init(alvo, null, { renderer: "canvas" });
+    instancias.set(id, ch);
+  }
+  ch.setOption(opcao, true);
+}
+function vazio(id, msg) {
+  const ch = instancias.get(id);
+  if (ch && !ch.isDisposed()) ch.dispose();
+  instancias.delete(id);
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="vazio">${msg || "Sem dados para o recorte selecionado"}</div>`;
+}
+function limparOrfaos() {
+  instancias.forEach((ch, id) => { if (!ch.isDisposed() && !document.body.contains(ch.getDom())) { ch.dispose(); instancias.delete(id); } });
+}
+function redimensionar() {
+  instancias.forEach(ch => { if (!ch.isDisposed() && ch.getDom().offsetParent !== null) ch.resize(); });
+}
+
+function barrasH(id, itens, opc) {
+  opc = opc || {};
+  if (!itens.length) return vazio(id);
+  const w = opc.larguraRotulo || 220;
+  const inv = itens.slice().reverse();
+  desenhar(id, base({
+    grid: gradeH(w),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [{ cor: x.cor || opc.cor || C.serie, rotulo: opc.rotulo || "Spend", valor: opc.qtd ? nf0.format(x.valor) : brl(x.valor) }].concat(x.extra || [])); }),
+    xAxis: opc.qtd ? eixoValor(opc.qtd, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, minInterval: 1, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => nf0.format(v) } }) : eixoMiH(Math.max(...inv.map(x => x.valor))),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(w) }),
+    series: [{
+      type: "bar", data: inv.map(x => ({ value: x.valor, itemStyle: x.cor ? { color: x.cor } : undefined })), barMaxWidth: 20, barCategoryGap: "32%",
+      itemStyle: { color: opc.cor || C.serie, borderRadius: [0, 4, 4, 0] },
+      label: { show: true, position: "right", color: C.texto2, fontSize: fs(11), formatter: p => inv[p.dataIndex].rotulo || (opc.qtd ? nf0.format(p.value) : brl(p.value)) }
+    }]
+  }));
+}
+
+function barra100(id, partes, total, opc) {
+  opc = opc || {};
+  const vis = partes.filter(p => p.valor > 0);
+  if (!total || !vis.length) return vazio(id);
+  desenhar(id, base({
+    grid: { left: 8, right: 8, top: fs(34), bottom: 8, containLabel: false },
+    legend: { top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 12, itemGap: 16, textStyle: { color: C.texto2, fontSize: fs(12) } },
+    tooltip: tip(p => tooltipHtml(p.seriesName, [{ cor: p.color, rotulo: opc.rotulo || "Spend", valor: brl(p.value * total) }, { rotulo: "Participação", valor: pct(p.value) }])),
+    xAxis: { type: "value", max: 1, show: false },
+    yAxis: { type: "category", data: [""], show: false },
+    series: vis.map(p => ({
+      name: p.nome, type: "bar", stack: "t", data: [p.valor / total], barWidth: "62%",
+      itemStyle: { color: p.cor, borderColor: C.sup, borderWidth: 2 },
+      label: { show: p.valor / total >= 0.06, position: "inside", color: p.claro ? C.texto : "#fff", fontSize: fs(12), fontWeight: 600, formatter: () => pct(p.valor / total, 0) }
+    }))
+  }));
+}
+
+function halteres(id, itens, opc) {
+  opc = opc || {};
+  if (!itens.length) return vazio(id, "Sem período anterior para comparar");
+  const w = opc.larguraRotulo || 220;
+  const inv = itens.slice().reverse();
+  desenhar(id, base({
+    grid: gradeH(w, { right: fs(90) }),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [
+      { cor: C.cinza, rotulo: "Share período anterior", valor: pct(x.a) },
+      { cor: x.b >= x.a ? C.serie : C.fdp, rotulo: "Share período atual", valor: pct(x.b) },
+      { rotulo: "Variação", valor: pp(x.b - x.a) }]); }),
+    xAxis: eixoPctH(),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(w) }),
+    series: [{
+      type: "custom", encode: { x: [1, 2], y: 0 },
+      data: inv.map((x, i) => [i, x.a, x.b]),
+      renderItem: (params, api) => {
+        const i = api.value(0), a = api.value(1), b = api.value(2);
+        const pa = api.coord([a, i]), pb = api.coord([b, i]);
+        const c = b >= a ? C.serie : C.fdp;
+        return { type: "group", children: [
+          { type: "line", shape: { x1: pa[0], y1: pa[1], x2: pb[0], y2: pb[1] }, style: { stroke: c, lineWidth: 3, opacity: .3 } },
+          { type: "circle", shape: { cx: pa[0], cy: pa[1], r: fs(5) }, style: { fill: "#fff", stroke: C.cinza, lineWidth: 2 } },
+          { type: "circle", shape: { cx: pb[0], cy: pb[1], r: fs(6) }, style: { fill: c, stroke: "#fff", lineWidth: 1.5 } },
+          { type: "text", style: { text: pp(b - a), x: Math.max(pa[0], pb[0]) + fs(12), y: pb[1], fill: C.texto2, font: `${fs(11)}px ${FONTE}`, verticalAlign: "middle" } }
+        ] };
+      }
+    }]
+  }));
+}
+
+function evolucao(id, r) {
+  const F = estado.F;
+  const ini = Math.max(0, Math.min(F.prevOk ? F.p0 : F.c0, U - 35));
+  const dados = MESES.slice(ini).map((m, k) => { const i = ini + k; return { m, v: r.mes[i], tipo: i >= F.c0 && i <= F.c1 ? "atual" : (F.prevOk && i >= F.p0 && i <= F.p1 ? "anterior" : "fora") }; });
+  if (!soma(r.mes)) return vazio(id);
+  const corDe = { atual: C.atual, anterior: C.anterior, fora: C.fora };
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: 30, bottom: 8, containLabel: true },
+    tooltip: Object.assign(tip(ps => { const x = dados[ps[0].dataIndex]; return tooltipHtml(rotMes(x.m), [{ cor: corDe[x.tipo], rotulo: x.tipo === "atual" ? "Período selecionado" : x.tipo === "anterior" ? "Período de comparação" : "Fora da comparação", valor: brl(x.v) }]); }), { trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(0,13,60,.05)" } } }),
+    xAxis: eixoCat(dados.map(x => rotMes(x.m)), { axisLabel: { color: C.texto3, fontSize: fs(11), hideOverlap: true } }),
+    yAxis: eixoValorV(Math.max(...dados.map(x => x.v))),
+    series: [{ type: "bar", barCategoryGap: "22%", data: dados.map(x => ({ value: x.v, itemStyle: { color: corDe[x.tipo], borderRadius: [3, 3, 0, 0] } })) }]
+  }));
+}
+
+function colunasAno(id, anos, vals) {
+  if (!vals.some(v => v > 0)) return vazio(id);
+  const rot = anos.map(a => a === anoU && +META.ultimo_mes.slice(5) < 12 ? `${a} (YTD)` : String(a));
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: 30, bottom: 8, containLabel: true },
+    tooltip: tip(p => tooltipHtml(rot[p.dataIndex], [{ cor: C.serie2, rotulo: "Consumo no ano", valor: brl(p.value) }])),
+    xAxis: eixoCat(rot),
+    yAxis: eixoValorV(Math.max(...vals)),
+    series: [{ type: "bar", barMaxWidth: 56, data: vals, itemStyle: { color: C.serie2, borderRadius: [4, 4, 0, 0] },
+      label: { show: true, position: "top", color: C.texto2, fontSize: fs(11), fontWeight: 600, formatter: p => p.value ? brl(p.value) : "" } }]
+  }));
+}
+
+/* ============================================================
+   9. Componentes HTML
+   ============================================================ */
+const ICONE_OK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICONE_ALERTA = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.5v4.2M6 9.2v.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+function kpi(k) {
+  const st = k.status ? `<div class="status" data-status="${k.status}">${k.status === "bom" ? ICONE_OK : ICONE_ALERTA}${esc(k.statusTexto)}</div>` : "";
+  return `<div class="kpi" data-tom="${k.tom || ""}"><div class="kpi-rotulo">${esc(k.rotulo)}</div><div class="kpi-valor">${k.valor}</div><div class="kpi-sub">${k.sub || ""}</div>${st}</div>`;
+}
+function meta(valor, alvo, maior) {
+  if (!isFinite(valor)) return {};
+  const ok = maior ? valor >= alvo : valor <= alvo;
+  return { tom: ok ? "bom" : "alerta", status: ok ? "bom" : "alerta", statusTexto: ok ? "Dentro da meta" : (maior ? "Abaixo da meta" : "Acima da meta") };
+}
+function cartao(o) {
+  const corpo = o.corpo !== undefined ? o.corpo : `<div class="grafico ${o.altura || ""}" id="${o.id}"></div>`;
+  return `<div class="cartao ${o.largo ? "largo" : ""}">${o.pergunta ? `<div class="pergunta">${esc(o.pergunta)}</div>` : ""}<h3>${o.titulo}</h3>${o.desc ? `<p class="desc">${o.desc}</p>` : ""}${corpo}</div>`;
+}
+const legStatus = () => DIMS.status.map((s, i) => `<span class="legenda-mini"><i style="background:${C.status[i]}"></i>${esc(s)}</span>`).join("");
+function nivelDias(d) { return d <= 30 ? "critico" : d <= 90 ? "atencao" : "monitorar"; }
+function nomeItem(lente, i) { return rotulo(lente, i); }
+function periodoTxt() { const F = estado.F; return `${nomePeriodo()} · ${F.rot}`; }
+function compTxt() { return estado.F.prevOk ? `vs ${estado.F.rotP}` : "sem período anterior na base"; }
+function nomePeriodo() { return opcoesPeriodo().find(o => o.id === estado.periodo).nome; }
+function baseTxt() { return TEM_END ? "sobre o spend endereçável" : "sobre o spend total"; }
+function focoNome() { return estado.foco === null ? LENTES[estado.lente].todos : nomeItem(estado.lente, estado.foco); }
+function linhasTabela(linhas, vazioTxt, cols) {
+  return linhas.length ? linhas.join("") : `<tr><td colspan="${cols}" style="text-align:center;padding:24px">${vazioTxt}</td></tr>`;
+}
+function tabela(cab, linhas, vazioTxt) {
+  return `<div class="tabela-caixa"><table><thead><tr>${cab.map(c => `<th class="${c.cls || ""}">${c.t}</th>`).join("")}</tr></thead><tbody>${linhasTabela(linhas, vazioTxt || "Nada a mostrar no recorte selecionado", cab.length)}</tbody></table></div>`;
+}
+
+/* ============================================================
+   9b. Componentes compartilhados (contrato, sinais, controles, link e fonte)
+   ============================================================ */
+let fila = [];
+const ctrls = {};
+
+function contratoUnico() {
+  if (estado.lente === "contrato" && estado.foco) return estado.foco;
+  const s = estado.sel.contrato;
+  if (s && s.size === 1) { const v = s.values().next().value; if (v !== 0) return v; }
+  return null;
+}
+
+function fornecedorFoco() {
+  if (estado.lente === "fornecedor" && estado.foco !== null) return estado.foco;
+  const cu = contratoUnico();
+  return cu !== null ? CTR.fornecedor[cu] : null;
+}
+
+function venceTxt(i) {
+  const d = diasAte(CTR.data_fim[i]);
+  if (!CTR.data_fim[i]) return "vencimento não informado";
+  return d < 0 ? `vencido em ${dataBR(CTR.data_fim[i])}` : `vence em ${d} dias (${dataBR(CTR.data_fim[i])})`;
+}
+
+function seloVence(i) {
+  const d = diasAte(CTR.data_fim[i]);
+  if (!CTR.data_fim[i]) return "-";
+  if (d < 0) return `<span class="selo" data-nivel="neutro">vencido</span>`;
+  return d <= META.janela_vencimento_dias ? `<span class="selo" data-nivel="${nivelDias(d)}">${d} d</span>` : dataBR(CTR.data_fim[i]);
+}
+
+function ritmoCtr(i) {
+  const s = saldoCtr(i), ritmo = CTR.consumo_12m[i] / 12, d = diasAte(CTR.data_fim[i]);
+  if (s === null || s <= 0 || ritmo <= 0 || d <= 0) return null;
+  const mesesSaldo = s / ritmo, mesesVenc = d / 30.4;
+  return mesesSaldo < mesesVenc ? { meses: Math.max(1, Math.round(mesesSaldo)), ritmo } : null;
+}
+
+function fichaContrato(i) {
+  const M = META.metas, t = totalCtr(i), sd = saldoCtr(i), cons = CTR.consumido[i], vc = CTR.valor_contratado[i];
+  const f = CTR.fornecedor[i], pc = t ? cons / t : NaN, parcial = CTR.inicio_antes_base[i] === 1;
+  const c12 = CTR.consumo_12m[i], rt = ritmoCtr(i), aps = aportesCtr(i);
+  const anos = anosCtr(i), dirs = dirsCtr(i);
+  const usa12 = dirs.some(x => x.v12 > 0);
+  const dv = dirs.map(x => ({ d: x.d, v: usa12 ? x.v12 : x.v })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+  const totDir = dv.reduce((s, x) => s + x.v, 0);
+  const esteira = ["Não", "Sim", "Não informado"][CTR.esteira[i]];
+  const inicioBase = rotMes(META.inicio_base.slice(0, 7));
+  let alerta = "";
+  if (sd !== null && sd < 0) alerta = `Consumo de ${brl(-sd)} acima do valor contratado + aportes`;
+  else if (rt) alerta = `No ritmo dos últimos 12 meses (${brl(rt.ritmo)} por mês), o saldo acaba em cerca de ${rt.meses} ${rt.meses > 1 ? "meses" : "mês"}, antes do vencimento em ${dataBR(CTR.data_fim[i])}`;
+  const tConsumo = t === null ? `${brl(cons)} pagos desde ${inicioBase} - valor contratado não informado` : sd < 0 ? `Contrato estourado: ${pct(pc, 0)} do valor já consumido` : `${pct(pc, 0)} do valor já consumido - saldo de ${brl(sd)}`;
+  const maxAno = anos.indexOf(Math.max(...anos));
+  const partes = t === null ? [] : sd >= 0
+    ? [{ nome: "Consumido", valor: cons, cor: C.serie2 }, { nome: "Saldo", valor: sd, cor: C.cinza, claro: true }]
+    : [{ nome: "Contratado + aportes", valor: t, cor: C.serie2 }, { nome: "Excedente", valor: -sd, cor: C.critico }];
+
+  fila.push(() => partes.length ? barra100("g-ficha-consumo", partes, Math.max(t, cons)) : vazio("g-ficha-consumo", "Valor contratado não informado na base"));
+  fila.push(() => colunasAno("g-ficha-anos", CTR.anos, anos));
+  fila.push(() => barrasH("g-ficha-dirs", dv.slice(0, 10).map(x => ({ nome: DIMS.diretoria[x.d], valor: x.v, rotulo: `${brl(x.v)} · ${pct(x.v / totDir, 0)}` }))));
+
+  return `<div class="capitulo ficha" id="sec-ficha"><div class="cap-cab"><span class="cap-num">C</span><h2>Ficha do contrato ${esc(DIMS.contrato[i])}</h2></div>` +
+    `<p class="cap-sub">${esc(CTR.descricao[i])} · Fornecedor <b>${esc(DIMS.fornecedor[f])}</b> · Esteira expressa: <b>${esteira}</b> · ${esc(venceTxt(i))} · <i>visão total do contrato, independente dos filtros</i></p>` +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Valor contratado", valor: vc === null ? "Não informado" : brl(vc), sub: `vigência ${dataBR(CTR.data_inicio[i]) || "?"} a ${dataBR(CTR.data_fim[i]) || "?"}` }) +
+    kpi({ rotulo: "Aportes", valor: nf0.format(CTR.n_aportes[i]), sub: CTR.n_aportes[i] ? `${brl(CTR.valor_aportes[i])} adicionados ao contrato` : "nenhum aporte registrado" }) +
+    kpi({ rotulo: "Consumido", valor: brl(cons), sub: parcial ? `desde ${inicioBase} · contrato iniciado em ${dataBR(CTR.data_inicio[i])}, antes do início da base: consumo parcial` : "desde o início do contrato" }) +
+    kpi(Object.assign({ rotulo: "Saldo", valor: sd === null ? "-" : brl(sd), sub: t ? `${pct(Math.max(0, 1 - pc), 0)} do valor contratado + aportes` : "" },
+      t ? (sd / t < M.saldo_alerta ? { tom: "alerta", status: "alerta", statusTexto: sd < 0 ? "Estourado" : `Abaixo de ${pct(M.saldo_alerta, 0)}` } : { tom: "bom", status: "bom", statusTexto: "Saldo confortável" }) : {})) +
+    kpi({ rotulo: "Consumo últimos 12 meses", tom: "destaque", valor: brl(c12), sub: `média de ${brl(c12 / 12)} por mês` }) +
+    `</div>` + (alerta ? `<div class="acao" style="margin-bottom:16px"><b>Atenção:</b> ${esc(alerta)}</div>` : "") +
+    `<div class="grade">` +
+    cartao({ id: "g-ficha-consumo", altura: "baixo", pergunta: "Quanto já foi consumido?", titulo: tConsumo, desc: `Valor contratado + aportes vs pagamentos desde ${parcial ? inicioBase : "o início do contrato"}` }) +
+    cartao({ id: "g-ficha-anos", pergunta: "Como foi o consumo em cada ano?", titulo: anos.some(v => v > 0) ? `Maior consumo em ${CTR.anos[maxAno]}: ${brl(anos[maxAno])}` : "Sem pagamentos na base", desc: `Pagamentos por ano desde ${inicioBase} · valores em R$` }) +
+    cartao({ id: "g-ficha-dirs", altura: "alto", pergunta: "Quais áreas estão pagando?", titulo: dv.length ? `${esc(DIMS.diretoria[dv[0].d])} responde por ${pct(dv[0].v / totDir, 0)} dos pagamentos` : "Sem pagamentos na base", desc: `${usa12 ? "Últimos 12 meses" : `Desde ${inicioBase} (sem pagamentos nos últimos 12 meses)`} · valores em R$` }) +
+    cartao({ pergunta: "Quantos aportes o contrato recebeu?", titulo: aps.length ? `${aps.length} aporte${aps.length > 1 ? "s somam" : " soma"} ${brl(CTR.valor_aportes[i])}` : "Nenhum aporte registrado", desc: "Aditivos que aumentaram o valor do contrato",
+      corpo: aps.length ? tabela([{ t: "Data" }, { t: "Valor", cls: "num" }], aps.map(a => `<tr><td>${dataBR(a.data)}</td><td class="num forte">${brl(a.valor)}</td></tr>`)) : `<div class="vazio">O contrato segue com o valor original</div>` }) +
+    `</div></div>`;
+}
+
+const TIPOS_SINAL = {
+  venc: { nome: "Vencimento", cor: "#FF9C00", ic: "⏱" },
+  fdp: { nome: "Fora da Política", cor: "#FF6200", ic: "!" },
+  kys: { nome: "KYS negado", cor: "#D93A00", ic: "K" },
+  risco: { nome: "Risco alto", cor: "#A82D00", ic: "R" },
+  unico: { nome: "Fornecedor único", cor: "#001FBD", ic: "1" },
+  saldo: { nome: "Saldo de contrato", cor: "#000D3C", ic: "$" }
+};
+
+let filtroSinal = "todos";
+
+function sinais() {
+  const r = estado.his, out = [];
+  r.contratos.filter(c => c.dias >= 0 && c.dias <= META.janela_vencimento_dias).forEach(c =>
+    out.push({ tipo: "venc", valor: c.spend_12m, texto: `Contrato ${c.id} com ${DIMS.fornecedor[c.fornecedor]} vence em ${c.dias} dias`, det: `${c.descricao} · vencimento ${dataBR(c.data_fim)} · valor = spend dos últimos 12 meses` }));
+  ranking(r.fornFdp, 10).forEach(f => out.push({ tipo: "fdp", valor: r.fornFdp[f], texto: `${DIMS.fornecedor[f]} recebeu ${brl(r.fornFdp[f])} Fora da Política`, det: "Candidato a contratação ou regularização" }));
+  ranking(r.forn).forEach(f => {
+    if (FORN.kys[f] === KYS_NEG) out.push({ tipo: "kys", valor: r.forn[f], texto: `${DIMS.fornecedor[f]} está com KYS negado e recebeu ${brl(r.forn[f])}`, det: "Avaliar continuidade e alternativa de fornecimento" });
+    if (FORN.risco[f] === RISCO_ALTO) out.push({ tipo: "risco", valor: r.forn[f], texto: `${DIMS.fornecedor[f]} tem risco financeiro alto e recebeu ${brl(r.forn[f])}`, det: "Avaliar plano de contingência" });
+  });
+  for (let s = 0; s < r.sub3.length; s++) if (r.sub3F[s] >= 0 && r.sub3[s] >= MIN_UNICO)
+    out.push({ tipo: "unico", valor: r.sub3[s], texto: `${rotulo("sub3", s)} depende só de ${DIMS.fornecedor[r.sub3F[s]]}`, det: "Oportunidade de qualificar um segundo fornecedor" });
+  const aS = META.metas.saldo_alerta;
+  r.contratos.forEach(c => {
+    const i = c.i, t = totalCtr(i), sd = saldoCtr(i);
+    if (t === null || !CTR.consumido[i] || c.dias < 0) return;
+    const forn = DIMS.fornecedor[c.fornecedor], rt = ritmoCtr(i);
+    if (sd < 0) out.push({ tipo: "saldo", valor: -sd, texto: `Contrato ${c.id} com ${forn} consumiu ${brl(-sd)} acima do contratado`, det: "Formalizar aditivo ou revisar o contrato" });
+    else if (sd / t < aS) out.push({ tipo: "saldo", valor: c.spend_12m || sd, texto: `Contrato ${c.id} com ${forn} tem saldo de apenas ${brl(sd)} (${pct(sd / t, 0)})`, det: "Planejar aditivo ou nova contratação · valor = consumo dos últimos 12 meses" });
+    else if (rt) out.push({ tipo: "saldo", valor: c.spend_12m, texto: `No ritmo atual, o saldo do contrato ${c.id} com ${forn} acaba em cerca de ${rt.meses} ${rt.meses > 1 ? "meses" : "mês"}`, det: `Antes do vencimento em ${dataBR(c.data_fim)} · valor = consumo dos últimos 12 meses` });
+  });
+  return out.sort((a, b) => b.valor - a.valor);
+}
+
+function dropdown(cfg) {
+  const wrap = document.createElement("div");
+  wrap.className = "filtro " + (cfg.cls || "");
+  const id = "flt-" + cfg.key;
+  wrap.innerHTML =
+    (cfg.rotulo ? `<label for="${id}">${esc(cfg.rotulo)}</label>` : "") +
+    `<button type="button" class="filtro-botao" id="${id}" aria-haspopup="listbox" aria-expanded="false"><span class="valor">Todos</span><span class="seta"></span></button>` +
+    `<div class="painel-filtro" hidden>${cfg.busca !== false ? `<input type="search" placeholder="Pesquisar ${esc((cfg.rotulo || cfg.placeholder || "").toLowerCase())}..." aria-label="Pesquisar">` : ""}` +
+    `<div class="opcoes" role="listbox" ${cfg.multi ? 'aria-multiselectable="true"' : ""}></div><div class="opcoes-nota"></div>` +
+    (cfg.multi ? `<div class="painel-rodape"><button type="button" class="btn" data-acao="limpar">Limpar</button><button type="button" class="btn btn-primario" data-acao="aplicar">Aplicar</button></div>` : "") + `</div>`;
+  const botao = wrap.querySelector(".filtro-botao"), painel = wrap.querySelector(".painel-filtro");
+  const busca = painel.querySelector("input"), lista = painel.querySelector(".opcoes"), nota = painel.querySelector(".opcoes-nota");
+  let rascunho = null;
+
+  function desenhar() {
+    const termo = busca ? busca.value.trim().toLowerCase() : "";
+    const { itens, ocultas, todosRot } = cfg.opcoes(termo, rascunho);
+    const vis = itens.filter(x => !x.grupo).map(x => x.v);
+    let h = "";
+    if (cfg.multi) {
+      const marcadoTodos = termo ? (rascunho && vis.length && vis.every(i => rascunho.has(i))) : !rascunho;
+      h += `<label class="opcao todos"><input type="checkbox" data-todos ${marcadoTodos ? "checked" : ""}><span class="rot">${termo ? "Selecionar resultados da busca" : "Todos"}</span></label>`;
+    } else if (todosRot) {
+      h += `<label class="opcao todos ${cfg.valor() === null ? "marcada" : ""}"><input type="radio" name="${id}" value="" ${cfg.valor() === null ? "checked" : ""}><span class="rot">${esc(todosRot)}</span></label>`;
+    }
+    h += itens.slice(0, 400).map(x => x.grupo ? `<div class="opcao grupo">${esc(x.grupo)}</div>` :
+      `<label class="opcao ${!cfg.multi && cfg.valor() === x.v ? "marcada" : ""}"><input type="${cfg.multi ? "checkbox" : "radio"}" name="${id}" value="${x.v}" ${cfg.multi ? (rascunho && rascunho.has(x.v) ? "checked" : "") : (cfg.valor() === x.v ? "checked" : "")}><span class="rot">${esc(x.nome)}</span>${x.extra ? `<span class="extra">${x.extra}</span>` : ""}</label>`).join("");
+    lista.innerHTML = h;
+    lista.dataset.vis = vis.join(",");
+    const extra = itens.length > 400 ? `Mostrando 400 de ${itens.length} - refine a busca. ` : "";
+    nota.textContent = extra + (ocultas ? `${ocultas} opç${ocultas > 1 ? "ões ocultas" : "ão oculta"} pelos demais filtros` : "");
+  }
+  function abrir() {
+    if (cfg.travado && cfg.travado()) return;
+    Object.values(ctrls).forEach(c => { if (c !== ctrl) c.fechar(false); });
+    if (cfg.multi) rascunho = cfg.valor() ? new Set(cfg.valor()) : null;
+    if (busca) busca.value = "";
+    desenhar();
+    painel.hidden = false;
+    botao.setAttribute("aria-expanded", "true");
+    if (busca) busca.focus();
+  }
+  function fechar(aplicar) {
+    if (painel.hidden) return;
+    painel.hidden = true;
+    botao.setAttribute("aria-expanded", "false");
+    if (aplicar && cfg.multi) cfg.definir(rascunho && rascunho.size ? rascunho : null);
+  }
+  lista.addEventListener("change", e => {
+    const el = e.target;
+    if (!cfg.multi) { fechar(false); cfg.definir(el.value === "" ? null : Number(el.value)); return; }
+    if (el.hasAttribute("data-todos")) {
+      const vis = lista.dataset.vis ? lista.dataset.vis.split(",").map(Number) : [];
+      rascunho = busca && busca.value.trim() && el.checked ? new Set([...(rascunho || []), ...vis]) : null;
+    } else {
+      const v = Number(el.value);
+      rascunho = rascunho || new Set();
+      if (el.checked) rascunho.add(v); else rascunho.delete(v);
+      if (!rascunho.size) rascunho = null;
+    }
+    desenhar();
+  });
+  if (busca) {
+    busca.addEventListener("input", desenhar);
+    busca.addEventListener("keydown", e => { if (e.key === "Enter") fechar(true); });
+  }
+  botao.addEventListener("click", () => painel.hidden ? abrir() : fechar(true));
+  painel.addEventListener("click", e => {
+    const a = e.target.dataset.acao;
+    if (a === "limpar") { rascunho = null; desenhar(); }
+    if (a === "aplicar") fechar(true);
+  });
+  const ctrl = {
+    fechar, contem: n => wrap.contains(n),
+    atualizar() {
+      const trav = cfg.travado && cfg.travado();
+      botao.querySelector(".valor").textContent = cfg.rotuloBotao();
+      botao.title = cfg.titulo ? cfg.titulo() : cfg.rotuloBotao();
+      wrap.classList.toggle("ativo", !trav && cfg.ativo());
+      wrap.classList.toggle("travado", !!trav);
+    }
+  };
+  ctrls[cfg.key] = ctrl;
+  return wrap;
+}
+
+function opcoesDim(key, dispPos, termo, rascunho, ordenarPor) {
+  const disp = estado[ordenarPor ? "uniPass" : "hisPass"].disp[dispPos];
+  const n = DIMS[key].length;
+  let ocultas = 0;
+  const itens = [];
+  for (let i = 0; i < n; i++) {
+    const marc = rascunho && rascunho.has && rascunho.has(i);
+    if (ordenarPor && key === "contrato" && i === 0) continue;
+    if (ordenarPor ? !(ordenarPor[i] > 0) : (!disp[i] && !marc)) { ocultas++; continue; }
+    if (termo && rotulo(key, i).toLowerCase().indexOf(termo) < 0 && !(key === "contrato" && DIMS.fornecedor[CTR.fornecedor[i]].toLowerCase().indexOf(termo) >= 0)) continue;
+    itens.push(i);
+  }
+  if (ordenarPor) itens.sort((a, b) => ordenarPor[b] - ordenarPor[a]);
+  else itens.sort((a, b) => rotulo(key, a).localeCompare(rotulo(key, b), "pt-BR"));
+  const nomeOpc = i => key === "contrato" ? rotulo(key, i) : DIMS[key][i];
+  const extra = i => ordenarPor ? brl(ordenarPor[i]) : key === "contrato" && i ? esc(DIMS.fornecedor[CTR.fornecedor[i]]) : esc(contexto(key, i));
+  return { itens: itens.map(i => ({ v: i, nome: nomeOpc(i), extra: extra(i) })), ocultas };
+}
+
+function aviso(txt) {
+  const a = document.createElement("div");
+  a.className = "aviso"; a.textContent = txt; document.body.appendChild(a);
+  setTimeout(() => a.remove(), 2200);
+}
+
+function copiarLink() {
+  salvarHash();
+  const url = location.href;
+  const ok = () => aviso("Link copiado - cole no e-mail para abrir exatamente esta visão");
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, () => fallback());
+  else fallback();
+  function fallback() {
+    const t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); ok(); } catch (e) { aviso("Não foi possível copiar automaticamente"); }
+    t.remove();
+  }
+}
+
+function definirEscala(passo) {
+  let i = ESCALAS.indexOf(estado.escala);
+  i = passo === 0 ? 1 : Math.max(0, Math.min(ESCALAS.length - 1, i + passo));
+  estado.escala = ESCALAS[i];
+  document.documentElement.style.setProperty("--escala", estado.escala);
+  document.querySelectorAll("[data-fonte]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.fonte === "0" && estado.escala === 1)));
+  try { localStorage.setItem("painel-escala", String(estado.escala)); } catch (e) {}
+  render();
+}
+
+/*__FIM_COMPARTILHADO__*/
+
+/* ============================================================
+   10. Gráficos exclusivos do painel clássico
+   ============================================================ */
+function colunasComparadas(id, rot, atual, anterior, nomeA, nomeB) {
+  if (!atual.some(v => v > 0) && !anterior.some(v => v > 0)) return vazio(id);
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: fs(40), bottom: 8, containLabel: true },
+    legend: { top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 12, textStyle: { color: C.texto2, fontSize: fs(12) } },
+    tooltip: Object.assign(tip(ps => tooltipHtml(rot[ps[0].dataIndex], ps.map(p => ({ cor: p.color, rotulo: p.seriesName, valor: brl(p.value) })).concat([{ rotulo: "Variação", valor: sinal(var_(ps[ps.length - 1].value, ps[0].value)) }]))), { trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(0,13,60,.05)" } } }),
+    xAxis: eixoCat(rot),
+    yAxis: eixoValorV(Math.max(...atual, ...anterior)),
+    series: [
+      { name: nomeB, type: "bar", data: anterior, barMaxWidth: 22, itemStyle: { color: C.anterior, borderRadius: [3, 3, 0, 0] } },
+      { name: nomeA, type: "bar", data: atual, barMaxWidth: 22, itemStyle: { color: C.atual, borderRadius: [3, 3, 0, 0] } }
+    ]
+  }));
+}
+
+function barrasDiv(id, itens) {
+  if (!itens.length) return vazio(id, "Sem variação para comparar");
+  const inv = itens.slice().reverse();
+  const u = unidade(Math.max(...inv.map(x => Math.abs(x.delta))));
+  desenhar(id, base({
+    grid: gradeH(200, { right: fs(64) }),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [
+      { cor: x.delta >= 0 ? C.serie : C.fdp, rotulo: "Variação", valor: (x.delta >= 0 ? "+" : "−") + brl(Math.abs(x.delta)) },
+      { rotulo: "Período atual", valor: brl(x.a) }, { rotulo: "Período anterior", valor: brl(x.b) }, { rotulo: "Variação %", valor: sinal(x.pct) }]); }),
+    xAxis: eixoValor(`variação (${u.n})`, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(200) }),
+    series: [{
+      type: "bar", barMaxWidth: 18,
+      data: inv.map(x => ({ value: x.delta, itemStyle: { color: x.delta >= 0 ? C.serie : C.fdp, borderRadius: x.delta >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4] }, label: { position: x.delta >= 0 ? "right" : "left" } })),
+      label: { show: true, color: C.texto2, fontSize: fs(11), formatter: p => isFinite(inv[p.dataIndex].pct) ? sinal(inv[p.dataIndex].pct, 0) : "novo" }
+    }]
+  }));
+}
+
+function linhaPct(id, rot, vals, alvo) {
+  if (!vals.some(v => v > 0)) return vazio(id, "Nenhum gasto Fora da Política no período");
+  desenhar(id, base({
+    grid: { left: 8, right: 24, top: 32, bottom: 8, containLabel: true },
+    tooltip: Object.assign(tip(ps => tooltipHtml(rot[ps[0].dataIndex], [{ cor: C.fdp, rotulo: "% Fora da Política", valor: pct(vals[ps[0].dataIndex]) }, { rotulo: "Meta", valor: "≤ " + pct(alvo, 0) }])), { trigger: "axis", axisPointer: { type: "line", lineStyle: { color: C.texto3, type: "dashed" } } }),
+    xAxis: eixoCat(rot, { boundaryGap: false, axisLabel: { color: C.texto3, fontSize: fs(11), hideOverlap: true } }),
+    yAxis: eixoValor("% do spend", { max: v => Math.min(1, Math.max(0.2, Math.ceil(v.max * 10) / 10)), axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => pct(v, 0) } }),
+    series: [{
+      type: "line", data: vals, smooth: 0.3, smoothMonotone: "x", symbol: "circle", symbolSize: 6,
+      lineStyle: { color: C.fdp, width: 2 }, itemStyle: { color: C.fdp, borderColor: C.sup, borderWidth: 2 }, areaStyle: { color: "rgba(255,98,0,.10)" },
+      markLine: { silent: true, symbol: "none", data: [{ yAxis: alvo }], lineStyle: { color: C.texto3, type: "dashed", width: 1.5 }, label: { position: "insideEndTop", color: C.texto3, fontSize: fs(11), formatter: "meta " + pct(alvo, 0) } }
+    }]
+  }));
+}
+
+function gauge(id, valor, alvo) {
+  if (!isFinite(valor)) return vazio(id);
+  desenhar(id, base({
+    series: [{
+      type: "gauge", startAngle: 200, endAngle: -20, min: 0, max: 100, splitNumber: 10, radius: "90%", center: ["50%", "56%"],
+      axisLine: { lineStyle: { width: fs(16), color: [[Math.max(0, alvo - 0.1), C.critico], [alvo, C.atencao], [1, C.bom]] } },
+      pointer: { length: "60%", width: fs(6), itemStyle: { color: C.serie2 } },
+      anchor: { show: true, size: fs(14), itemStyle: { color: C.serie2 } },
+      axisTick: { distance: -fs(16), length: fs(5), lineStyle: { color: "#fff", width: 1 } },
+      splitLine: { distance: -fs(16), length: fs(16), lineStyle: { color: "#fff", width: 2 } },
+      axisLabel: { distance: fs(22), color: C.texto3, fontSize: fs(11), formatter: v => v % 20 === 0 ? v + "%" : "" },
+      title: { offsetCenter: [0, "68%"], color: C.texto3, fontSize: fs(12) },
+      detail: { offsetCenter: [0, "44%"], fontSize: fs(26), fontWeight: 700, color: C.texto, formatter: v => nf1.format(v) + "%" },
+      data: [{ value: +(valor * 100).toFixed(1), name: `meta ≥ ${pct(alvo, 0)}` }]
+    }]
+  }));
+}
+
+function rosca(id, partes, total, centro) {
+  const vis = partes.filter(p => p.valor > 0);
+  if (!total || !vis.length) return vazio(id);
+  desenhar(id, base({
+    legend: { bottom: 0, icon: "circle", itemGap: 16, textStyle: { color: C.texto2, fontSize: fs(12) } },
+    tooltip: tip(p => tooltipHtml(p.name, [{ cor: p.color, rotulo: "Spend", valor: brl(p.value) }, { rotulo: "Participação", valor: pct(p.value / total) }])),
+    graphic: [{ type: "text", left: "center", top: "38%", style: { text: `{v|${centro[0]}}\n{r|${centro[1]}}`, textAlign: "center", rich: { v: { fill: C.texto, font: `700 ${fs(20)}px ${FONTE}`, lineHeight: fs(24) }, r: { fill: C.texto3, font: `${fs(11)}px ${FONTE}`, lineHeight: fs(14) } } } }],
+    series: [{
+      type: "pie", radius: ["50%", "74%"], center: ["50%", "45%"], avoidLabelOverlap: true,
+      itemStyle: { borderColor: C.sup, borderWidth: 2 },
+      label: { color: C.texto2, fontSize: fs(11), formatter: p => `${p.name}\n${pct(p.value / total, 1)}` },
+      labelLine: { length: 8, length2: 8 },
+      data: vis.map(p => ({ name: p.nome, value: p.valor, itemStyle: { color: p.cor } }))
+    }]
+  }));
+}
+
+/* ============================================================
+   11. Abas do painel clássico
+   ============================================================ */
+let aposRender = [];
+const secao = (titulo, desc) => `<div class="secao-cab"><h2>${esc(titulo)}</h2><p>${desc}</p></div>`;
+const ctx = () => esc(periodoTxt());
+const shareRot = (v, t) => `${brl(v)} · ${pct(v / t, 0)}`;
+const seloKys = f => `<span class="selo" data-nivel="${FORN.kys[f] === KYS_NEG ? "critico" : FORN.kys[f] === KYS_OK ? "ok" : "monitorar"}">${esc(DIMS.kys[FORN.kys[f]])}</span>`;
+const seloRisco = f => `<span class="selo" data-nivel="${FORN.risco[f] === RISCO_ALTO ? "critico" : FORN.risco[f] === 1 ? "atencao" : "neutro"}">${esc(DIMS.risco[FORN.risco[f]])}</span>`;
+const busca = (id, placeholder, nota) => `<div class="barra-ferr"><input type="search" id="${id}" placeholder="${esc(placeholder)}" aria-label="Buscar"><span class="nota">${nota}</span></div>`;
+function ligarBusca(id) {
+  const inp = document.getElementById(id);
+  if (!inp) return;
+  const linhas = inp.closest(".cartao").querySelectorAll("tbody tr[data-nome]");
+  inp.addEventListener("input", () => { const t = inp.value.trim().toLowerCase(); linhas.forEach(tr => { tr.hidden = t && tr.dataset.nome.indexOf(t) < 0; }); });
+}
+function catPrincipal(r, f) {
+  const nF = DIMS.fornecedor.length;
+  let best = -1, bv = 0;
+  for (let c = 0; c < DIMS.categoria.length; c++) { const v = r.catForn[c * nF + f]; if (v > bv) { bv = v; best = c; } }
+  return best >= 0 ? DIMS.categoria[best] : "-";
+}
+function recorteCategoria() {
+  const s = estado.sel.categoria;
+  if (!s) return "todas as categorias";
+  return s.size === 1 ? DIMS.categoria[s.values().next().value] : `${s.size} categorias selecionadas`;
+}
+
+function vExecutivo() {
+  const r = estado.his, p80 = paraN(r.forn, 0.8), vt = var_(r.T, r.Tp);
+  fila.push(() => evolucao("g-evo", r));
+  fila.push(() => barra100("g-sit", DIMS.status.map((s, i) => ({ nome: s, valor: r.st[i], cor: C.status[i], claro: i === ST.BAIXO || i === ST.PARC })), r.base));
+  fila.push(() => barrasH("g-forn", ranking(r.forn, 10).map(f => ({ nome: DIMS.fornecedor[f], valor: r.forn[f], rotulo: shareRot(r.forn[f], r.T) }))));
+  fila.push(() => barrasH("g-cat", ranking(r.cat, 10).map(c => ({ nome: DIMS.categoria[c], valor: r.cat[c], rotulo: shareRot(r.cat[c], r.T) }))));
+  return secao("Visão Executiva", `Leitura rápida do spend: evolução, situação contratual, fornecedores e categorias · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Spend no período", valor: brl(r.T), sub: ctx() }) +
+    kpi({ rotulo: "Variação", tom: "destaque", valor: sinal(vt), sub: esc(compTxt()) }) +
+    kpi({ rotulo: "Fornecedores com pagamento", valor: nf0.format(ativos(r.forn)), sub: `${nf0.format(r.N)} pagamentos · valor médio ${brl(r.N ? r.T / r.N : 0)}` }) +
+    kpi({ rotulo: "Concentração", tom: "destaque", valor: `${nf0.format(p80.n)} fornecedores`, sub: `${pct(p80.base ? p80.n / p80.base : NaN, 0)} dos fornecedores concentram 80% do spend` }) +
+    `</div><div class="grade">` +
+    cartao({ largo: true, id: "g-evo", titulo: "Evolução mensal do spend", desc: `<span class="legenda-mini"><i style="background:${C.atual}"></i>Período selecionado</span><span class="legenda-mini"><i style="background:${C.anterior}"></i>Período de comparação</span><span class="legenda-mini"><i style="background:${C.fora}"></i>Demais meses</span> · valores em R$` }) +
+    cartao({ largo: true, id: "g-sit", altura: "baixo", titulo: "Situação contratual do spend", desc: `${baseTxt()} · Baixo valor e Parcerias são permitidos sem contrato` }) +
+    cartao({ id: "g-forn", altura: "alto", titulo: "Top 10 fornecedores por spend", desc: "Fornecedor (CNPJ raiz) · valores em R$ e % do spend" }) +
+    cartao({ id: "g-cat", altura: "alto", titulo: "Top 10 categorias por spend", desc: "Valores em R$ e % do spend" }) +
+    `</div>`;
+}
+
+function variacoes(atual, anterior, nomes, n) {
+  const itens = [];
+  for (let i = 0; i < atual.length; i++) { const d = atual[i] - anterior[i]; if (d) itens.push({ nome: nomes(i), delta: d, a: atual[i], b: anterior[i], pct: var_(atual[i], anterior[i]) }); }
+  const sobe = itens.filter(x => x.delta > 0).sort((a, b) => b.delta - a.delta).slice(0, n);
+  const desce = itens.filter(x => x.delta < 0).sort((a, b) => a.delta - b.delta).slice(0, n);
+  return sobe.concat(desce.reverse());
+}
+
+function vTendencias() {
+  const r = estado.his, F = estado.F;
+  const cab = secao("Tendências", `Como o spend mudou em relação ao período anterior de mesmo tamanho · ${ctx()} ${esc(compTxt())}`);
+  if (!F.prevOk) return cab + `<div class="cartao"><div class="vazio">O período selecionado não tem período anterior na base para comparar</div></div>`;
+  const n = F.c1 - F.c0 + 1;
+  const rot = Array.from({ length: n }, (_, k) => MN[+MESES[F.c0 + k].slice(5) - 1]);
+  const atual = Array.from({ length: n }, (_, k) => r.mes[F.c0 + k]);
+  const ant = Array.from({ length: n }, (_, k) => r.mes[F.p0 + k]);
+  const novos = ranking(r.forn).filter(f => !r.fornP[f]);
+  const vNovos = novos.reduce((s, f) => s + r.forn[f], 0);
+  fila.push(() => colunasComparadas("g-mm", rot, atual, ant, F.rot, F.rotP));
+  fila.push(() => barrasDiv("g-vcat", variacoes(r.cat, r.catP, c => DIMS.categoria[c], 6)));
+  fila.push(() => barrasDiv("g-vforn", variacoes(r.forn, r.fornP, f => DIMS.fornecedor[f], 6)));
+  return cab + `<div class="kpis">` +
+    kpi({ rotulo: "Spend no período", valor: brl(r.T), sub: esc(F.rot) }) +
+    kpi({ rotulo: "Período anterior", valor: brl(r.Tp), sub: esc(F.rotP) }) +
+    kpi({ rotulo: "Variação", tom: "destaque", valor: sinal(var_(r.T, r.Tp)), sub: `${r.T >= r.Tp ? "+" : "−"}${brl(Math.abs(r.T - r.Tp))}` }) +
+    kpi({ rotulo: "Novos fornecedores", valor: nf0.format(novos.length), sub: `${brl(vNovos)} pagos a fornecedores sem pagamento no período anterior` }) +
+    `</div><div class="grade">` +
+    cartao({ largo: true, id: "g-mm", titulo: "Spend mês a mês: período atual vs anterior", desc: "Cada mês comparado ao mesmo mês do período anterior · valores em R$" }) +
+    cartao({ id: "g-vcat", altura: "alto", titulo: "Categorias que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
+    cartao({ id: "g-vforn", altura: "alto", titulo: "Fornecedores que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
+    cartao({ largo: true, titulo: "Novos fornecedores no período", desc: "Fornecedores com pagamento no período e sem pagamento no período anterior",
+      corpo: tabela([{ t: "Fornecedor" }, { t: "Categoria principal" }, { t: "Spend", cls: "num" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }],
+        novos.slice(0, 20).map(f => `<tr><td class="forte">${esc(DIMS.fornecedor[f])}</td><td>${esc(catPrincipal(r, f))}</td><td class="num forte">${brl(r.forn[f])}</td><td class="cen">${seloKys(f)}</td><td class="cen">${seloRisco(f)}</td></tr>`), "Nenhum fornecedor novo no período") }) +
+    `</div>`;
+}
+
+function vFornecedores() {
+  const r = estado.his, F = estado.F, ord = ranking(r.forn);
+  const top10 = ord.slice(0, 10).reduce((s, f) => s + r.forn[f], 0);
+  const hal = F.prevOk && r.Tp ? ord.slice(0, 10).map(f => ({ nome: DIMS.fornecedor[f], a: r.fornP[f] / r.Tp, b: r.forn[f] / r.T })) : [];
+  fila.push(() => barrasH("g-top", ord.slice(0, 15).map(f => ({ nome: DIMS.fornecedor[f], valor: r.forn[f], rotulo: shareRot(r.forn[f], r.T) }))));
+  fila.push(() => halteres("g-share", hal));
+  aposRender.push(() => ligarBusca("busca-forn"));
+  return secao("Fornecedores", `Quem recebe o spend, com que share e como isso mudou · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Fornecedores com pagamento", valor: nf0.format(ord.length), sub: ctx() }) +
+    kpi({ rotulo: "Maior fornecedor", tom: "destaque", valor: ord.length ? pct(r.forn[ord[0]] / r.T, 0) : "-", sub: ord.length ? esc(DIMS.fornecedor[ord[0]]) : "" }) +
+    kpi({ rotulo: "Top 10 fornecedores", valor: pct(r.T ? top10 / r.T : NaN, 0), sub: "do spend no período" }) +
+    `</div><div class="grade">` +
+    cartao({ id: "g-top", altura: "alto", titulo: "Top 15 fornecedores por spend", desc: "Valores em R$ e % do spend" }) +
+    cartao({ id: "g-share", altura: "alto", titulo: "Mudança de share dos 10 maiores", desc: `<span class="legenda-mini"><i class="aro"></i>${esc(F.rotP || "período anterior")}</span><span class="legenda-mini"><i class="ponto" style="background:${C.serie}"></i>ganhou</span><span class="legenda-mini"><i class="ponto" style="background:${C.fdp}"></i>perdeu</span> · % do spend` }) +
+    cartao({ largo: true, titulo: "Fornecedores", desc: "Ordenado por spend no período",
+      corpo: busca("busca-forn", "Buscar fornecedor...", `${ord.length} fornecedores`) +
+        tabela([{ t: "#", cls: "num" }, { t: "Fornecedor" }, { t: "Spend", cls: "num" }, { t: "Share", cls: "num" }, { t: "Variação", cls: "num" }, { t: "% com contrato", cls: "num" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }],
+          ord.slice(0, 300).map((f, k) => { const v = var_(r.forn[f], r.fornP[f]); return `<tr data-nome="${esc(DIMS.fornecedor[f].toLowerCase())}"><td class="num">${k + 1}</td><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${pct(r.forn[f] / r.T)}</td>` +
+            `<td class="num ${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${F.prevOk ? (isFinite(v) ? sinal(v) : "novo") : "-"}</td><td class="num">${pct(r.fornSt[f * 5 + ST.COM] / r.forn[f], 0)}</td><td class="cen">${seloKys(f)}</td><td class="cen">${seloRisco(f)}</td></tr>`; })) }) +
+    `</div>`;
+}
+
+function vCategorias() {
+  const r = estado.his, nF = DIMS.fornecedor.length, ordC = ranking(r.cat);
+  const nForn = Float64Array.from(DIMS.categoria, (_, c) => { let n = 0; for (let f = 0; f < nF; f++) if (r.catForn[c * nF + f] > 0) n++; return n; });
+  const frag = ranking(nForn, 15);
+  const unicos = [];
+  for (let s = 0; s < r.sub3.length; s++) if (r.sub3F[s] >= 0 && r.sub3[s] >= MIN_UNICO) unicos.push(s);
+  unicos.sort((a, b) => r.sub3[b] - r.sub3[a]);
+  fila.push(() => barrasH("g-cats", ordC.slice(0, 15).map(c => ({ nome: DIMS.categoria[c], valor: r.cat[c], rotulo: shareRot(r.cat[c], r.T) }))));
+  fila.push(() => barrasH("g-subs", ranking(r.sub1, 15).map(s => ({ nome: rotulo("sub1", s), valor: r.sub1[s], rotulo: shareRot(r.sub1[s], r.T) }))));
+  fila.push(() => barrasH("g-frag", frag.map(c => ({ nome: DIMS.categoria[c], valor: nForn[c], extra: [{ rotulo: "Spend", valor: brl(r.cat[c]) }] })), { qtd: "nº de fornecedores", rotulo: "Fornecedores" }));
+  return secao("Categorias", `Onde está o dinheiro e quão fragmentada é cada categoria · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Categorias com gasto", valor: nf0.format(ordC.length), sub: ctx() }) +
+    kpi({ rotulo: "Maior categoria", tom: "destaque", valor: ordC.length ? pct(r.cat[ordC[0]] / r.T, 0) : "-", sub: ordC.length ? esc(DIMS.categoria[ordC[0]]) : "" }) +
+    kpi({ rotulo: "Mais fragmentada", valor: frag.length ? `${nf0.format(nForn[frag[0]])} fornecedores` : "-", sub: frag.length ? esc(DIMS.categoria[frag[0]]) : "" }) +
+    kpi({ rotulo: "Subcategorias com fornecedor único", valor: nf0.format(unicos.length), sub: `${brl(unicos.reduce((s, i) => s + r.sub3[i], 0))} acima de ${brl(MIN_UNICO)} cada` }) +
+    `</div><div class="grade">` +
+    cartao({ id: "g-cats", altura: "alto", titulo: "Spend por categoria", desc: "Top 15 · valores em R$ e % do spend" }) +
+    cartao({ id: "g-subs", altura: "alto", titulo: "Spend por subcategoria (nível 1)", desc: "Top 15 · valores em R$ e % do spend" }) +
+    cartao({ id: "g-frag", altura: "alto", titulo: "Fragmentação de fornecedores", desc: "Categorias com mais fornecedores: candidatas a consolidação" }) +
+    cartao({ titulo: "Subcategorias de fornecedor único", desc: `Subcategoria 3 com um só fornecedor e gasto acima de ${brl(MIN_UNICO)}`,
+      corpo: tabela([{ t: "Subcategoria" }, { t: "Fornecedor único" }, { t: "Spend", cls: "num" }], unicos.slice(0, 30).map(s => `<tr><td class="forte">${esc(rotulo("sub3", s))}</td><td>${esc(DIMS.fornecedor[r.sub3F[s]])}</td><td class="num forte">${brl(r.sub3[s])}</td></tr>`), "Nenhuma subcategoria relevante com fornecedor único") }) +
+    `</div>`;
+}
+
+function vPareto() {
+  const r = estado.his, nF = DIMS.fornecedor.length, ord = ranking(r.forn);
+  const p80 = paraN(r.forn, 0.8), p50 = paraN(r.forn, 0.5);
+  const top3 = ord.slice(0, 3).reduce((s, f) => s + r.forn[f], 0);
+  let acc = 0;
+  const top20 = ord.slice(0, 20).map(f => { acc += r.forn[f]; return { nome: DIMS.fornecedor[f], valor: r.forn[f], rotulo: `${brl(r.forn[f])} · acum. ${pct(acc / r.T, 0)}` }; });
+  const linhasCat = ranking(r.cat).map(c => {
+    const fatia = r.catForn.subarray(c * nF, (c + 1) * nF);
+    const o = ranking(fatia), q = paraN(fatia, 0.8);
+    return `<tr><td class="forte">${esc(DIMS.categoria[c])}</td><td class="num forte">${brl(r.cat[c])}</td><td class="num">${nf0.format(o.length)}</td><td>${o.length ? esc(DIMS.fornecedor[o[0]]) : "-"}</td><td class="num">${o.length ? pct(fatia[o[0]] / r.cat[c], 0) : "-"}</td><td class="num">${nf0.format(q.n)}</td></tr>`;
+  });
+  fila.push(() => barrasH("g-p20", top20, { larguraRotulo: 220 }));
+  return secao("Pareto & Concentração", `Quantos fornecedores concentram o spend, no total e em cada categoria · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Concentram 80% do spend", tom: "destaque", valor: `${nf0.format(p80.n)} fornecedores`, sub: `${pct(p80.base ? p80.n / p80.base : NaN, 0)} dos ${nf0.format(p80.base)} fornecedores` }) +
+    kpi({ rotulo: "Concentram 50% do spend", valor: `${nf0.format(p50.n)} fornecedores`, sub: `${pct(p50.base ? p50.n / p50.base : NaN, 1)} dos fornecedores` }) +
+    kpi({ rotulo: "Top 3 fornecedores", valor: pct(r.T ? top3 / r.T : NaN, 0), sub: "do spend no período" }) +
+    `</div><div class="grade">` +
+    cartao({ largo: true, id: "g-p20", altura: "alto", titulo: "Top 20 fornecedores e participação acumulada", desc: "Rótulo mostra o spend e o % acumulado até aquele fornecedor · valores em R$" }) +
+    cartao({ largo: true, titulo: "Concentração por categoria", desc: "Quantos fornecedores cada categoria tem e quantos concentram 80% dela",
+      corpo: tabela([{ t: "Categoria" }, { t: "Spend", cls: "num" }, { t: "Fornecedores", cls: "num" }, { t: "Maior fornecedor" }, { t: "Share do maior", cls: "num" }, { t: "Fornecedores para 80%", cls: "num" }], linhasCat) }) +
+    `</div>`;
+}
+
+function vContrato() {
+  const r = estado.his, M = META.metas;
+  const cob = r.base ? r.st[ST.COM] / r.base : NaN, fdp = r.base ? r.st[ST.FDP] / r.base : NaN;
+  const cts = r.contratos.filter(c => c.dias >= 0 && c.dias <= META.janela_vencimento_dias).sort((a, b) => b.spend_12m - a.spend_12m);
+  const risco = cts.reduce((s, c) => s + c.spend_12m, 0);
+  const ini = Math.max(0, U - 23);
+  const rot = MESES.slice(ini).map(rotMes);
+  const traj = MESES.slice(ini).map((_, k) => r.mesBase[ini + k] ? r.mesFdp[ini + k] / r.mesBase[ini + k] : 0);
+  const fdpF = ranking(r.fornFdp), c80 = paraN(r.fornFdp, 0.8);
+  const semCtr = ranking(Float64Array.from(DIMS.fornecedor, (_, f) => r.forn[f] - r.fornSt[f * 5 + ST.COM]));
+  fila.push(() => barra100("g-sit2", DIMS.status.map((s, i) => ({ nome: s, valor: r.st[i], cor: C.status[i], claro: i === ST.BAIXO || i === ST.PARC })), r.base));
+  fila.push(() => linhaPct("g-traj", rot, traj, M.fora_politica_max));
+  fila.push(() => barrasH("g-fdpcat", ranking(r.catFdp, 10).map(c => ({ nome: DIMS.categoria[c], valor: r.catFdp[c], rotulo: brl(r.catFdp[c]) })), { cor: C.fdp, rotulo: "Fora da Política" }));
+  fila.push(() => barrasH("g-fdpdir", ranking(r.dirFdp, 10).map(d => ({ nome: DIMS.diretoria[d], valor: r.dirFdp[d], rotulo: brl(r.dirFdp[d]) })), { cor: C.fdp, rotulo: "Fora da Política" }));
+  return secao("Com / Sem Contrato", `Cobertura contratual e classificação do gasto sem contrato. <b>Fora da Política</b> identifica compras fora das regras definidas · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi(Object.assign({ rotulo: "Cobertura contratual", valor: pct(cob), sub: `${baseTxt()} · meta ≥ ${pct(M.cobertura_min, 0)}` }, meta(cob, M.cobertura_min, true))) +
+    kpi(Object.assign({ rotulo: "Fora da Política", valor: pct(fdp), sub: `${brl(r.st[ST.FDP])} · meta ≤ ${pct(M.fora_politica_max, 0)}` }, meta(fdp, M.fora_politica_max, false))) +
+    kpi({ rotulo: `Contratos vencendo em ${META.janela_vencimento_dias} dias`, valor: brl(risco), sub: `${cts.length} contratos · ${cts.filter(c => c.dias <= 90).length} em até 90 dias` }) +
+    kpi({ rotulo: "Concentração do Fora da Política", tom: "destaque", valor: `${nf0.format(c80.n)} fornecedores`, sub: `concentram 80% · ${nf0.format(c80.base)} fornecedores com Fora da Política` }) +
+    `</div><div class="grade">` +
+    cartao({ id: "g-sit2", altura: "baixo", titulo: "Situação contratual do spend", desc: `${baseTxt()} · Baixo valor e Parcerias são permitidos sem contrato` }) +
+    cartao({ id: "g-traj", titulo: "Trajetória de Fora da Política", desc: "% do spend por mês, últimos 24 meses · linha tracejada = meta" }) +
+    cartao({ id: "g-fdpcat", altura: "alto", titulo: "Fora da Política por categoria", desc: "Top 10 · valores em R$" }) +
+    cartao({ id: "g-fdpdir", altura: "alto", titulo: "Fora da Política por área (diretoria)", desc: "Top 10 · valores em R$" }) +
+    cartao({ largo: true, titulo: "Fornecedores que recebem sem contrato", desc: "Ordenado pelo valor Fora da Política",
+      corpo: tabela([{ t: "Fornecedor" }, { t: "Fora da Política", cls: "num" }, { t: "Baixo valor + Parcerias", cls: "num" }, { t: "% sem contrato", cls: "num" }, { t: "KYS", cls: "cen" }],
+        fdpF.concat(semCtr.filter(f => !r.fornFdp[f])).slice(0, 30).map(f => `<tr><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${r.fornFdp[f] ? brl(r.fornFdp[f]) : "-"}</td><td class="num">${brl(r.fornSt[f * 5 + ST.BAIXO] + r.fornSt[f * 5 + ST.PARC])}</td><td class="num">${pct((r.forn[f] - r.fornSt[f * 5 + ST.COM]) / r.forn[f], 0)}</td><td class="cen">${seloKys(f)}</td></tr>`)) }) +
+    cartao({ largo: true, titulo: "Alertas de vencimento contratual", desc: `Contratos vencendo em até ${META.janela_vencimento_dias} dias, contados a partir de hoje · valor = spend dos últimos 12 meses`,
+      corpo: tabela([{ t: "Contrato" }, { t: "Descrição" }, { t: "Fornecedor" }, { t: "Vence em", cls: "cen" }, { t: "Vencimento", cls: "num" }, { t: "Spend 12 meses", cls: "num" }],
+        cts.map(c => `<tr><td class="forte">${esc(c.id)}</td><td>${esc(c.descricao)}</td><td>${esc(DIMS.fornecedor[c.fornecedor])}</td><td class="cen"><span class="selo" data-nivel="${nivelDias(c.dias)}">${c.dias} d</span></td><td class="num">${dataBR(c.data_fim)}</td><td class="num forte">${brl(c.spend_12m)}</td></tr>`), "Nenhum contrato vence no período") }) +
+    `</div>`;
+}
+
+function vContratos() {
+  const cu = contratoUnico();
+  if (cu !== null) {
+    aposRender.push(() => document.getElementById("voltar-contratos").addEventListener("click", () => { estado.sel.contrato = null; atualizarTudo(); }));
+    return `<div class="barra-ferr"><button type="button" class="btn" id="voltar-contratos">← Todos os contratos</button><span class="nota">Filtro Contrato: ${esc(DIMS.contrato[cu])}</span></div>` + fichaContrato(cu);
+  }
+  const r = estado.his, M = META.metas;
+  const vet = Float64Array.from(r.ctr, (v, i) => i === 0 ? 0 : v);
+  const ord = ranking(vet), tot = soma(vet), p80 = paraN(vet, 0.8);
+  const baixos = ord.filter(i => { const t = totalCtr(i), sd = saldoCtr(i); return t && sd / t < M.saldo_alerta; });
+  const est = ord.reduce((s, i) => s + (CTR.esteira[i] === 1 ? vet[i] : 0), 0);
+  aposRender.push(() => {
+    ligarBusca("busca-ctr");
+    document.querySelectorAll("#vista tr.clicavel").forEach(tr => {
+      const abrir = () => { estado.sel.contrato = new Set([+tr.dataset.item]); atualizarTudo(); window.scrollTo({ top: 0 }); };
+      tr.addEventListener("click", abrir);
+      tr.addEventListener("keydown", e => { if (e.key === "Enter") abrir(); });
+    });
+  });
+  return secao("Contratos", `Consumo, saldo e vencimento de cada contrato. Clique em um contrato ou use o filtro Contrato para ver a ficha · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Spend com contrato no período", valor: brl(tot), sub: `${pct(r.T ? tot / r.T : NaN, 0)} do spend total` }) +
+    kpi({ rotulo: "Contratos com pagamento", valor: nf0.format(ord.length), sub: `${nf0.format(p80.n)} concentram 80% do spend com contrato` }) +
+    kpi({ rotulo: `Saldo abaixo de ${pct(M.saldo_alerta, 0)}`, tom: baixos.length ? "alerta" : "", valor: nf0.format(baixos.length), sub: "contratos com saldo baixo ou já estourado" }) +
+    kpi({ rotulo: "Via esteira expressa", tom: "destaque", valor: pct(tot ? est / tot : NaN, 0), sub: `${brl(est)} do spend com contrato` }) +
+    `</div>` +
+    cartao({ largo: true, titulo: "Contratos por spend no período", desc: "% consumido e saldo consideram valor contratado + aportes e todos os pagamentos na base · vermelho = saldo abaixo de 10% ou estourado",
+      corpo: busca("busca-ctr", "Buscar contrato, descrição ou fornecedor...", `${ord.length} contratos com pagamento no período`) +
+        tabela([{ t: "#", cls: "num" }, { t: "Contrato" }, { t: "Fornecedor" }, { t: "Spend", cls: "num" }, { t: "% consumido", cls: "num" }, { t: "Saldo", cls: "num" }, { t: "Vence em", cls: "cen" }, { t: "Esteira", cls: "cen" }, { t: "", cls: "cen" }],
+          ord.slice(0, 500).map((i, k) => {
+            const t = totalCtr(i), sd = saldoCtr(i), pc = t ? CTR.consumido[i] / t : NaN, forn = DIMS.fornecedor[CTR.fornecedor[i]];
+            return `<tr class="clicavel" tabindex="0" data-item="${i}" data-nome="${esc((DIMS.contrato[i] + " " + CTR.descricao[i] + " " + forn).toLowerCase())}"><td class="num">${k + 1}</td>` +
+              `<td class="forte">${esc(DIMS.contrato[i])}<br><small style="font-weight:400;color:var(--cor-texto-3)">${esc(CTR.descricao[i])}</small></td><td>${esc(forn)}</td><td class="num forte">${brl(vet[i])}</td>` +
+              `<td class="num">${isFinite(pc) ? (pc > 1 - M.saldo_alerta ? `<span class="selo" data-nivel="critico">${pct(pc, 0)}</span>` : pct(pc, 0)) : "-"}</td>` +
+              `<td class="num">${sd === null ? "-" : sd < 0 ? `<span class="selo" data-nivel="critico">${brl(sd)}</span>` : brl(sd)}</td><td class="cen">${seloVence(i)}</td>` +
+              `<td class="cen">${CTR.esteira[i] === 1 ? `<span class="selo" data-nivel="ok">Sim</span>` : CTR.esteira[i] === 0 ? "Não" : "-"}</td><td class="cen seta-abrir">›</td></tr>`;
+          })) });
+}
+
+function vRiscos() {
+  const r = estado.his, M = META.metas, fs_ = ranking(r.forn);
+  const aprov = fs_.filter(f => FORN.kys[f] === KYS_OK).length;
+  const pk = fs_.length ? aprov / fs_.length : NaN;
+  const neg = fs_.filter(f => FORN.kys[f] === KYS_NEG), vNeg = neg.reduce((s, f) => s + r.forn[f], 0);
+  const altos = fs_.filter(f => FORN.risco[f] === RISCO_ALTO);
+  const sev = f => (FORN.kys[f] === KYS_NEG ? 4 : 0) + (FORN.risco[f] === RISCO_ALTO ? 2 : 0) + (FORN.kys[f] !== KYS_OK && FORN.kys[f] !== KYS_NEG ? 1 : 0) + (FORN.risco[f] === 1 ? 0.5 : 0);
+  const comRisco = fs_.filter(f => sev(f) > 0).sort((a, b) => sev(b) - sev(a) || r.forn[b] - r.forn[a]);
+  const coresKys = [C.bom, C.critico, C.atencao, C.cinza];
+  const snap = META.data_snapshot_fornecedores ? `posição de ${dataBR(META.data_snapshot_fornecedores)}` : "posição atual";
+  fila.push(() => gauge("g-gauge", pk, M.kys_min));
+  fila.push(() => rosca("g-rosca", DIMS.kys.map((k, i) => ({ nome: k, valor: r.kysV[i], cor: coresKys[i] })), r.T, [pct(r.T ? r.kysV[KYS_OK] / r.T : NaN, 1), "do spend aprovado"]));
+  aposRender.push(() => ligarBusca("busca-risco"));
+  return secao("Riscos", `KYS e risco financeiro dos fornecedores que recebem pagamento · ${esc(snap)} · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi(Object.assign({ rotulo: "Fornecedores com KYS aprovado", valor: pct(pk), sub: `${aprov} de ${fs_.length} fornecedores · meta ≥ ${pct(M.kys_min, 0)}` }, meta(pk, M.kys_min, true))) +
+    kpi({ rotulo: "Pago a fornecedores com KYS negado", tom: vNeg ? "alerta" : "", valor: brl(vNeg), sub: `${neg.length} fornecedor${neg.length === 1 ? "" : "es"}` }) +
+    kpi({ rotulo: "Fornecedores com risco financeiro alto", tom: "destaque", valor: nf0.format(altos.length), sub: `${brl(r.riscoV[RISCO_ALTO])} no período` }) +
+    `</div><div class="grade">` +
+    cartao({ id: "g-gauge", titulo: "Fornecedores com KYS aprovado", desc: "% dos fornecedores com pagamento no período · vermelho abaixo de 85%, amarelo até a meta" }) +
+    cartao({ id: "g-rosca", titulo: "Spend por situação de KYS", desc: "Quanto do dinheiro vai para fornecedores aprovados e negados · valores em R$" }) +
+    cartao({ largo: true, titulo: `Fornecedores com risco · ${esc(recorteCategoria())}`, desc: "KYS diferente de aprovado ou risco financeiro médio ou alto · ordenado por gravidade e spend",
+      corpo: busca("busca-risco", "Buscar fornecedor...", `${comRisco.length} fornecedores com risco`) +
+        tabela([{ t: "Fornecedor" }, { t: "Categoria principal" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }, { t: "Spend", cls: "num" }, { t: "% com contrato", cls: "num" }],
+          comRisco.slice(0, 300).map(f => `<tr data-nome="${esc(DIMS.fornecedor[f].toLowerCase())}"><td class="forte">${esc(DIMS.fornecedor[f])}</td><td>${esc(catPrincipal(r, f))}</td><td class="cen">${seloKys(f)}</td><td class="cen">${seloRisco(f)}</td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${pct(r.fornSt[f * 5 + ST.COM] / r.forn[f], 0)}</td></tr>`),
+          "Nenhum fornecedor com risco no recorte") }) +
+    `</div>`;
+}
+
+function vInsights() {
+  const todos = sinais();
+  const lista = filtroSinal === "todos" ? todos : todos.filter(s => s.tipo === filtroSinal);
+  const tot = todos.reduce((s, x) => s + x.valor, 0);
+  aposRender.push(() => document.getElementById("chips-sinal").addEventListener("click", e => { const t = e.target.dataset.tipo; if (!t) return; filtroSinal = t; render(); }));
+  return secao("Insights", `Sinais gerados automaticamente a partir dos dados, em ordem de valor em jogo · ${ctx()}`) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Sinais no recorte", valor: nf0.format(todos.length), sub: `${brl(tot)} em jogo (valores podem se sobrepor)` }) +
+    Object.keys(TIPOS_SINAL).slice(0, 3).map(t => kpi({ rotulo: TIPOS_SINAL[t].nome, valor: nf0.format(todos.filter(s => s.tipo === t).length), sub: brl(todos.filter(s => s.tipo === t).reduce((a, s) => a + s.valor, 0)) })).join("") +
+    `</div>` +
+    `<div class="chips" id="chips-sinal"><button type="button" class="chip" data-tipo="todos" aria-pressed="${filtroSinal === "todos"}">Todos (${todos.length})</button>` +
+    Object.keys(TIPOS_SINAL).map(t => `<button type="button" class="chip" data-tipo="${t}" aria-pressed="${filtroSinal === t}">${TIPOS_SINAL[t].nome} (${todos.filter(s => s.tipo === t).length})</button>`).join("") + `</div>` +
+    (lista.length ? `<div class="insights">${lista.slice(0, 40).map(s => `<div class="insight" style="border-left:4px solid ${TIPOS_SINAL[s.tipo].cor}"><span class="sinal-icone" style="background:${TIPOS_SINAL[s.tipo].cor}">${TIPOS_SINAL[s.tipo].ic}</span><div class="sinal-texto">${esc(s.texto)}<small>${esc(TIPOS_SINAL[s.tipo].nome)} · ${esc(s.det)}</small></div><div class="sinal-valor">${brl(s.valor)}</div></div>`).join("")}</div>`
+      : `<div class="cartao"><div class="vazio">Nenhum sinal deste tipo no recorte</div></div>`);
+}
+
+const GLOSSARIO = [
+  ["Spend", "Soma dos pagamentos (valor bruto nominal) no período, pela data de pagamento"],
+  ["Período", "Últimos 12 meses (padrão), YTD do ano vigente ou ano fechado. Sempre comparado ao período anterior de mesmo tamanho"],
+  ["Variação", "Spend do período ÷ spend do período anterior - 1"],
+  ["Fornecedor", "Agrupado pela raiz do CNPJ (8 primeiros dígitos), com o nome da matriz"],
+  ["Share", "Participação de um item no spend do recorte"],
+  ["Concentração 80%", "Menor número de fornecedores cuja soma atinge 80% do spend"],
+  ["Fornecedor único", "Subcategoria 3 com um só fornecedor no período e gasto acima de R$ 50 mil"],
+  ["Com contrato", "Pagamento com número de contrato"],
+  ["Baixo valor", "Pagamento sem contrato permitido pela política por ser de baixo valor"],
+  ["Parcerias", "Pagamento sem contrato permitido pela política por ser de parceria"],
+  ["Fora da Política", "Pagamento sem contrato que deveria ter contrato"],
+  ["Não classificado", "Pagamento sem contrato e sem classificação na base (qualidade de dado)"],
+  ["Cobertura contratual", "Spend com contrato ÷ spend total"],
+  ["Contratos vencendo", "Contratos com vencimento nos próximos 180 dias, contados a partir de hoje; valor = spend dos últimos 12 meses no contrato"],
+  ["Aporte", "Aditivo que aumenta o valor do contrato"],
+  ["Saldo do contrato", "Valor contratado + aportes - pagamentos na base"],
+  ["Consumo parcial", "Contrato iniciado antes do início da base: o consumido considera só os pagamentos desde então"],
+  ["Esteira expressa", "Contrato negociado pelo CSC"],
+  ["KYS", "Situação do fornecedor no processo de conhecimento (aprovado, negado), na posição mais recente"],
+  ["Risco financeiro", "Classificação financeira do fornecedor (baixo, médio, alto), na posição mais recente"],
+  ["Sem classificação", "Nível de subcategoria que não existe para aquele pagamento"]
+];
+function vGlossario() {
+  const M = META.metas;
+  return secao("Glossário", "Definições usadas no painel, para que cada número tenha um só significado") +
+    `<div class="grade">` +
+    cartao({ titulo: "Termos", corpo: `<div class="glossario">${tabela([{ t: "Termo" }, { t: "Definição" }], GLOSSARIO.map(([t, d]) => `<tr><td class="forte">${esc(t)}</td><td>${esc(d)}</td></tr>`))}</div>` }) +
+    cartao({ titulo: "Metas", corpo: tabela([{ t: "Indicador" }, { t: "Meta" }], [
+      `<tr><td class="forte">Cobertura contratual</td><td>≥ ${pct(M.cobertura_min, 0)}</td></tr>`,
+      `<tr><td class="forte">Fora da Política</td><td>≤ ${pct(M.fora_politica_max, 0)}</td></tr>`,
+      `<tr><td class="forte">Fornecedores com KYS aprovado</td><td>≥ ${pct(M.kys_min, 0)}</td></tr>`,
+      `<tr><td class="forte">Saldo de contrato</td><td>alerta abaixo de ${pct(M.saldo_alerta, 0)}</td></tr>`,
+      `<tr><td class="forte">Risco financeiro</td><td>sem meta, só distribuição</td></tr>`]) }) +
+    `</div>`;
+}
+
+const RENDER = { executivo: vExecutivo, tendencias: vTendencias, fornecedores: vFornecedores, categorias: vCategorias, pareto: vPareto, contrato: vContrato, contratos: vContratos, riscos: vRiscos, insights: vInsights, glossario: vGlossario };
+
+/* ============================================================
+   12. Render, navegação, controles e link
+   ============================================================ */
+function render() {
+  const t = performance.now();
+  fila = []; aposRender = [];
+  document.getElementById("vista").innerHTML = RENDER[estado.vista]();
+  limparOrfaos();
+  fila.forEach(f => f());
+  aposRender.forEach(f => f());
+  atualizarCabecalho();
+  console.info("[painel] render", estado.vista, Math.round(performance.now() - t), "ms");
+}
+function irPara(id) {
+  estado.vista = id;
+  render();
+  window.scrollTo({ top: 0 });
+  salvarHash();
+}
+function atualizarTudo() { aplicar(); render(); salvarHash(); }
+
+function montarControles() {
+  const box = document.getElementById("filtros");
+  box.appendChild(dropdown({
+    key: "periodo", rotulo: "Período", cls: "periodo", busca: false,
+    opcoes: () => ({ itens: opcoesPeriodo().map((o, i) => ({ v: i, nome: o.nome })), ocultas: 0 }),
+    valor: () => opcoesPeriodo().findIndex(o => o.id === estado.periodo),
+    definir: v => { estado.periodo = opcoesPeriodo()[v === null ? 0 : v].id; atualizarTudo(); },
+    rotuloBotao: () => nomePeriodo(), ativo: () => estado.periodo !== "12m"
+  }));
+  FILTROS.forEach((f, pos) => box.appendChild(dropdown({
+    key: f.key, rotulo: f.nome, multi: true,
+    opcoes: (termo, rasc) => opcoesDim(f.key, pos, termo, rasc),
+    valor: () => estado.sel[f.key],
+    definir: v => { estado.sel[f.key] = v; atualizarTudo(); },
+    rotuloBotao: () => { const s = estado.sel[f.key]; if (!s) return "Todos"; return s.size === 1 ? rotulo(f.key, s.values().next().value) : s.size + " selecionados"; },
+    titulo: () => estado.sel[f.key] ? [...estado.sel[f.key]].map(i => rotulo(f.key, i)).join(", ") : "Todos",
+    ativo: () => !!estado.sel[f.key]
+  })));
+  const limpar = document.createElement("button");
+  limpar.type = "button"; limpar.className = "limpar"; limpar.id = "limpar-filtros"; limpar.textContent = "Limpar filtros";
+  limpar.addEventListener("click", () => { FILTROS.forEach(f => { estado.sel[f.key] = null; }); estado.periodo = "12m"; atualizarTudo(); });
+  box.appendChild(limpar);
+  document.addEventListener("mousedown", e => Object.values(ctrls).forEach(c => { if (!c.contem(e.target)) c.fechar(true); }));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") Object.values(ctrls).forEach(c => c.fechar(true)); });
+}
+
+function atualizarCabecalho() {
+  const r = estado.uni;
+  document.getElementById("resumo").innerHTML = `Spend <b>${brl(r.T)}</b> · <b>${nf0.format(ativos(r.forn))}</b> fornecedores · <b>${nf0.format(r.N)}</b> pagamentos`;
+  document.getElementById("limpar-filtros").hidden = !(FILTROS.some(f => estado.sel[f.key]) || estado.periodo !== "12m");
+  Object.values(ctrls).forEach(c => c.atualizar());
+  document.querySelectorAll(".aba").forEach(b => b.setAttribute("aria-selected", String(b.dataset.vista === estado.vista)));
+}
+
+function salvarHash() {
+  const p = new URLSearchParams();
+  p.set("v", estado.vista); p.set("per", estado.periodo);
+  FILTROS.forEach(f => { if (estado.sel[f.key]) p.set(f.key, [...estado.sel[f.key]].map(i => rotuloLink(f.key, i)).join("|")); });
+  try { history.replaceState(null, "", "#" + p.toString()); } catch (e) {}
+}
+function lerHash() {
+  const p = new URLSearchParams((location.hash || "").slice(1));
+  if (opcoesPeriodo().some(o => o.id === p.get("per"))) estado.periodo = p.get("per");
+  FILTROS.forEach(f => {
+    if (!p.get(f.key)) return;
+    const s = new Set(p.get(f.key).split("|").map(n => indicePorRotulo(f.key, n)).filter(i => i >= 0));
+    if (s.size) estado.sel[f.key] = s;
+  });
+  if (VISTAS.some(v => v.id === p.get("v"))) estado.vista = p.get("v");
+}
+
+/* ============================================================
+   13. Inicialização
+   ============================================================ */
+function iniciar() {
+  estado.vista = "executivo";
+  document.title = `${META.titulo} · ${META.titulo_destaque}`;
+  document.getElementById("titulo").innerHTML = `${esc(META.titulo)} · <span>${esc(META.titulo_destaque)}</span>`;
+  document.getElementById("subtitulo").textContent = `${META.subtitulo} · dados até ${rotMes(META.ultimo_mes)}`;
+  document.getElementById("atualizacao").textContent = META.data_atualizacao ? "Base atualizada em " + dataBR(META.data_atualizacao) : "Atualização não disponível";
+  document.getElementById("rodape").textContent = META.rodape || "";
+  const nav = document.getElementById("abas");
+  VISTAS.forEach(v => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "aba"; b.dataset.vista = v.id; b.setAttribute("role", "tab"); b.textContent = v.nome;
+    b.addEventListener("click", () => irPara(v.id));
+    nav.appendChild(b);
+  });
+  document.getElementById("copiar-link").addEventListener("click", copiarLink);
+  let salvo = 1;
+  try { salvo = parseFloat(localStorage.getItem("painel-escala")) || 1; } catch (e) {}
+  if (ESCALAS.includes(salvo)) { estado.escala = salvo; document.documentElement.style.setProperty("--escala", salvo); }
+  document.querySelectorAll("[data-fonte]").forEach(b => b.addEventListener("click", () => definirEscala(Number(b.dataset.fonte))));
+  lerHash();
+  montarControles();
+  aplicar();
+  render();
+  let tmr;
+  window.addEventListener("resize", () => { clearTimeout(tmr); tmr = setTimeout(redimensionar, 120); });
+}
+
+window.PAINEL = { estado, aplicar, render, irPara, atualizarTudo };
+iniciar();
+}
+</script>
+<script>
+/*__INICIO_CARREGADOR__*/
+(function () {
+  const el = document.getElementById("spend-data");
+  const url = el.dataset.url;
+  if (!url) return painelApp();
+  const caixa = document.createElement("div");
+  caixa.className = "carregando";
+  caixa.setAttribute("role", "status");
+  caixa.textContent = "Carregando dados...";
+  document.body.appendChild(caixa);
+  const falhar = e => {
+    caixa.classList.add("erro");
+    caixa.textContent = `Não foi possível carregar os dados (${url}): ${e.message}. Atualize a página e, se o erro continuar, avise o responsável pelo painel`;
+  };
+  fetch(url + (url.includes("?") ? "&" : "?") + "v=" + Date.now(), { cache: "no-store", credentials: "same-origin" })
+    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+    .then(t => {
+      el.textContent = t;
+      caixa.textContent = "Montando o painel...";
+      requestAnimationFrame(() => setTimeout(() => {
+        try { painelApp(); caixa.remove(); } catch (e) { falhar(e); }
+      }, 0));
+    })
+    .catch(falhar);
+})();
+/*__FIM_CARREGADOR__*/
+</script>
+</body>
+</html>
