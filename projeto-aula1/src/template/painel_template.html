@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel Executivo · Spend Analysis</title>
+<style>
+/*__INICIO_CSS_COMPARTILHADO__*/
+/* ============================================================
+   DICIONÁRIO DE CORES - fonte única de verdade do painel
+   O JavaScript lê estas variáveis; ajuste aqui e tudo acompanha
+   ============================================================ */
+:root {
+  --cor-marca-escuro: #000D3C;
+  --cor-marca-medio: #001FBD;
+  --cor-marca-vivo: #0131FF;
+  --cor-destaque: #FF9C00;
+  --cor-laranja: #FF6200;
+
+  --cor-serie-principal: #001FBD;
+  --cor-serie-secundaria: #000D3C;
+  --cor-periodo-atual: #000D3C;
+  --cor-periodo-anterior: #9FB0E6;
+  --cor-periodo-fora: #DCE2F2;
+
+  --cor-com-contrato: #000D3C;
+  --cor-baixo-valor: #B3B3B3;
+  --cor-parcerias: #D9DCE1;
+  --cor-fora-politica: #FF6200;
+  --cor-nao-classificado: #6E6E6E;
+
+  --cor-risco-baixo: #008717;
+  --cor-risco-medio: #FF9C00;
+  --cor-risco-alto: #D93A00;
+  --cor-risco-sem: #B3B3B3;
+
+  --cor-status-bom: #008717;
+  --cor-status-atencao: #FF9C00;
+  --cor-status-critico: #D93A00;
+
+  --cor-fundo: #F1F2F4;
+  --cor-superficie: #FFFFFF;
+  --cor-borda: #E3E5E8;
+  --cor-grade: #EDEEF1;
+  --cor-texto: #0B1533;
+  --cor-texto-2: #3D4459;
+  --cor-texto-3: #6E6E6E;
+  --cor-acao-fundo: #FFF6EC;
+  --cor-acao-borda: #FFD9B0;
+
+  --fonte: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --escala: 1;
+  --raio: 12px;
+  --raio-sm: 8px;
+  --espaco: 16px;
+  --sombra: 0 1px 2px rgba(0, 13, 60, .04), 0 4px 16px rgba(0, 13, 60, .05);
+}
+
+* { box-sizing: border-box; }
+html { font-size: calc(14px * var(--escala)); scroll-padding-top: 120px; }
+body { margin: 0; background: var(--cor-fundo); color: var(--cor-texto); font-family: var(--fonte); line-height: 1.45; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* ---------- Cabeçalho ---------- */
+.cab-fundo { color: #fff; background: linear-gradient(100deg, var(--cor-marca-escuro) 0%, var(--cor-marca-escuro) 35%, var(--cor-marca-medio) 100%); }
+.cab-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding: 14px 28px 6px; }
+.cab-titulo { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -.01em; }
+.cab-titulo span { color: var(--cor-destaque); }
+.cab-sub { margin: 2px 0 0; font-size: .86rem; color: rgba(255, 255, 255, .72); }
+.cab-dir { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.cab-linha { display: flex; align-items: center; gap: 14px; }
+.seg { display: inline-flex; border: 1px solid rgba(255, 255, 255, .25); border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, .06); }
+.seg button { background: none; border: 0; padding: 4px 11px; font-size: .8rem; font-weight: 600; color: #fff; cursor: pointer; white-space: nowrap; }
+.seg button + button { border-left: 1px solid rgba(255, 255, 255, .2); }
+.seg button:hover { background: rgba(255, 255, 255, .12); }
+.seg button[aria-pressed="true"] { background: rgba(255, 255, 255, .24); }
+.cab-resumo { font-size: .8rem; color: rgba(255, 255, 255, .8); white-space: nowrap; }
+.cab-resumo b { color: #fff; }
+.cab-atualizacao { font-size: .74rem; color: rgba(255, 255, 255, .6); }
+
+.barra { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px 0 20px; color: #fff; background: linear-gradient(100deg, var(--cor-marca-escuro) 0%, var(--cor-marca-escuro) 35%, var(--cor-marca-medio) 100%); box-shadow: 0 2px 12px rgba(0, 13, 60, .25); }
+.abas { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.abas::-webkit-scrollbar { display: none; }
+.aba { position: relative; background: none; border: 0; padding: 11px 12px 13px; font-size: .92rem; color: rgba(255, 255, 255, .72); cursor: pointer; white-space: nowrap; border-radius: 8px 8px 0 0; }
+.aba .num { display: inline-flex; align-items: center; justify-content: center; width: 1.35em; height: 1.35em; margin-right: 6px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .45); font-size: .72rem; font-weight: 700; }
+.aba:hover { color: #fff; background: rgba(255, 255, 255, .06); }
+.aba[aria-selected="true"] { color: #fff; font-weight: 700; }
+.aba[aria-selected="true"] .num { background: var(--cor-destaque); border-color: var(--cor-destaque); color: var(--cor-marca-escuro); }
+.aba[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--cor-destaque); }
+.barra-dir { display: flex; align-items: center; gap: 10px; flex: none; }
+.migalha { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .8rem; color: rgba(255, 255, 255, .85); background: rgba(255, 255, 255, .1); border: 0; border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.migalha b { color: #fff; }
+.btn-claro { height: 28px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; background: transparent; color: #fff; font-size: .8rem; cursor: pointer; white-space: nowrap; }
+.btn-claro:hover { background: rgba(255, 255, 255, .12); }
+
+.filtros { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px 12px; padding: 12px 28px 14px; }
+.filtros-rotulo { font-size: .78rem; font-weight: 700; color: rgba(255, 255, 255, .85); padding-bottom: 8px; }
+.filtro { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 130px; flex: 0 1 150px; }
+.filtro.periodo { flex-basis: 200px; }
+.filtro > label { font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .78); }
+.filtro-botao { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 32px; padding: 0 10px; background: #fff; color: var(--cor-texto); border: 1px solid transparent; border-radius: var(--raio-sm); font-size: .84rem; cursor: pointer; text-align: left; }
+.filtro-botao:hover { border-color: var(--cor-destaque); }
+.filtro-botao:focus-visible { outline: 2px solid var(--cor-destaque); outline-offset: 1px; }
+.filtro-botao .valor { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.filtro-botao .seta { flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--cor-texto-3); }
+.filtro.ativo .filtro-botao { box-shadow: inset 0 0 0 2px var(--cor-destaque); font-weight: 600; }
+.filtro.travado .filtro-botao { background: rgba(255, 255, 255, .82); cursor: not-allowed; font-weight: 600; }
+.filtro.travado .seta { display: none; }
+.limpar { align-self: flex-end; height: 32px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, .35); border-radius: var(--raio-sm); background: transparent; color: #fff; font-size: .8rem; cursor: pointer; }
+.limpar:hover { background: rgba(255, 255, 255, .12); }
+
+.painel-filtro { position: absolute; top: calc(100% + 6px); left: 0; z-index: 60; width: 340px; max-width: 90vw; background: #fff; color: var(--cor-texto); border: 1px solid var(--cor-borda); border-radius: var(--raio); box-shadow: 0 12px 32px rgba(0, 13, 60, .22); padding: 10px; }
+.painel-filtro input[type="search"] { width: 100%; height: 34px; padding: 0 10px; border: 1px solid var(--cor-borda); border-radius: var(--raio-sm); font: inherit; font-size: .86rem; }
+.painel-filtro input[type="search"]:focus { outline: 2px solid var(--cor-marca-vivo); outline-offset: -1px; }
+.opcoes { max-height: 300px; overflow-y: auto; margin: 8px 0; }
+.opcao { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; font-size: .86rem; cursor: pointer; }
+.opcao:hover, .opcao.marcada { background: var(--cor-fundo); }
+.opcao input { accent-color: var(--cor-marca-vivo); width: 15px; height: 15px; margin: 0; flex: none; }
+.opcao .rot { flex: 1; min-width: 0; }
+.opcao .extra { flex: none; font-size: .76rem; color: var(--cor-texto-3); font-variant-numeric: tabular-nums; }
+.opcao.todos { font-weight: 600; border-bottom: 1px solid var(--cor-borda); border-radius: 6px 6px 0 0; margin-bottom: 4px; }
+.opcao.grupo { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--cor-texto-3); cursor: default; padding-top: 10px; }
+.opcao.grupo:hover { background: none; }
+.opcoes-nota { font-size: .74rem; color: var(--cor-texto-3); padding: 0 8px 6px; }
+.painel-rodape { display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid var(--cor-borda); }
+.btn { height: 30px; padding: 0 14px; border-radius: var(--raio-sm); border: 1px solid var(--cor-borda); background: #fff; font-size: .82rem; cursor: pointer; }
+.btn:hover { background: var(--cor-fundo); }
+.btn-primario { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; font-weight: 600; }
+.btn-primario:hover { background: var(--cor-marca-medio); }
+
+/* ---------- Contexto (lente + foco) ---------- */
+main { padding: 20px 28px 8px; max-width: 1760px; margin: 0 auto; }
+.contexto { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; padding: 14px 18px; margin-bottom: 20px; background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); box-shadow: var(--sombra); }
+.contexto .rot { font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.seg-escuro { display: inline-flex; border: 1px solid var(--cor-borda); border-radius: 999px; overflow: hidden; }
+.seg-escuro button { background: #fff; border: 0; padding: 6px 14px; font-size: .86rem; font-weight: 600; color: var(--cor-texto-2); cursor: pointer; }
+.seg-escuro button + button { border-left: 1px solid var(--cor-borda); }
+.seg-escuro button:hover { background: var(--cor-fundo); }
+.seg-escuro button[aria-pressed="true"] { background: var(--cor-marca-escuro); color: #fff; }
+.contexto .filtro { flex: 0 1 360px; min-width: 240px; }
+.contexto .filtro-botao { border-color: var(--cor-borda); height: 34px; }
+.contexto .filtro.ativo .filtro-botao { box-shadow: inset 0 0 0 2px var(--cor-marca-vivo); }
+.contexto-periodo { margin-left: auto; font-size: .84rem; color: var(--cor-texto-2); text-align: right; }
+.contexto-periodo b { color: var(--cor-texto); }
+
+/* ---------- Seções e capítulos ---------- */
+.vista[hidden] { display: none; }
+.capitulo { margin-bottom: 36px; }
+.cap-cab { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.cap-num { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--cor-marca-escuro); color: #fff; font-weight: 700; font-size: .95rem; transform: translateY(-2px); }
+.cap-cab h2 { margin: 0; font-size: 1.4rem; font-weight: 700; color: var(--cor-texto); }
+.cap-sub { margin: 0 0 16px 42px; font-size: .92rem; color: var(--cor-texto-2); }
+.cap-sub b { color: var(--cor-texto); }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--espaco); margin-bottom: var(--espaco); }
+.kpi { position: relative; background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 16px 18px 16px 22px; box-shadow: var(--sombra); overflow: hidden; }
+.kpi::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--cor-marca-escuro); }
+.kpi[data-tom="destaque"]::before { background: var(--cor-laranja); }
+.kpi[data-tom="bom"]::before { background: var(--cor-status-bom); }
+.kpi[data-tom="alerta"]::before { background: var(--cor-status-critico); }
+.kpi-rotulo { font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.kpi-valor { margin-top: 4px; font-size: 1.9rem; font-weight: 700; letter-spacing: -.02em; color: var(--cor-texto); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.kpi[data-tom="destaque"] .kpi-valor { color: var(--cor-laranja); }
+.kpi-sub { margin-top: 4px; font-size: .8rem; color: var(--cor-texto-2); }
+.status { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 2px 9px 2px 7px; border-radius: 999px; font-size: .74rem; font-weight: 600; }
+.status[data-status="bom"] { background: #E6F4E8; color: #00640F; }
+.status[data-status="alerta"] { background: #FDECE4; color: #A82D00; }
+.status svg { width: 12px; height: 12px; }
+
+.grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--espaco); margin-bottom: var(--espaco); }
+.cartao { background: var(--cor-superficie); border: 1px solid var(--cor-borda); border-radius: var(--raio); padding: 18px 20px 14px; box-shadow: var(--sombra); min-width: 0; }
+.cartao.largo { grid-column: 1 / -1; }
+.pergunta { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-marca-medio); margin-bottom: 4px; }
+.cartao h3 { margin: 0; font-size: 1.08rem; font-weight: 700; color: var(--cor-texto); line-height: 1.3; }
+.cartao .desc { margin: 4px 0 10px; font-size: .8rem; color: var(--cor-texto-3); }
+.legenda-mini { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; }
+.legenda-mini i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.legenda-mini i.aro { border-radius: 50%; border: 2px solid var(--cor-baixo-valor); background: #fff; }
+.legenda-mini i.ponto { border-radius: 50%; }
+.grafico { width: 100%; height: calc(320px * var(--escala)); }
+.grafico.baixo { height: calc(150px * var(--escala)); }
+.grafico.alto { height: calc(400px * var(--escala)); }
+.vazio { display: flex; align-items: center; justify-content: center; min-height: 120px; height: 100%; color: var(--cor-texto-3); font-size: .9rem; text-align: center; }
+
+.tabela-caixa { max-height: calc(440px * var(--escala)); overflow: auto; border-radius: var(--raio-sm); border: 1px solid var(--cor-borda); }
+table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+thead th { position: sticky; top: 0; z-index: 1; background: var(--cor-marca-escuro); color: #fff; font-weight: 600; text-align: left; padding: 10px 12px; white-space: nowrap; }
+tbody td { padding: 9px 12px; border-top: 1px solid var(--cor-grade); color: var(--cor-texto-2); }
+tbody tr:hover td { background: #F7F8FA; }
+tbody tr.clicavel { cursor: pointer; }
+tbody tr.clicavel:hover td { background: #EEF2FF; }
+tbody tr.clicavel:focus-visible { outline: 2px solid var(--cor-marca-vivo); outline-offset: -2px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.cen, th.cen { text-align: center; }
+td.forte { color: var(--cor-texto); font-weight: 600; }
+td.pos { color: var(--cor-marca-medio); }
+td.neg { color: #A82D00; }
+.seta-abrir { color: var(--cor-texto-3); font-weight: 700; }
+.selo { display: inline-block; min-width: 46px; padding: 2px 8px; border-radius: 999px; font-size: .74rem; font-weight: 700; color: #fff; text-align: center; white-space: nowrap; }
+.selo[data-nivel="critico"] { background: var(--cor-status-critico); }
+.selo[data-nivel="atencao"] { background: var(--cor-laranja); }
+.selo[data-nivel="monitorar"] { background: #FFE2C2; color: #8A3A00; }
+.selo[data-nivel="ok"] { background: #E6F4E8; color: #00640F; }
+.selo[data-nivel="neutro"] { background: var(--cor-grade); color: var(--cor-texto-2); }
+.barra-ferr { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.barra-ferr input { height: 32px; padding: 0 10px; border: 1px solid var(--cor-borda); border-radius: var(--raio-sm); font: inherit; font-size: .86rem; width: 280px; max-width: 100%; }
+.barra-ferr .nota { font-size: .78rem; color: var(--cor-texto-3); }
+
+.titulo-inicio { margin: 0 0 4px; font-size: 1.45rem; font-weight: 700; }
+.sub-inicio { margin: 0 0 18px; color: var(--cor-texto-2); font-size: .92rem; }
+
+.selos-grandes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--espaco); }
+.selo-grande { padding: 18px 20px; border-radius: var(--raio); border: 1px solid var(--cor-borda); background: var(--cor-superficie); }
+.selo-grande .rot { font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--cor-texto-3); }
+.selo-grande .val { margin-top: 6px; font-size: 1.6rem; font-weight: 700; }
+.selo-grande[data-nivel="bom"] { border-left: 5px solid var(--cor-status-bom); }
+.selo-grande[data-nivel="medio"] { border-left: 5px solid var(--cor-status-atencao); }
+.selo-grande[data-nivel="critico"] { border-left: 5px solid var(--cor-status-critico); }
+.selo-grande[data-nivel="neutro"] { border-left: 5px solid var(--cor-risco-sem); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.chip { border: 1px solid var(--cor-borda); background: #fff; border-radius: 999px; padding: 4px 12px; font-size: .82rem; cursor: pointer; color: var(--cor-texto-2); }
+.chip[aria-pressed="true"] { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; }
+.sinais { list-style: none; margin: 0; padding: 0; }
+.sinal { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 14px; padding: 12px 6px; border-top: 1px solid var(--cor-grade); }
+.sinal:first-child { border-top: 0; }
+.sinal-icone { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-size: .9rem; font-weight: 700; color: #fff; }
+.sinal-texto { font-size: .92rem; color: var(--cor-texto); }
+.sinal-texto small { display: block; font-size: .76rem; color: var(--cor-texto-3); margin-top: 2px; }
+.sinal-valor { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--cor-texto); white-space: nowrap; }
+
+.nav-cap { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.nav-cap button { border: 1px solid var(--cor-borda); background: #fff; border-radius: var(--raio-sm); padding: 10px 16px; font-size: .9rem; cursor: pointer; color: var(--cor-texto-2); }
+.nav-cap button.prox { background: var(--cor-marca-escuro); border-color: var(--cor-marca-escuro); color: #fff; font-weight: 600; margin-left: auto; }
+.nav-cap button:hover { filter: brightness(1.08); }
+
+.ficha .cap-num { background: var(--cor-destaque); color: var(--cor-marca-escuro); }
+.faixa-contrato { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 10px 16px; margin-bottom: 18px; border-radius: var(--raio-sm); background: #EEF2FF; border: 1px solid #D6DEFA; font-size: .86rem; color: var(--cor-texto-2); }
+.faixa-contrato b { color: var(--cor-texto); }
+.acao { padding: 12px 16px; background: var(--cor-acao-fundo); border: 1px solid var(--cor-acao-borda); border-radius: var(--raio-sm); font-size: .9rem; color: var(--cor-texto-2); }
+.acao b { color: var(--cor-laranja); }
+.nota-qualidade { margin-top: 10px; font-size: .8rem; color: var(--cor-texto-3); }
+.aviso { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--cor-marca-escuro); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: .86rem; box-shadow: 0 8px 24px rgba(0, 13, 60, .3); z-index: 90; }
+
+.rodape { text-align: center; font-size: .76rem; color: var(--cor-texto-3); padding: 20px 28px 28px; }
+
+@media (max-width: 1440px) {
+  .migalha { max-width: 200px; }
+}
+@media (max-width: 1100px) {
+  .grade { grid-template-columns: 1fr; }
+  .cab-topo { flex-direction: column; }
+  .cab-dir { align-items: flex-start; }
+  .barra { flex-wrap: wrap; }
+  .migalha { display: none; }
+  .contexto-periodo { margin-left: 0; text-align: left; }
+}
+@media (max-width: 640px) {
+  .cab-topo, .filtros, main { padding-left: 16px; padding-right: 16px; }
+  .filtro { flex: 1 1 140px; }
+  .cab-resumo { white-space: normal; }
+  .migalha { display: none; }
+}
+.carregando { position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 50; max-width: min(560px, calc(100vw - 32px));
+  padding: 18px 26px; border-radius: 12px; background: var(--cor-superficie); color: var(--cor-texto); font-family: var(--fonte); box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  font-size: 15px; font-weight: 600; text-align: center; }
+.carregando.erro { border-left: 5px solid var(--cor-status-critico); font-weight: 500; text-align: left; }
+/*__FIM_CSS_COMPARTILHADO__*/
+</style>
+</head>
+<body>
+
+<div class="cab-fundo">
+  <div class="cab-topo">
+    <div>
+      <h1 class="cab-titulo" id="titulo"></h1>
+      <p class="cab-sub" id="subtitulo"></p>
+    </div>
+    <div class="cab-dir">
+      <div class="cab-linha">
+        <div class="seg" role="group" aria-label="Tamanho da fonte">
+          <button type="button" data-fonte="-1" aria-label="Diminuir fonte">A−</button>
+          <button type="button" data-fonte="0" aria-label="Fonte padrão">A</button>
+          <button type="button" data-fonte="1" aria-label="Aumentar fonte">A+</button>
+        </div>
+        <div class="cab-resumo" id="resumo"></div>
+      </div>
+      <div class="cab-atualizacao" id="atualizacao"></div>
+    </div>
+  </div>
+</div>
+
+<div class="barra">
+  <nav class="abas" role="tablist" id="abas"></nav>
+  <div class="barra-dir">
+    <button type="button" class="migalha" id="migalha" title="Trocar o foco"></button>
+    <div class="seg" role="group" aria-label="Modo de navegação">
+      <button type="button" data-modo="abas">Abas</button>
+      <button type="button" data-modo="rolagem">Rolagem</button>
+    </div>
+    <button type="button" class="btn-claro" id="copiar-link" title="Copia um link que reabre exatamente esta visão">Copiar link</button>
+  </div>
+</div>
+
+<div class="cab-fundo">
+  <div class="filtros" id="filtros">
+    <span class="filtros-rotulo">Filtros globais:</span>
+  </div>
+</div>
+
+<main id="conteudo">
+  <div class="contexto" id="contexto">
+    <span class="rot">Ver por</span>
+    <div class="seg-escuro" role="group" aria-label="Lente" id="lentes"></div>
+    <span class="rot">Foco</span>
+    <div id="foco-caixa"></div>
+    <div class="contexto-periodo" id="contexto-periodo"></div>
+  </div>
+  <section class="vista" id="vista-inicio" data-vista="inicio"></section>
+  <section class="vista" id="vista-historia" data-vista="historia" hidden></section>
+</main>
+
+<footer class="rodape" id="rodape"></footer>
+
+<script id="echarts-lib">/*__ECHARTS_LIB__*/</script>
+<script id="spend-data" type="application/json" data-url="__SPEND_URL__">__SPEND_DATA__</script>
+<script>
+function painelApp() {
+"use strict";
+
+/* ============================================================
+   1. Estrutura fixa (layout determinístico)
+   ============================================================ */
+const VISTAS = [
+  { id: "inicio", nome: "Onde olhar" },
+  { id: "cap1", n: 1, nome: "Quanto gastamos", sub: "Tamanho, evolução e para onde vai o dinheiro" },
+  { id: "cap2", n: 2, nome: "Com quem", sub: "Fornecedores, share e como ele mudou" },
+  { id: "cap3", n: 3, nome: "Com que proteção", sub: "Cobertura contratual, Fora da Política e contratos vencendo" },
+  { id: "cap4", n: 4, nome: "Com que risco", sub: "KYS e risco financeiro dos fornecedores que recebem" },
+  { id: "cap5", n: 5, nome: "Onde agir", sub: "Os sinais dos capítulos anteriores, em ordem de valor" }
+];
+const LENTES = {
+  categoria: { nome: "Categoria", plural: "categorias", todos: "Todas as categorias" },
+  diretoria: { nome: "Diretoria", plural: "diretorias", todos: "Todas as diretorias" },
+  fornecedor: { nome: "Fornecedor", plural: "fornecedores", todos: "Todos os fornecedores" },
+  contrato: { nome: "Contrato", plural: "contratos", todos: "Todos os contratos" }
+};
+const FILTROS = [
+  { key: "gerencia", nome: "Gerência Compras" },
+  { key: "categoria", nome: "Categoria" },
+  { key: "sub1", nome: "Subcategoria 1" },
+  { key: "sub2", nome: "Subcategoria 2" },
+  { key: "sub3", nome: "Subcategoria 3" },
+  { key: "diretoria", nome: "Diretoria" },
+  { key: "contrato", nome: "Contrato" }
+];
+const DIMS_DISP = FILTROS.map(f => f.key).concat(["fornecedor"]);
+const ST = { COM: 0, BAIXO: 1, PARC: 2, FDP: 3, NC: 4 };
+const KYS_OK = 0, KYS_NEG = 1, RISCO_ALTO = 2;
+const ESCALAS = [0.875, 1, 1.125, 1.25, 1.375];
+const MIN_UNICO = 50000;
+
+/*__INICIO_COMPARTILHADO__*/
+/* ============================================================
+   2. Tema - lido do dicionário de cores do CSS
+   ============================================================ */
+const css = getComputedStyle(document.documentElement);
+const cor = n => css.getPropertyValue("--cor-" + n).trim();
+const C = {
+  serie: cor("serie-principal"), serie2: cor("serie-secundaria"),
+  atual: cor("periodo-atual"), anterior: cor("periodo-anterior"), fora: cor("periodo-fora"),
+  status: [cor("com-contrato"), cor("baixo-valor"), cor("parcerias"), cor("fora-politica"), cor("nao-classificado")],
+  risco: [cor("risco-baixo"), cor("risco-medio"), cor("risco-alto"), cor("risco-sem")],
+  fdp: cor("fora-politica"), bom: cor("status-bom"), critico: cor("status-critico"), atencao: cor("status-atencao"),
+  texto: cor("texto"), texto2: cor("texto-2"), texto3: cor("texto-3"),
+  borda: cor("borda"), grade: cor("grade"), sup: cor("superficie"), cinza: cor("baixo-valor")
+};
+const FONTE = css.getPropertyValue("--fonte").trim();
+
+/* ============================================================
+   3. Dados
+   ============================================================ */
+const DADOS = JSON.parse(document.getElementById("spend-data").textContent);
+const META = DADOS.meta, DIMS = DADOS.dims, FORN = DADOS.fornecedores;
+const TIPOS = { uint8: Uint8Array, uint16: Uint16Array, uint32: Uint32Array, int32: Int32Array, float32: Float32Array, float64: Float64Array };
+function decodificar(c) {
+  if (Array.isArray(c)) return c;
+  const bin = atob(c.b64), n = bin.length, u8 = new Uint8Array(n);
+  for (let i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
+  return new TIPOS[c.dtype](u8.buffer);
+}
+const t0 = performance.now();
+const COL = {};
+for (const k in DADOS.fato.colunas) COL[k] = decodificar(DADOS.fato.colunas[k]);
+const N = DADOS.fato.n_linhas;
+const TEM_END = !!COL.enderecavel;
+const HOJE = new Date(); HOJE.setHours(0, 0, 0, 0);
+const CTR = DADOS.contratos;
+const N_ANOS = CTR.anos.length;
+const CTR_ANO = decodificar(CTR.consumo_ano);
+const CTR_DIR = { c: decodificar(CTR.diretorias.contrato), d: decodificar(CTR.diretorias.diretoria), v: decodificar(CTR.diretorias.valor), v12: decodificar(CTR.diretorias.valor_12m) };
+const diasAte = d => d ? Math.round((new Date(d + "T00:00:00") - HOJE) / 864e5) : -99999;
+const CONTRATOS = [];
+for (let i = 1; i < DIMS.contrato.length; i++) {
+  CONTRATOS.push({ i, contrato: i, id: DIMS.contrato[i], descricao: CTR.descricao[i], fornecedor: CTR.fornecedor[i], data_fim: CTR.data_fim[i], dias: diasAte(CTR.data_fim[i]), spend_12m: CTR.consumo_12m[i],
+    gerencia: CTR.gerencia[i], categoria: CTR.categoria[i], sub1: CTR.sub1[i], sub2: CTR.sub2[i], sub3: CTR.sub3[i], diretoria: CTR.diretoria[i] });
+}
+function totalCtr(i) { const v = CTR.valor_contratado[i]; return v === null || v === undefined ? null : v + CTR.valor_aportes[i]; }
+function saldoCtr(i) { const t = totalCtr(i); return t === null ? null : t - CTR.consumido[i]; }
+function anosCtr(i) { return CTR.anos.map((a, k) => CTR_ANO[i * N_ANOS + k]); }
+function dirsCtr(i) { const out = []; for (let k = 0; k < CTR_DIR.c.length; k++) if (CTR_DIR.c[k] === i) out.push({ d: CTR_DIR.d[k], v: CTR_DIR.v[k], v12: CTR_DIR.v12[k] }); return out; }
+function aportesCtr(i) { const a = CTR.aportes, out = []; for (let k = 0; k < a.contrato.length; k++) if (a.contrato[k] === i) out.push({ data: a.data[k], valor: a.valor[k] }); return out; }
+
+const PAIS = DADOS.hierarquia || {};
+const PAI_DIM = { sub1: "categoria", sub2: "sub1", sub3: "sub2" };
+const SEM_CLASS = "Sem classificação";
+const DUP = {};
+["sub1", "sub2", "sub3"].forEach(k => { const c = {}; DIMS[k].forEach(n => { c[n] = (c[n] || 0) + 1; }); DUP[k] = c; });
+function contexto(key, i) {
+  if (!PAI_DIM[key] || DUP[key][DIMS[key][i]] < 2) return "";
+  let k = key, j = i;
+  while (PAI_DIM[k]) { j = PAIS[k][j]; k = PAI_DIM[k]; if (DIMS[k][j] !== SEM_CLASS) return DIMS[k][j]; }
+  return "";
+}
+function rotulo(key, i) {
+  if (key === "contrato") return i === 0 ? DIMS.contrato[0] : `${DIMS.contrato[i]} · ${CTR.descricao[i]}`;
+  const ctx = contexto(key, i);
+  return ctx ? `${DIMS[key][i]} (${ctx})` : DIMS[key][i];
+}
+const rotuloLink = (key, i) => key === "contrato" ? DIMS.contrato[i] : rotulo(key, i);
+function indicePorRotulo(key, txt) { for (let i = 0; i < DIMS[key].length; i++) if (rotuloLink(key, i) === txt) return i; return -1; }
+console.info("[painel] decodificação", N, "linhas em", Math.round(performance.now() - t0), "ms");
+
+/* ============================================================
+   4. Períodos
+   ============================================================ */
+const MESES = DIMS.mes;
+const U = MESES.indexOf(META.ultimo_mes);
+const MN = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const rotMes = p => { const [a, m] = p.split("-"); return MN[+m - 1] + "/" + a.slice(2); };
+const anoU = +META.ultimo_mes.slice(0, 4);
+const idxMes = s => MESES.indexOf(s);
+
+function opcoesPeriodo() {
+  const ops = [{ id: "12m", nome: "Últimos 12 meses" }];
+  if (+META.ultimo_mes.slice(5) < 12) ops.push({ id: "ytd", nome: `YTD ${anoU} (jan a ${MN[+META.ultimo_mes.slice(5) - 1]})` });
+  for (let a = anoU; a >= +MESES[0].slice(0, 4); a--) {
+    if (idxMes(a + "-01") >= 0 && idxMes(a + "-12") >= 0) ops.push({ id: String(a), nome: `Ano ${a}` });
+  }
+  return ops;
+}
+function faixa(id) {
+  let c0, c1;
+  if (id === "12m") { c1 = U; c0 = U - 11; }
+  else if (id === "ytd") { c1 = U; c0 = idxMes(anoU + "-01"); }
+  else { c0 = idxMes(id + "-01"); c1 = idxMes(id + "-12"); }
+  const p0 = c0 - 12, p1 = c1 - 12;
+  return { c0: Math.max(0, c0), c1, p0, p1, prevOk: p0 >= 0, rot: `${rotMes(MESES[Math.max(0, c0)])} a ${rotMes(MESES[c1])}`, rotP: p0 >= 0 ? `${rotMes(MESES[p0])} a ${rotMes(MESES[p1])}` : "" };
+}
+
+/* ============================================================
+   5. Estado
+   ============================================================ */
+const estado = {
+  sel: Object.fromEntries(FILTROS.map(f => [f.key, null])),
+  periodo: "12m", lente: "categoria", foco: null,
+  vista: "inicio", modo: "abas", escala: 1,
+  uni: null, his: null, F: faixa("12m")
+};
+
+/* ============================================================
+   6. Motor: filtros (máscara + disponibilidade) e cubo
+   ============================================================ */
+function travadoPeloFoco(key) { return estado.foco !== null && estado.lente === key; }
+
+function passar(comFoco) {
+  const cons = [];
+  FILTROS.forEach((f, pos) => {
+    if (travadoPeloFoco(f.key) && comFoco) return;
+    const s = estado.sel[f.key];
+    if (!s) return;
+    const l = new Uint8Array(DIMS[f.key].length);
+    s.forEach(c => { l[c] = 1; });
+    cons.push({ pos, lut: l, col: COL[f.key] });
+  });
+  if (comFoco && estado.foco !== null) {
+    const l = new Uint8Array(DIMS[estado.lente].length);
+    l[estado.foco] = 1;
+    cons.push({ pos: DIMS_DISP.indexOf(estado.lente), lut: l, col: COL[estado.lente] });
+  }
+  const k = cons.length, nd = DIMS_DISP.length;
+  const dcols = DIMS_DISP.map(d => COL[d]);
+  const disp = DIMS_DISP.map(d => new Uint8Array(DIMS[d].length));
+  const idx = new Uint32Array(N);
+  let m = 0;
+  for (let i = 0; i < N; i++) {
+    let falhas = 0, ult = -1;
+    for (let j = 0; j < k; j++) {
+      if (!cons[j].lut[cons[j].col[i]]) { falhas++; ult = j; if (falhas > 1) break; }
+    }
+    if (falhas === 0) { idx[m++] = i; for (let d = 0; d < nd; d++) disp[d][dcols[d][i]] = 1; }
+    else if (falhas === 1) { const d = cons[ult].pos; disp[d][dcols[d][i]] = 1; }
+  }
+  return { idx: idx.subarray(0, m), disp, luts: cons };
+}
+
+function cubo(pass) {
+  const F = estado.F, idx = pass.idx;
+  const nF = DIMS.fornecedor.length, nC = DIMS.categoria.length, nD = DIMS.diretoria.length, nK = DIMS.contrato.length;
+  const cM = COL.mes, cF = COL.fornecedor, cC = COL.categoria, cD = COL.diretoria, cS1 = COL.sub1, cS3 = COL.sub3;
+  const cSt = COL.status, cV = COL.valor, cN = COL.n_pagamentos, cE = COL.enderecavel, cK = COL.contrato;
+  const kys = FORN.kys, risco = FORN.risco;
+  const r = {
+    T: 0, N: 0, Tp: 0, base: 0, st: new Float64Array(5), mes: new Float64Array(MESES.length),
+    forn: new Float64Array(nF), fornP: new Float64Array(nF), fornSt: new Float64Array(nF * 5),
+    cat: new Float64Array(nC), catP: new Float64Array(nC), catFdp: new Float64Array(nC), catRisco: new Float64Array(nC),
+    dir: new Float64Array(nD), dirP: new Float64Array(nD), dirFdp: new Float64Array(nD), dirRisco: new Float64Array(nD),
+    sub1: new Float64Array(DIMS.sub1.length), sub3: new Float64Array(DIMS.sub3.length), sub3F: new Int32Array(DIMS.sub3.length).fill(-1),
+    kysV: new Float64Array(4), riscoV: new Float64Array(4),
+    ctr: new Float64Array(nK), ctrP: new Float64Array(nK),
+    catForn: new Float64Array(nC * nF), mesFdp: new Float64Array(MESES.length), mesBase: new Float64Array(MESES.length)
+  };
+  for (let j = 0, n = idx.length; j < n; j++) {
+    const i = idx[j], m = cM[i], v = cV[i];
+    r.mes[m] += v;
+    if (!cE || cE[i]) { r.mesBase[m] += v; if (cSt[i] === ST.FDP) r.mesFdp[m] += v; }
+    if (m >= F.c0 && m <= F.c1) {
+      const f = cF[i], c = cC[i], d = cD[i], s = cSt[i], s3 = cS3[i];
+      r.T += v; r.N += cN[i]; r.ctr[cK[i]] += v;
+      if (!cE || cE[i]) { r.base += v; r.st[s] += v; }
+      r.forn[f] += v; r.fornSt[f * 5 + s] += v;
+      r.cat[c] += v; r.dir[d] += v; r.sub1[cS1[i]] += v; r.sub3[s3] += v; r.catForn[c * nF + f] += v;
+      const sf = r.sub3F[s3]; if (sf === -1) r.sub3F[s3] = f; else if (sf !== f) r.sub3F[s3] = -2;
+      if (s === ST.FDP) { r.catFdp[c] += v; r.dirFdp[d] += v; }
+      r.kysV[kys[f]] += v; r.riscoV[risco[f]] += v;
+      if (kys[f] === KYS_NEG || risco[f] === RISCO_ALTO) { r.catRisco[c] += v; r.dirRisco[d] += v; }
+    } else if (F.prevOk && m >= F.p0 && m <= F.p1) {
+      r.Tp += v; r.fornP[cF[i]] += v; r.ctrP[cK[i]] += v; r.catP[cC[i]] += v; r.dirP[cD[i]] += v;
+    }
+  }
+  r.fornFdp = Float64Array.from({ length: nF }, (_, f) => r.fornSt[f * 5 + ST.FDP]);
+  r.fornRisco = Float64Array.from({ length: nF }, (_, f) => (kys[f] === KYS_NEG || risco[f] === RISCO_ALTO) ? r.forn[f] : 0);
+  r.contratos = contratosDe(pass);
+  return r;
+}
+
+function contratosDe(pass) {
+  const luts = pass.luts.map(c => ({ key: DIMS_DISP[c.pos], lut: c.lut }));
+  return CONTRATOS.filter(c => luts.every(l => l.lut[c[l.key]]));
+}
+
+function aplicar() {
+  const t = performance.now();
+  estado.F = faixa(estado.periodo);
+  const pu = passar(false);
+  estado.uni = cubo(pu);
+  estado.uniPass = pu;
+  if (estado.foco !== null) { const ph = passar(true); estado.his = cubo(ph); estado.hisPass = ph; }
+  else { estado.his = estado.uni; estado.hisPass = pu; }
+  console.info("[painel] cálculo em", Math.round(performance.now() - t), "ms");
+}
+
+/* ============================================================
+   7. Formatação pt-BR
+   ============================================================ */
+const nf0 = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+function brl(v) {
+  const a = Math.abs(v);
+  if (a >= 1e9) return "R$ " + nf1.format(v / 1e9) + " bi";
+  if (a >= 1e6) return "R$ " + nf1.format(v / 1e6) + " mi";
+  if (a >= 1e3) return "R$ " + nf0.format(v / 1e3) + " mil";
+  return "R$ " + nf0.format(v);
+}
+const pct = (v, d = 1) => isFinite(v) ? new Intl.NumberFormat("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d }).format(v * 100) + "%" : "-";
+const sinal = (v, d = 1) => isFinite(v) ? (v > 0 ? "+" : "") + pct(v, d) : "-";
+const pp = v => (v > 0 ? "+" : "") + nf1.format(v * 100) + " p.p.";
+const dataBR = s => s ? s.split("-").reverse().join("/") : "";
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const soma = a => { let s = 0; for (let i = 0; i < a.length; i++) s += a[i]; return s; };
+const ativos = a => { let n = 0; for (let i = 0; i < a.length; i++) if (a[i] > 0) n++; return n; };
+const var_ = (a, b) => b > 0 ? a / b - 1 : NaN;
+
+function ranking(vetor, n) {
+  const out = [];
+  for (let i = 0; i < vetor.length; i++) if (vetor[i] > 0) out.push(i);
+  out.sort((a, b) => vetor[b] - vetor[a]);
+  return n ? out.slice(0, n) : out;
+}
+function paraN(vetor, alvo) {
+  const ord = ranking(vetor), tot = soma(vetor);
+  let acc = 0, n = 0;
+  for (const i of ord) { acc += vetor[i]; n++; if (acc >= tot * alvo) break; }
+  return { n, base: ord.length };
+}
+
+/* ============================================================
+   8. Biblioteca de gráficos (ECharts)
+   ============================================================ */
+const fs = n => Math.round(n * estado.escala);
+function tooltipHtml(titulo, linhas) {
+  const l = linhas.map(x =>
+    `<div style="display:flex;align-items:center;gap:8px;margin-top:4px">` +
+    (x.cor ? `<span style="width:10px;height:10px;border-radius:3px;background:${x.cor};flex:none"></span>` : "") +
+    `<span style="color:${C.texto2};flex:1">${esc(x.rotulo)}</span>` +
+    `<b style="color:${C.texto};font-variant-numeric:tabular-nums;margin-left:16px">${x.valor}</b></div>`).join("");
+  return `<div style="font-weight:700;color:${C.texto};max-width:340px;white-space:normal">${esc(titulo)}</div>${l}`;
+}
+function base(extra) {
+  return Object.assign({
+    animationDuration: 350,
+    textStyle: { fontFamily: FONTE, fontSize: fs(12), color: C.texto2 },
+    tooltip: {
+      trigger: "item", confine: true, backgroundColor: C.sup, borderColor: C.borda, borderWidth: 1,
+      padding: [10, 12], textStyle: { color: C.texto, fontSize: fs(12), fontFamily: FONTE },
+      extraCssText: "box-shadow:0 8px 24px rgba(0,13,60,.14);border-radius:8px;"
+    }
+  }, extra);
+}
+const tip = f => Object.assign({}, base().tooltip, { formatter: f });
+function eixoValor(nome, extra) {
+  return Object.assign({
+    type: "value", name: nome, nameLocation: "end", nameGap: 10,
+    nameTextStyle: { color: C.texto3, fontSize: fs(11), align: "left" },
+    axisLabel: { color: C.texto3, fontSize: fs(11) },
+    splitLine: { lineStyle: { color: C.grade } }, axisLine: { show: false }, axisTick: { show: false }
+  }, extra);
+}
+const unidade = max => max >= 1e6 ? { d: 1e6, n: "R$ mi" } : { d: 1e3, n: "R$ mil" };
+const fmtEixo = u => v => nf1.format(v / u.d).replace(",0", "");
+const eixoMiH = (max = 1e6) => { const u = unidade(max); return eixoValor(u.n, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
+const eixoValorV = max => { const u = unidade(max); return eixoValor(u.n, { axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
+const eixoPctH = () => eixoValor("% do gasto", { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => pct(v, 0) } });
+function eixoCat(dados, extra) {
+  return Object.assign({ type: "category", data: dados, axisLabel: { color: C.texto2, fontSize: fs(11.5) }, axisLine: { lineStyle: { color: C.borda } }, axisTick: { show: false } }, extra);
+}
+const gradeH = (w, extra) => Object.assign({ left: fs(w) + 14, right: fs(96), top: 8, bottom: fs(44), containLabel: false }, extra);
+const rotY = w => ({ color: C.texto2, fontSize: fs(11.5), width: fs(w), overflow: "truncate" });
+
+const instancias = new Map();
+function desenhar(id, opcao) {
+  const alvo = document.getElementById(id);
+  if (!alvo) return;
+  let ch = instancias.get(id);
+  if (!ch || ch.isDisposed() || ch.getDom() !== alvo) {
+    if (ch && !ch.isDisposed()) ch.dispose();
+    alvo.innerHTML = "";
+    ch = echarts.init(alvo, null, { renderer: "canvas" });
+    instancias.set(id, ch);
+  }
+  ch.setOption(opcao, true);
+}
+function vazio(id, msg) {
+  const ch = instancias.get(id);
+  if (ch && !ch.isDisposed()) ch.dispose();
+  instancias.delete(id);
+  const el = document.getElementById(id);
+  if (el) el.innerHTML = `<div class="vazio">${msg || "Sem dados para o recorte selecionado"}</div>`;
+}
+function limparOrfaos() {
+  instancias.forEach((ch, id) => { if (!ch.isDisposed() && !document.body.contains(ch.getDom())) { ch.dispose(); instancias.delete(id); } });
+}
+function redimensionar() {
+  instancias.forEach(ch => { if (!ch.isDisposed() && ch.getDom().offsetParent !== null) ch.resize(); });
+}
+
+function barrasH(id, itens, opc) {
+  opc = opc || {};
+  if (!itens.length) return vazio(id);
+  const w = opc.larguraRotulo || 220;
+  const inv = itens.slice().reverse();
+  desenhar(id, base({
+    grid: gradeH(w),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [{ cor: x.cor || opc.cor || C.serie, rotulo: opc.rotulo || "Spend", valor: opc.qtd ? nf0.format(x.valor) : brl(x.valor) }].concat(x.extra || [])); }),
+    xAxis: opc.qtd ? eixoValor(opc.qtd, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, minInterval: 1, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => nf0.format(v) } }) : eixoMiH(Math.max(...inv.map(x => x.valor))),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(w) }),
+    series: [{
+      type: "bar", data: inv.map(x => ({ value: x.valor, itemStyle: x.cor ? { color: x.cor } : undefined })), barMaxWidth: 20, barCategoryGap: "32%",
+      itemStyle: { color: opc.cor || C.serie, borderRadius: [0, 4, 4, 0] },
+      label: { show: true, position: "right", color: C.texto2, fontSize: fs(11), formatter: p => inv[p.dataIndex].rotulo || (opc.qtd ? nf0.format(p.value) : brl(p.value)) }
+    }]
+  }));
+}
+
+function barra100(id, partes, total, opc) {
+  opc = opc || {};
+  const vis = partes.filter(p => p.valor > 0);
+  if (!total || !vis.length) return vazio(id);
+  desenhar(id, base({
+    grid: { left: 8, right: 8, top: fs(34), bottom: 8, containLabel: false },
+    legend: { top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 12, itemGap: 16, textStyle: { color: C.texto2, fontSize: fs(12) } },
+    tooltip: tip(p => tooltipHtml(p.seriesName, [{ cor: p.color, rotulo: opc.rotulo || "Spend", valor: brl(p.value * total) }, { rotulo: "Participação", valor: pct(p.value) }])),
+    xAxis: { type: "value", max: 1, show: false },
+    yAxis: { type: "category", data: [""], show: false },
+    series: vis.map(p => ({
+      name: p.nome, type: "bar", stack: "t", data: [p.valor / total], barWidth: "62%",
+      itemStyle: { color: p.cor, borderColor: C.sup, borderWidth: 2 },
+      label: { show: p.valor / total >= 0.06, position: "inside", color: p.claro ? C.texto : "#fff", fontSize: fs(12), fontWeight: 600, formatter: () => pct(p.valor / total, 0) }
+    }))
+  }));
+}
+
+function halteres(id, itens, opc) {
+  opc = opc || {};
+  if (!itens.length) return vazio(id, "Sem período anterior para comparar");
+  const w = opc.larguraRotulo || 220;
+  const inv = itens.slice().reverse();
+  desenhar(id, base({
+    grid: gradeH(w, { right: fs(90) }),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [
+      { cor: C.cinza, rotulo: "Share período anterior", valor: pct(x.a) },
+      { cor: x.b >= x.a ? C.serie : C.fdp, rotulo: "Share período atual", valor: pct(x.b) },
+      { rotulo: "Variação", valor: pp(x.b - x.a) }]); }),
+    xAxis: eixoPctH(),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(w) }),
+    series: [{
+      type: "custom", encode: { x: [1, 2], y: 0 },
+      data: inv.map((x, i) => [i, x.a, x.b]),
+      renderItem: (params, api) => {
+        const i = api.value(0), a = api.value(1), b = api.value(2);
+        const pa = api.coord([a, i]), pb = api.coord([b, i]);
+        const c = b >= a ? C.serie : C.fdp;
+        return { type: "group", children: [
+          { type: "line", shape: { x1: pa[0], y1: pa[1], x2: pb[0], y2: pb[1] }, style: { stroke: c, lineWidth: 3, opacity: .3 } },
+          { type: "circle", shape: { cx: pa[0], cy: pa[1], r: fs(5) }, style: { fill: "#fff", stroke: C.cinza, lineWidth: 2 } },
+          { type: "circle", shape: { cx: pb[0], cy: pb[1], r: fs(6) }, style: { fill: c, stroke: "#fff", lineWidth: 1.5 } },
+          { type: "text", style: { text: pp(b - a), x: Math.max(pa[0], pb[0]) + fs(12), y: pb[1], fill: C.texto2, font: `${fs(11)}px ${FONTE}`, verticalAlign: "middle" } }
+        ] };
+      }
+    }]
+  }));
+}
+
+function evolucao(id, r) {
+  const F = estado.F;
+  const ini = Math.max(0, Math.min(F.prevOk ? F.p0 : F.c0, U - 35));
+  const dados = MESES.slice(ini).map((m, k) => { const i = ini + k; return { m, v: r.mes[i], tipo: i >= F.c0 && i <= F.c1 ? "atual" : (F.prevOk && i >= F.p0 && i <= F.p1 ? "anterior" : "fora") }; });
+  if (!soma(r.mes)) return vazio(id);
+  const corDe = { atual: C.atual, anterior: C.anterior, fora: C.fora };
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: 30, bottom: 8, containLabel: true },
+    tooltip: Object.assign(tip(ps => { const x = dados[ps[0].dataIndex]; return tooltipHtml(rotMes(x.m), [{ cor: corDe[x.tipo], rotulo: x.tipo === "atual" ? "Período selecionado" : x.tipo === "anterior" ? "Período de comparação" : "Fora da comparação", valor: brl(x.v) }]); }), { trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(0,13,60,.05)" } } }),
+    xAxis: eixoCat(dados.map(x => rotMes(x.m)), { axisLabel: { color: C.texto3, fontSize: fs(11), hideOverlap: true } }),
+    yAxis: eixoValorV(Math.max(...dados.map(x => x.v))),
+    series: [{ type: "bar", barCategoryGap: "22%", data: dados.map(x => ({ value: x.v, itemStyle: { color: corDe[x.tipo], borderRadius: [3, 3, 0, 0] } })) }]
+  }));
+}
+
+function colunasAno(id, anos, vals) {
+  if (!vals.some(v => v > 0)) return vazio(id);
+  const rot = anos.map(a => a === anoU && +META.ultimo_mes.slice(5) < 12 ? `${a} (YTD)` : String(a));
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: 30, bottom: 8, containLabel: true },
+    tooltip: tip(p => tooltipHtml(rot[p.dataIndex], [{ cor: C.serie2, rotulo: "Consumo no ano", valor: brl(p.value) }])),
+    xAxis: eixoCat(rot),
+    yAxis: eixoValorV(Math.max(...vals)),
+    series: [{ type: "bar", barMaxWidth: 56, data: vals, itemStyle: { color: C.serie2, borderRadius: [4, 4, 0, 0] },
+      label: { show: true, position: "top", color: C.texto2, fontSize: fs(11), fontWeight: 600, formatter: p => p.value ? brl(p.value) : "" } }]
+  }));
+}
+
+/* ============================================================
+   9. Componentes HTML
+   ============================================================ */
+const ICONE_OK = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6.2l2.2 2.2 4.8-4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICONE_ALERTA = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2.5v4.2M6 9.2v.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+function kpi(k) {
+  const st = k.status ? `<div class="status" data-status="${k.status}">${k.status === "bom" ? ICONE_OK : ICONE_ALERTA}${esc(k.statusTexto)}</div>` : "";
+  return `<div class="kpi" data-tom="${k.tom || ""}"><div class="kpi-rotulo">${esc(k.rotulo)}</div><div class="kpi-valor">${k.valor}</div><div class="kpi-sub">${k.sub || ""}</div>${st}</div>`;
+}
+function meta(valor, alvo, maior) {
+  if (!isFinite(valor)) return {};
+  const ok = maior ? valor >= alvo : valor <= alvo;
+  return { tom: ok ? "bom" : "alerta", status: ok ? "bom" : "alerta", statusTexto: ok ? "Dentro da meta" : (maior ? "Abaixo da meta" : "Acima da meta") };
+}
+function cartao(o) {
+  const corpo = o.corpo !== undefined ? o.corpo : `<div class="grafico ${o.altura || ""}" id="${o.id}"></div>`;
+  return `<div class="cartao ${o.largo ? "largo" : ""}">${o.pergunta ? `<div class="pergunta">${esc(o.pergunta)}</div>` : ""}<h3>${o.titulo}</h3>${o.desc ? `<p class="desc">${o.desc}</p>` : ""}${corpo}</div>`;
+}
+const legStatus = () => DIMS.status.map((s, i) => `<span class="legenda-mini"><i style="background:${C.status[i]}"></i>${esc(s)}</span>`).join("");
+function nivelDias(d) { return d <= 30 ? "critico" : d <= 90 ? "atencao" : "monitorar"; }
+function nomeItem(lente, i) { return rotulo(lente, i); }
+function periodoTxt() { const F = estado.F; return `${nomePeriodo()} · ${F.rot}`; }
+function compTxt() { return estado.F.prevOk ? `vs ${estado.F.rotP}` : "sem período anterior na base"; }
+function nomePeriodo() { return opcoesPeriodo().find(o => o.id === estado.periodo).nome; }
+function baseTxt() { return TEM_END ? "sobre o spend endereçável" : "sobre o spend total"; }
+function focoNome() { return estado.foco === null ? LENTES[estado.lente].todos : nomeItem(estado.lente, estado.foco); }
+function linhasTabela(linhas, vazioTxt, cols) {
+  return linhas.length ? linhas.join("") : `<tr><td colspan="${cols}" style="text-align:center;padding:24px">${vazioTxt}</td></tr>`;
+}
+function tabela(cab, linhas, vazioTxt) {
+  return `<div class="tabela-caixa"><table><thead><tr>${cab.map(c => `<th class="${c.cls || ""}">${c.t}</th>`).join("")}</tr></thead><tbody>${linhasTabela(linhas, vazioTxt || "Nada a mostrar no recorte selecionado", cab.length)}</tbody></table></div>`;
+}
+
+/* ============================================================
+   9b. Componentes compartilhados (contrato, sinais, controles, link e fonte)
+   ============================================================ */
+let fila = [];
+const ctrls = {};
+
+function contratoUnico() {
+  if (estado.lente === "contrato" && estado.foco) return estado.foco;
+  const s = estado.sel.contrato;
+  if (s && s.size === 1) { const v = s.values().next().value; if (v !== 0) return v; }
+  return null;
+}
+
+function fornecedorFoco() {
+  if (estado.lente === "fornecedor" && estado.foco !== null) return estado.foco;
+  const cu = contratoUnico();
+  return cu !== null ? CTR.fornecedor[cu] : null;
+}
+
+function venceTxt(i) {
+  const d = diasAte(CTR.data_fim[i]);
+  if (!CTR.data_fim[i]) return "vencimento não informado";
+  return d < 0 ? `vencido em ${dataBR(CTR.data_fim[i])}` : `vence em ${d} dias (${dataBR(CTR.data_fim[i])})`;
+}
+
+function seloVence(i) {
+  const d = diasAte(CTR.data_fim[i]);
+  if (!CTR.data_fim[i]) return "-";
+  if (d < 0) return `<span class="selo" data-nivel="neutro">vencido</span>`;
+  return d <= META.janela_vencimento_dias ? `<span class="selo" data-nivel="${nivelDias(d)}">${d} d</span>` : dataBR(CTR.data_fim[i]);
+}
+
+function ritmoCtr(i) {
+  const s = saldoCtr(i), ritmo = CTR.consumo_12m[i] / 12, d = diasAte(CTR.data_fim[i]);
+  if (s === null || s <= 0 || ritmo <= 0 || d <= 0) return null;
+  const mesesSaldo = s / ritmo, mesesVenc = d / 30.4;
+  return mesesSaldo < mesesVenc ? { meses: Math.max(1, Math.round(mesesSaldo)), ritmo } : null;
+}
+
+function fichaContrato(i) {
+  const M = META.metas, t = totalCtr(i), sd = saldoCtr(i), cons = CTR.consumido[i], vc = CTR.valor_contratado[i];
+  const f = CTR.fornecedor[i], pc = t ? cons / t : NaN, parcial = CTR.inicio_antes_base[i] === 1;
+  const c12 = CTR.consumo_12m[i], rt = ritmoCtr(i), aps = aportesCtr(i);
+  const anos = anosCtr(i), dirs = dirsCtr(i);
+  const usa12 = dirs.some(x => x.v12 > 0);
+  const dv = dirs.map(x => ({ d: x.d, v: usa12 ? x.v12 : x.v })).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+  const totDir = dv.reduce((s, x) => s + x.v, 0);
+  const esteira = ["Não", "Sim", "Não informado"][CTR.esteira[i]];
+  const inicioBase = rotMes(META.inicio_base.slice(0, 7));
+  let alerta = "";
+  if (sd !== null && sd < 0) alerta = `Consumo de ${brl(-sd)} acima do valor contratado + aportes`;
+  else if (rt) alerta = `No ritmo dos últimos 12 meses (${brl(rt.ritmo)} por mês), o saldo acaba em cerca de ${rt.meses} ${rt.meses > 1 ? "meses" : "mês"}, antes do vencimento em ${dataBR(CTR.data_fim[i])}`;
+  const tConsumo = t === null ? `${brl(cons)} pagos desde ${inicioBase} - valor contratado não informado` : sd < 0 ? `Contrato estourado: ${pct(pc, 0)} do valor já consumido` : `${pct(pc, 0)} do valor já consumido - saldo de ${brl(sd)}`;
+  const maxAno = anos.indexOf(Math.max(...anos));
+  const partes = t === null ? [] : sd >= 0
+    ? [{ nome: "Consumido", valor: cons, cor: C.serie2 }, { nome: "Saldo", valor: sd, cor: C.cinza, claro: true }]
+    : [{ nome: "Contratado + aportes", valor: t, cor: C.serie2 }, { nome: "Excedente", valor: -sd, cor: C.critico }];
+
+  fila.push(() => partes.length ? barra100("g-ficha-consumo", partes, Math.max(t, cons)) : vazio("g-ficha-consumo", "Valor contratado não informado na base"));
+  fila.push(() => colunasAno("g-ficha-anos", CTR.anos, anos));
+  fila.push(() => barrasH("g-ficha-dirs", dv.slice(0, 10).map(x => ({ nome: DIMS.diretoria[x.d], valor: x.v, rotulo: `${brl(x.v)} · ${pct(x.v / totDir, 0)}` }))));
+
+  return `<div class="capitulo ficha" id="sec-ficha"><div class="cap-cab"><span class="cap-num">C</span><h2>Ficha do contrato ${esc(DIMS.contrato[i])}</h2></div>` +
+    `<p class="cap-sub">${esc(CTR.descricao[i])} · Fornecedor <b>${esc(DIMS.fornecedor[f])}</b> · Esteira expressa: <b>${esteira}</b> · ${esc(venceTxt(i))} · <i>visão total do contrato, independente dos filtros</i></p>` +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Valor contratado", valor: vc === null ? "Não informado" : brl(vc), sub: `vigência ${dataBR(CTR.data_inicio[i]) || "?"} a ${dataBR(CTR.data_fim[i]) || "?"}` }) +
+    kpi({ rotulo: "Aportes", valor: nf0.format(CTR.n_aportes[i]), sub: CTR.n_aportes[i] ? `${brl(CTR.valor_aportes[i])} adicionados ao contrato` : "nenhum aporte registrado" }) +
+    kpi({ rotulo: "Consumido", valor: brl(cons), sub: parcial ? `desde ${inicioBase} · contrato iniciado em ${dataBR(CTR.data_inicio[i])}, antes do início da base: consumo parcial` : "desde o início do contrato" }) +
+    kpi(Object.assign({ rotulo: "Saldo", valor: sd === null ? "-" : brl(sd), sub: t ? `${pct(Math.max(0, 1 - pc), 0)} do valor contratado + aportes` : "" },
+      t ? (sd / t < M.saldo_alerta ? { tom: "alerta", status: "alerta", statusTexto: sd < 0 ? "Estourado" : `Abaixo de ${pct(M.saldo_alerta, 0)}` } : { tom: "bom", status: "bom", statusTexto: "Saldo confortável" }) : {})) +
+    kpi({ rotulo: "Consumo últimos 12 meses", tom: "destaque", valor: brl(c12), sub: `média de ${brl(c12 / 12)} por mês` }) +
+    `</div>` + (alerta ? `<div class="acao" style="margin-bottom:16px"><b>Atenção:</b> ${esc(alerta)}</div>` : "") +
+    `<div class="grade">` +
+    cartao({ id: "g-ficha-consumo", altura: "baixo", pergunta: "Quanto já foi consumido?", titulo: tConsumo, desc: `Valor contratado + aportes vs pagamentos desde ${parcial ? inicioBase : "o início do contrato"}` }) +
+    cartao({ id: "g-ficha-anos", pergunta: "Como foi o consumo em cada ano?", titulo: anos.some(v => v > 0) ? `Maior consumo em ${CTR.anos[maxAno]}: ${brl(anos[maxAno])}` : "Sem pagamentos na base", desc: `Pagamentos por ano desde ${inicioBase} · valores em R$` }) +
+    cartao({ id: "g-ficha-dirs", altura: "alto", pergunta: "Quais áreas estão pagando?", titulo: dv.length ? `${esc(DIMS.diretoria[dv[0].d])} responde por ${pct(dv[0].v / totDir, 0)} dos pagamentos` : "Sem pagamentos na base", desc: `${usa12 ? "Últimos 12 meses" : `Desde ${inicioBase} (sem pagamentos nos últimos 12 meses)`} · valores em R$` }) +
+    cartao({ pergunta: "Quantos aportes o contrato recebeu?", titulo: aps.length ? `${aps.length} aporte${aps.length > 1 ? "s somam" : " soma"} ${brl(CTR.valor_aportes[i])}` : "Nenhum aporte registrado", desc: "Aditivos que aumentaram o valor do contrato",
+      corpo: aps.length ? tabela([{ t: "Data" }, { t: "Valor", cls: "num" }], aps.map(a => `<tr><td>${dataBR(a.data)}</td><td class="num forte">${brl(a.valor)}</td></tr>`)) : `<div class="vazio">O contrato segue com o valor original</div>` }) +
+    `</div></div>`;
+}
+
+const TIPOS_SINAL = {
+  venc: { nome: "Vencimento", cor: "#FF9C00", ic: "⏱" },
+  fdp: { nome: "Fora da Política", cor: "#FF6200", ic: "!" },
+  kys: { nome: "KYS negado", cor: "#D93A00", ic: "K" },
+  risco: { nome: "Risco alto", cor: "#A82D00", ic: "R" },
+  unico: { nome: "Fornecedor único", cor: "#001FBD", ic: "1" },
+  saldo: { nome: "Saldo de contrato", cor: "#000D3C", ic: "$" }
+};
+
+let filtroSinal = "todos";
+
+function sinais() {
+  const r = estado.his, out = [];
+  r.contratos.filter(c => c.dias >= 0 && c.dias <= META.janela_vencimento_dias).forEach(c =>
+    out.push({ tipo: "venc", valor: c.spend_12m, texto: `Contrato ${c.id} com ${DIMS.fornecedor[c.fornecedor]} vence em ${c.dias} dias`, det: `${c.descricao} · vencimento ${dataBR(c.data_fim)} · valor = spend dos últimos 12 meses` }));
+  ranking(r.fornFdp, 10).forEach(f => out.push({ tipo: "fdp", valor: r.fornFdp[f], texto: `${DIMS.fornecedor[f]} recebeu ${brl(r.fornFdp[f])} Fora da Política`, det: "Candidato a contratação ou regularização" }));
+  ranking(r.forn).forEach(f => {
+    if (FORN.kys[f] === KYS_NEG) out.push({ tipo: "kys", valor: r.forn[f], texto: `${DIMS.fornecedor[f]} está com KYS negado e recebeu ${brl(r.forn[f])}`, det: "Avaliar continuidade e alternativa de fornecimento" });
+    if (FORN.risco[f] === RISCO_ALTO) out.push({ tipo: "risco", valor: r.forn[f], texto: `${DIMS.fornecedor[f]} tem risco financeiro alto e recebeu ${brl(r.forn[f])}`, det: "Avaliar plano de contingência" });
+  });
+  for (let s = 0; s < r.sub3.length; s++) if (r.sub3F[s] >= 0 && r.sub3[s] >= MIN_UNICO)
+    out.push({ tipo: "unico", valor: r.sub3[s], texto: `${rotulo("sub3", s)} depende só de ${DIMS.fornecedor[r.sub3F[s]]}`, det: "Oportunidade de qualificar um segundo fornecedor" });
+  const aS = META.metas.saldo_alerta;
+  r.contratos.forEach(c => {
+    const i = c.i, t = totalCtr(i), sd = saldoCtr(i);
+    if (t === null || !CTR.consumido[i] || c.dias < 0) return;
+    const forn = DIMS.fornecedor[c.fornecedor], rt = ritmoCtr(i);
+    if (sd < 0) out.push({ tipo: "saldo", valor: -sd, texto: `Contrato ${c.id} com ${forn} consumiu ${brl(-sd)} acima do contratado`, det: "Formalizar aditivo ou revisar o contrato" });
+    else if (sd / t < aS) out.push({ tipo: "saldo", valor: c.spend_12m || sd, texto: `Contrato ${c.id} com ${forn} tem saldo de apenas ${brl(sd)} (${pct(sd / t, 0)})`, det: "Planejar aditivo ou nova contratação · valor = consumo dos últimos 12 meses" });
+    else if (rt) out.push({ tipo: "saldo", valor: c.spend_12m, texto: `No ritmo atual, o saldo do contrato ${c.id} com ${forn} acaba em cerca de ${rt.meses} ${rt.meses > 1 ? "meses" : "mês"}`, det: `Antes do vencimento em ${dataBR(c.data_fim)} · valor = consumo dos últimos 12 meses` });
+  });
+  return out.sort((a, b) => b.valor - a.valor);
+}
+
+function dropdown(cfg) {
+  const wrap = document.createElement("div");
+  wrap.className = "filtro " + (cfg.cls || "");
+  const id = "flt-" + cfg.key;
+  wrap.innerHTML =
+    (cfg.rotulo ? `<label for="${id}">${esc(cfg.rotulo)}</label>` : "") +
+    `<button type="button" class="filtro-botao" id="${id}" aria-haspopup="listbox" aria-expanded="false"><span class="valor">Todos</span><span class="seta"></span></button>` +
+    `<div class="painel-filtro" hidden>${cfg.busca !== false ? `<input type="search" placeholder="Pesquisar ${esc((cfg.rotulo || cfg.placeholder || "").toLowerCase())}..." aria-label="Pesquisar">` : ""}` +
+    `<div class="opcoes" role="listbox" ${cfg.multi ? 'aria-multiselectable="true"' : ""}></div><div class="opcoes-nota"></div>` +
+    (cfg.multi ? `<div class="painel-rodape"><button type="button" class="btn" data-acao="limpar">Limpar</button><button type="button" class="btn btn-primario" data-acao="aplicar">Aplicar</button></div>` : "") + `</div>`;
+  const botao = wrap.querySelector(".filtro-botao"), painel = wrap.querySelector(".painel-filtro");
+  const busca = painel.querySelector("input"), lista = painel.querySelector(".opcoes"), nota = painel.querySelector(".opcoes-nota");
+  let rascunho = null;
+
+  function desenhar() {
+    const termo = busca ? busca.value.trim().toLowerCase() : "";
+    const { itens, ocultas, todosRot } = cfg.opcoes(termo, rascunho);
+    const vis = itens.filter(x => !x.grupo).map(x => x.v);
+    let h = "";
+    if (cfg.multi) {
+      const marcadoTodos = termo ? (rascunho && vis.length && vis.every(i => rascunho.has(i))) : !rascunho;
+      h += `<label class="opcao todos"><input type="checkbox" data-todos ${marcadoTodos ? "checked" : ""}><span class="rot">${termo ? "Selecionar resultados da busca" : "Todos"}</span></label>`;
+    } else if (todosRot) {
+      h += `<label class="opcao todos ${cfg.valor() === null ? "marcada" : ""}"><input type="radio" name="${id}" value="" ${cfg.valor() === null ? "checked" : ""}><span class="rot">${esc(todosRot)}</span></label>`;
+    }
+    h += itens.slice(0, 400).map(x => x.grupo ? `<div class="opcao grupo">${esc(x.grupo)}</div>` :
+      `<label class="opcao ${!cfg.multi && cfg.valor() === x.v ? "marcada" : ""}"><input type="${cfg.multi ? "checkbox" : "radio"}" name="${id}" value="${x.v}" ${cfg.multi ? (rascunho && rascunho.has(x.v) ? "checked" : "") : (cfg.valor() === x.v ? "checked" : "")}><span class="rot">${esc(x.nome)}</span>${x.extra ? `<span class="extra">${x.extra}</span>` : ""}</label>`).join("");
+    lista.innerHTML = h;
+    lista.dataset.vis = vis.join(",");
+    const extra = itens.length > 400 ? `Mostrando 400 de ${itens.length} - refine a busca. ` : "";
+    nota.textContent = extra + (ocultas ? `${ocultas} opç${ocultas > 1 ? "ões ocultas" : "ão oculta"} pelos demais filtros` : "");
+  }
+  function abrir() {
+    if (cfg.travado && cfg.travado()) return;
+    Object.values(ctrls).forEach(c => { if (c !== ctrl) c.fechar(false); });
+    if (cfg.multi) rascunho = cfg.valor() ? new Set(cfg.valor()) : null;
+    if (busca) busca.value = "";
+    desenhar();
+    painel.hidden = false;
+    botao.setAttribute("aria-expanded", "true");
+    if (busca) busca.focus();
+  }
+  function fechar(aplicar) {
+    if (painel.hidden) return;
+    painel.hidden = true;
+    botao.setAttribute("aria-expanded", "false");
+    if (aplicar && cfg.multi) cfg.definir(rascunho && rascunho.size ? rascunho : null);
+  }
+  lista.addEventListener("change", e => {
+    const el = e.target;
+    if (!cfg.multi) { fechar(false); cfg.definir(el.value === "" ? null : Number(el.value)); return; }
+    if (el.hasAttribute("data-todos")) {
+      const vis = lista.dataset.vis ? lista.dataset.vis.split(",").map(Number) : [];
+      rascunho = busca && busca.value.trim() && el.checked ? new Set([...(rascunho || []), ...vis]) : null;
+    } else {
+      const v = Number(el.value);
+      rascunho = rascunho || new Set();
+      if (el.checked) rascunho.add(v); else rascunho.delete(v);
+      if (!rascunho.size) rascunho = null;
+    }
+    desenhar();
+  });
+  if (busca) {
+    busca.addEventListener("input", desenhar);
+    busca.addEventListener("keydown", e => { if (e.key === "Enter") fechar(true); });
+  }
+  botao.addEventListener("click", () => painel.hidden ? abrir() : fechar(true));
+  painel.addEventListener("click", e => {
+    const a = e.target.dataset.acao;
+    if (a === "limpar") { rascunho = null; desenhar(); }
+    if (a === "aplicar") fechar(true);
+  });
+  const ctrl = {
+    fechar, contem: n => wrap.contains(n),
+    atualizar() {
+      const trav = cfg.travado && cfg.travado();
+      botao.querySelector(".valor").textContent = cfg.rotuloBotao();
+      botao.title = cfg.titulo ? cfg.titulo() : cfg.rotuloBotao();
+      wrap.classList.toggle("ativo", !trav && cfg.ativo());
+      wrap.classList.toggle("travado", !!trav);
+    }
+  };
+  ctrls[cfg.key] = ctrl;
+  return wrap;
+}
+
+function opcoesDim(key, dispPos, termo, rascunho, ordenarPor) {
+  const disp = estado[ordenarPor ? "uniPass" : "hisPass"].disp[dispPos];
+  const n = DIMS[key].length;
+  let ocultas = 0;
+  const itens = [];
+  for (let i = 0; i < n; i++) {
+    const marc = rascunho && rascunho.has && rascunho.has(i);
+    if (ordenarPor && key === "contrato" && i === 0) continue;
+    if (ordenarPor ? !(ordenarPor[i] > 0) : (!disp[i] && !marc)) { ocultas++; continue; }
+    if (termo && rotulo(key, i).toLowerCase().indexOf(termo) < 0 && !(key === "contrato" && DIMS.fornecedor[CTR.fornecedor[i]].toLowerCase().indexOf(termo) >= 0)) continue;
+    itens.push(i);
+  }
+  if (ordenarPor) itens.sort((a, b) => ordenarPor[b] - ordenarPor[a]);
+  else itens.sort((a, b) => rotulo(key, a).localeCompare(rotulo(key, b), "pt-BR"));
+  const nomeOpc = i => key === "contrato" ? rotulo(key, i) : DIMS[key][i];
+  const extra = i => ordenarPor ? brl(ordenarPor[i]) : key === "contrato" && i ? esc(DIMS.fornecedor[CTR.fornecedor[i]]) : esc(contexto(key, i));
+  return { itens: itens.map(i => ({ v: i, nome: nomeOpc(i), extra: extra(i) })), ocultas };
+}
+
+function aviso(txt) {
+  const a = document.createElement("div");
+  a.className = "aviso"; a.textContent = txt; document.body.appendChild(a);
+  setTimeout(() => a.remove(), 2200);
+}
+
+function copiarLink() {
+  salvarHash();
+  const url = location.href;
+  const ok = () => aviso("Link copiado - cole no e-mail para abrir exatamente esta visão");
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, () => fallback());
+  else fallback();
+  function fallback() {
+    const t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); ok(); } catch (e) { aviso("Não foi possível copiar automaticamente"); }
+    t.remove();
+  }
+}
+
+function definirEscala(passo) {
+  let i = ESCALAS.indexOf(estado.escala);
+  i = passo === 0 ? 1 : Math.max(0, Math.min(ESCALAS.length - 1, i + passo));
+  estado.escala = ESCALAS[i];
+  document.documentElement.style.setProperty("--escala", estado.escala);
+  document.querySelectorAll("[data-fonte]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.fonte === "0" && estado.escala === 1)));
+  try { localStorage.setItem("painel-escala", String(estado.escala)); } catch (e) {}
+  render();
+}
+
+/*__FIM_COMPARTILHADO__*/
+
+/* ============================================================
+   10. Vistas
+   ============================================================ */
+
+function renderInicioContrato() {
+  const r = estado.uni, M = META.metas;
+  const vet = Float64Array.from(r.ctr, (v, i) => i === 0 ? 0 : v);
+  const ord = ranking(vet);
+  const tot = soma(vet);
+  const p80 = paraN(vet, 0.8);
+  const baixos = ord.filter(i => { const t = totalCtr(i), sd = saldoCtr(i); return t && sd / t < M.saldo_alerta; });
+  const est = ord.reduce((s, i) => s + (CTR.esteira[i] === 1 ? vet[i] : 0), 0);
+  const linhas = ord.map((i, k) => {
+    const v = var_(r.ctr[i], r.ctrP[i]), t = totalCtr(i), sd = saldoCtr(i), pc = t ? CTR.consumido[i] / t : NaN;
+    const selPc = isFinite(pc) ? (pc > 1 - M.saldo_alerta ? `<span class="selo" data-nivel="critico">${pct(pc, 0)}</span>` : pct(pc, 0)) : "-";
+    const selSd = sd === null ? "-" : sd < 0 ? `<span class="selo" data-nivel="critico">${brl(sd)}</span>` : brl(sd);
+    const forn = DIMS.fornecedor[CTR.fornecedor[i]];
+    return `<tr class="clicavel" tabindex="0" data-item="${i}" data-nome="${esc((DIMS.contrato[i] + " " + CTR.descricao[i] + " " + forn).toLowerCase())}"><td class="num">${k + 1}</td>` +
+      `<td class="forte">${esc(DIMS.contrato[i])}<br><small style="font-weight:400;color:var(--cor-texto-3)">${esc(CTR.descricao[i])}</small></td><td>${esc(forn)}</td>` +
+      `<td class="num forte">${brl(r.ctr[i])}</td><td class="num ${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${estado.F.prevOk ? sinal(v) : "-"}</td>` +
+      `<td class="num">${selPc}</td><td class="num">${selSd}</td><td class="cen">${seloVence(i)}</td>` +
+      `<td class="cen">${CTR.esteira[i] === 1 ? `<span class="selo" data-nivel="ok">Sim</span>` : CTR.esteira[i] === 0 ? "Não" : "-"}</td><td class="cen seta-abrir">›</td></tr>`;
+  });
+  const el = document.getElementById("vista-inicio");
+  el.innerHTML =
+    `<h2 class="titulo-inicio">${nf0.format(p80.n)} de ${nf0.format(p80.base)} contratos concentram 80% do gasto com contrato${baixos.length ? ` · ${baixos.length} com saldo abaixo de ${pct(M.saldo_alerta, 0)}` : ""}</h2>` +
+    `<p class="sub-inicio">Clique em um contrato para ver a ficha e a história completa. ${esc(periodoTxt())}</p>` +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Spend com contrato no período", valor: brl(tot), sub: `${pct(r.T ? tot / r.T : NaN, 0)} do spend total · ${esc(periodoTxt())}` }) +
+    kpi({ rotulo: "Contratos com pagamento", valor: nf0.format(ord.length), sub: "no período selecionado" }) +
+    kpi({ rotulo: `Saldo abaixo de ${pct(M.saldo_alerta, 0)}`, tom: baixos.length ? "alerta" : "", valor: nf0.format(baixos.length), sub: "contratos com saldo baixo ou já estourado" }) +
+    kpi({ rotulo: "Via esteira expressa", tom: "destaque", valor: pct(tot ? est / tot : NaN, 0), sub: `${brl(est)} do spend com contrato` }) +
+    `</div>` +
+    cartao({ largo: true, pergunta: "Quais contratos pedem atenção?", titulo: "Ranking de contratos por spend no período", desc: "% consumido e saldo consideram valor contratado + aportes e todos os pagamentos na base · vermelho = saldo abaixo de 10% ou estourado",
+      corpo: `<div class="barra-ferr"><input type="search" id="busca-ranking" placeholder="Buscar contrato, descrição ou fornecedor..." aria-label="Buscar"><span class="nota">${ord.length} contratos com pagamento no período</span></div>` +
+        tabela([{ t: "#", cls: "num" }, { t: "Contrato" }, { t: "Fornecedor" }, { t: "Spend", cls: "num" }, { t: "Variação", cls: "num" }, { t: "% consumido", cls: "num" }, { t: "Saldo", cls: "num" }, { t: "Vence em", cls: "cen" }, { t: "Esteira", cls: "cen" }, { t: "", cls: "cen" }], linhas) });
+  ligarRanking(el);
+}
+
+function ligarRanking(el) {
+  el.querySelectorAll("tr.clicavel").forEach(tr => {
+    const abrir = () => { definirFoco(+tr.dataset.item); irPara("cap1"); };
+    tr.addEventListener("click", abrir);
+    tr.addEventListener("keydown", e => { if (e.key === "Enter") abrir(); });
+  });
+  const busca = el.querySelector("#busca-ranking");
+  busca.addEventListener("input", () => {
+    const t = busca.value.trim().toLowerCase();
+    el.querySelectorAll("tr.clicavel").forEach(tr => { tr.hidden = t && tr.dataset.nome.indexOf(t) < 0; });
+  });
+}
+
+function renderInicio() {
+  if (estado.lente === "contrato") return renderInicioContrato();
+  const r = estado.uni, L = LENTES[estado.lente], lente = estado.lente, M = META.metas;
+  const vet = lente === "categoria" ? [r.cat, r.catP, r.catFdp, r.catRisco] : lente === "diretoria" ? [r.dir, r.dirP, r.dirFdp, r.dirRisco] : [r.forn, r.fornP, r.fornFdp, r.fornRisco];
+  const [cur, prev, fdp, risco] = vet;
+  const venc90 = new Float64Array(cur.length);
+  r.contratos.forEach(c => { if (c.dias >= 0 && c.dias <= 90) venc90[c[lente]] += c.spend_12m; });
+  const ord = ranking(cur);
+  const p80 = paraN(cur, 0.8);
+  const acimaMeta = ord.filter(i => fdp[i] / cur[i] > M.fora_politica_max).length;
+  const vt = var_(r.T, r.Tp);
+  const totVenc = r.contratos.filter(c => c.dias >= 0 && c.dias <= 90).reduce((s, c) => s + c.spend_12m, 0);
+  const pFdp = r.base ? r.st[ST.FDP] / r.base : NaN;
+
+  const linhas = ord.map((i, k) => {
+    const v = var_(cur[i], prev[i]), pf = fdp[i] / cur[i];
+    return `<tr class="clicavel" tabindex="0" data-item="${i}" data-nome="${esc(nomeItem(lente, i).toLowerCase())}"><td class="num">${k + 1}</td><td class="forte">${esc(nomeItem(lente, i))}</td>` +
+      `<td class="num forte">${brl(cur[i])}</td><td class="num ${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${estado.F.prevOk ? sinal(v) : "-"}</td><td class="num">${pct(cur[i] / r.T)}</td>` +
+      `<td class="num">${pf > M.fora_politica_max ? `<span class="selo" data-nivel="atencao">${pct(pf)}</span>` : pct(pf)}</td>` +
+      `<td class="num">${venc90[i] ? `<span class="selo" data-nivel="monitorar">${brl(venc90[i])}</span>` : "-"}</td>` +
+      `<td class="num">${risco[i] / cur[i] > 0.05 ? `<span class="selo" data-nivel="critico">${brl(risco[i])}</span>` : risco[i] ? brl(risco[i]) : "-"}</td><td class="cen seta-abrir">›</td></tr>`;
+  });
+
+  const el = document.getElementById("vista-inicio");
+  el.innerHTML =
+    `<h2 class="titulo-inicio">${nf0.format(p80.n)} de ${nf0.format(p80.base)} ${L.plural} concentram 80% do gasto${acimaMeta ? ` · ${acimaMeta} com Fora da Política acima da meta` : ""}</h2>` +
+    `<p class="sub-inicio">Clique em uma linha para ver a história completa. ${esc(periodoTxt())}</p>` +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Spend no período", valor: brl(r.T), sub: esc(periodoTxt()) }) +
+    kpi({ rotulo: "Variação", tom: "destaque", valor: sinal(vt), sub: esc(compTxt()) }) +
+    kpi(Object.assign({ rotulo: "Fora da Política", valor: pct(pFdp), sub: `${brl(r.st[ST.FDP])} · ${baseTxt()} · meta ≤ ${pct(M.fora_politica_max, 0)}` }, meta(pFdp, M.fora_politica_max, false))) +
+    kpi({ rotulo: "Contratos vencendo em 90 dias", valor: brl(totVenc), sub: "spend dos últimos 12 meses nesses contratos" }) +
+    `</div>` +
+    cartao({ largo: true, pergunta: `Quais ${L.plural} pedem atenção?`, titulo: `Ranking de ${L.plural} por spend`, desc: "Selos: laranja = Fora da Política acima da meta · bege = contratos vencendo em 90 dias · vermelho = mais de 5% do spend em fornecedores com KYS negado ou risco alto",
+      corpo: `<div class="barra-ferr"><input type="search" id="busca-ranking" placeholder="Buscar ${esc(L.nome.toLowerCase())}..." aria-label="Buscar"><span class="nota">${ord.length} ${L.plural} com gasto no período</span></div>` +
+        tabela([{ t: "#", cls: "num" }, { t: L.nome }, { t: "Spend", cls: "num" }, { t: "Variação", cls: "num" }, { t: "Share", cls: "num" }, { t: "Fora da Política", cls: "num" }, { t: "Vencendo 90 dias", cls: "num" }, { t: "Em fornecedores de risco", cls: "num" }, { t: "", cls: "cen" }], linhas) });
+
+  ligarRanking(el);
+}
+
+function faixaContrato() {
+  const cu = contratoUnico();
+  if (cu === null || estado.modo !== "abas") return "";
+  const t = totalCtr(cu), sd = saldoCtr(cu);
+  return `<div class="faixa-contrato">Contrato <b>${esc(DIMS.contrato[cu])}</b> · ${esc(CTR.descricao[cu])} · Fornecedor <b>${esc(DIMS.fornecedor[CTR.fornecedor[cu]])}</b>` +
+    (t ? ` · Saldo <b>${brl(sd)}</b> (${pct(Math.max(0, sd / t), 0)})` : "") + ` · ${esc(venceTxt(cu))}</div>`;
+}
+
+function cabCap(v) {
+  return (v.n > 1 ? faixaContrato() : "") + `<div class="capitulo" id="sec-${v.id}"><div class="cap-cab"><span class="cap-num">${v.n}</span><h2>${esc(v.nome)}</h2></div><p class="cap-sub">${esc(v.sub)} · <b>${esc(focoNome())}</b> · ${esc(periodoTxt())}</p>`;
+}
+
+function cap1() {
+  const r = estado.his, v = VISTAS[1], cu = contratoUnico();
+  const vt = var_(r.T, r.Tp);
+  const nMes = estado.F.c1 - estado.F.c0 + 1;
+  const med = r.T / nMes, medP = r.Tp / nMes;
+  const lente = estado.lente;
+  const umaCat = ativos(r.cat) === 1;
+  const compVet = umaCat ? r.sub1 : r.cat, compDim = umaCat ? "sub1" : "categoria";
+  const comp = ranking(compVet, 10);
+  const compNome = umaCat ? "subcategorias" : "categorias";
+  const tComp = comp.length ? `${esc(rotulo(compDim, comp[0]))} responde por ${pct(compVet[comp[0]] / r.T, 0)} do gasto` : "Sem gasto no período";
+  const mostraDir = (lente !== "diretoria" || estado.foco === null) && cu === null;
+  const dirs = ranking(r.dir, 10);
+  const top2 = dirs.slice(0, 2).reduce((s, i) => s + r.dir[i], 0);
+  const tDir = dirs.length > 1 ? `${esc(DIMS.diretoria[dirs[0]])} e ${esc(DIMS.diretoria[dirs[1]])} somam ${pct(top2 / r.T, 0)} do consumo` : dirs.length ? `${esc(DIMS.diretoria[dirs[0]])} concentra todo o consumo` : "Sem consumo no período";
+
+  fila.push(() => evolucao("g-evolucao", r));
+  fila.push(() => barrasH("g-comp", comp.map(i => ({ nome: rotulo(compDim, i), valor: compVet[i], rotulo: `${brl(compVet[i])} · ${pct(compVet[i] / r.T, 0)}` }))));
+  if (mostraDir) fila.push(() => barrasH("g-dir", dirs.map(i => ({ nome: DIMS.diretoria[i], valor: r.dir[i], rotulo: `${brl(r.dir[i])} · ${pct(r.dir[i] / r.T, 0)}` }))));
+
+  return (cu !== null ? fichaContrato(cu) : "") + cabCap(v) +
+    `<div class="kpis">` +
+    kpi({ rotulo: "Spend no período", valor: brl(r.T), sub: esc(periodoTxt()) }) +
+    kpi({ rotulo: "Variação", tom: "destaque", valor: sinal(vt), sub: esc(compTxt()) }) +
+    kpi({ rotulo: "Fornecedores com pagamento", valor: nf0.format(ativos(r.forn)), sub: "no período selecionado" }) +
+    kpi({ rotulo: "Pagamentos", valor: nf0.format(r.N), sub: `valor médio de ${brl(r.N ? r.T / r.N : 0)}` }) +
+    `</div><div class="grade">` +
+    cartao({ largo: true, id: "g-evolucao", pergunta: "Como o gasto evoluiu?", titulo: `Média mensal de ${brl(med)} no período${estado.F.prevOk && medP ? `, ${sinal(med / medP - 1, 0)} vs período anterior` : ""}`,
+      desc: `<span class="legenda-mini"><i style="background:${C.atual}"></i>Período selecionado</span><span class="legenda-mini"><i style="background:${C.anterior}"></i>Período de comparação</span><span class="legenda-mini"><i style="background:${C.fora}"></i>Demais meses</span> · valores em R$ por mês` }) +
+    cartao({ largo: !mostraDir, id: "g-comp", altura: "alto", pergunta: `Em quais ${compNome} está o dinheiro?`, titulo: tComp, desc: `Top 10 ${compNome} · valores em R$` }) +
+    (mostraDir ? cartao({ id: "g-dir", altura: "alto", pergunta: "Quais diretorias consomem?", titulo: tDir, desc: "Top 10 diretorias · valores em R$" }) : "") +
+    `</div></div>`;
+}
+
+function cap2() {
+  const r = estado.his, v = VISTAS[2], F = estado.F, cu = contratoUnico();
+  const lenteForn = fornecedorFoco() !== null;
+  const vet = lenteForn ? r.dir : r.forn, vetP = lenteForn ? r.dirP : r.fornP, dim = lenteForn ? "diretoria" : "fornecedor";
+  const ord = ranking(vet, 10);
+  const top3 = ranking(vet, 3).reduce((s, i) => s + vet[i], 0);
+  const p80 = paraN(vet, 0.8);
+  const hal = F.prevOk && r.Tp ? ranking(vet, 10).map(i => ({ nome: DIMS[dim][i], a: vetP[i] / r.Tp, b: vet[i] / r.T })) : [];
+  let tHal = "Sem período anterior para comparar";
+  if (hal.length) {
+    const g = hal.reduce((m, x) => (x.b - x.a > m.b - m.a ? x : m), hal[0]);
+    const p = hal.reduce((m, x) => (x.b - x.a < m.b - m.a ? x : m), hal[0]);
+    tHal = g.b - g.a > 0.001 ? `${esc(g.nome)} ganhou ${pp(g.b - g.a).replace("+", "")} de share` : "Share estável entre os períodos";
+    if (p.b - p.a < -0.001) tHal += `; ${esc(p.nome)} perdeu ${pp(p.a - p.b).replace("+", "")}`;
+  }
+  const unicos = [];
+  for (let s = 0; s < r.sub3.length; s++) if (r.sub3F[s] >= 0 && r.sub3[s] >= MIN_UNICO) unicos.push(s);
+  unicos.sort((a, b) => r.sub3[b] - r.sub3[a]);
+  const vUnicos = unicos.reduce((s, i) => s + r.sub3[i], 0);
+
+  const rotulo = lenteForn ? "diretorias" : "fornecedores";
+  const tBar = lenteForn ? (ord.length ? `${esc(DIMS.diretoria[ord[0]])} responde por ${pct(vet[ord[0]] / r.T, 0)} do que pagamos ${cu !== null ? "neste contrato" : "a " + esc(focoNome())}` : "Sem pagamentos no período")
+    : (ord.length > 3 ? `Top 3 fornecedores detêm ${pct(top3 / r.T, 0)} do gasto` : ord.length ? `${ord.length} fornecedor${ord.length > 1 ? "es" : ""} concentra${ord.length > 1 ? "m" : ""} todo o gasto` : "Sem pagamentos no período");
+
+  fila.push(() => barrasH("g-quem", ord.map(i => ({ nome: DIMS[dim][i], valor: vet[i], rotulo: `${brl(vet[i])} · ${pct(vet[i] / r.T, 0)}`, extra: [{ rotulo: "Share", valor: pct(vet[i] / r.T) }] }))));
+  fila.push(() => halteres("g-share", hal));
+
+  return cabCap(v) +
+    `<div class="kpis">` +
+    kpi({ rotulo: lenteForn ? "Diretorias atendidas" : "Fornecedores com pagamento", valor: nf0.format(ativos(vet)), sub: esc(periodoTxt()) }) +
+    kpi({ rotulo: "Concentram 80% do gasto", tom: "destaque", valor: `${nf0.format(p80.n)} ${rotulo}`, sub: `${pct(p80.base ? p80.n / p80.base : NaN, 0)} do total de ${rotulo}` }) +
+    (lenteForn ? "" : kpi({ rotulo: "Subcategorias com fornecedor único", valor: nf0.format(unicos.length), sub: `${brl(vUnicos)} em subcategorias acima de ${brl(MIN_UNICO)}` })) +
+    `</div><div class="grade">` +
+    cartao({ id: "g-quem", altura: "alto", pergunta: lenteForn ? "Quais diretorias pagam este fornecedor?" : "Quem são os fornecedores e qual o share?", titulo: tBar, desc: `Top 10 ${rotulo} · valores em R$ e % do gasto` }) +
+    cartao({ id: "g-share", altura: "alto", pergunta: "Como o share mudou?", titulo: tHal, desc: `<span class="legenda-mini"><i class="aro"></i>${esc(F.rotP || "período anterior")}</span><span class="legenda-mini"><i class="ponto" style="background:${C.serie}"></i>${esc(F.rot)} (ganhou)</span><span class="legenda-mini"><i class="ponto" style="background:${C.fdp}"></i>(perdeu)</span> · unidade: % do gasto` }) +
+    (lenteForn ? "" : cartao({ largo: true, pergunta: "Há dependência de fornecedor único?", titulo: unicos.length ? `${unicos.length} subcategoria${unicos.length > 1 ? "s dependem" : " depende"} de um único fornecedor` : "Nenhuma subcategoria relevante depende de um único fornecedor",
+      desc: `Subcategoria 3 com um só fornecedor no período e gasto acima de ${brl(MIN_UNICO)}`,
+      corpo: tabela([{ t: "Subcategoria" }, { t: "Fornecedor único" }, { t: "Spend", cls: "num" }], unicos.slice(0, 20).map(s => `<tr><td class="forte">${esc(rotulo("sub3", s))}</td><td>${esc(DIMS.fornecedor[r.sub3F[s]])}</td><td class="num forte">${brl(r.sub3[s])}</td></tr>`)) })) +
+    `</div></div>`;
+}
+
+function cap3() {
+  const r = estado.his, v = VISTAS[3], M = META.metas;
+  const cob = r.base ? r.st[ST.COM] / r.base : NaN;
+  const fdp = r.base ? r.st[ST.FDP] / r.base : NaN;
+  const cts = r.contratos.filter(c => c.dias >= 0 && c.dias <= META.janela_vencimento_dias).sort((a, b) => b.spend_12m - a.spend_12m);
+  const em90 = cts.filter(c => c.dias <= 90);
+  const risco = cts.reduce((s, c) => s + c.spend_12m, 0);
+  const partes = DIMS.status.map((s, i) => ({ nome: s, valor: r.st[i], cor: C.status[i], claro: i === ST.BAIXO || i === ST.PARC }));
+  const lenteDirFoco = estado.lente === "diretoria" && estado.foco !== null;
+  const lenteForn = fornecedorFoco() !== null;
+  const areaVet = lenteDirFoco ? r.catFdp : r.dirFdp, areaDim = lenteDirFoco ? "categoria" : "diretoria";
+  const areas = ranking(areaVet, 10);
+  const semCtr = ranking(Float64Array.from(DIMS.fornecedor, (_, f) => r.forn[f] - r.fornSt[f * 5 + ST.COM]));
+  const fdpForn = ranking(r.fornFdp);
+  const top3fdp = fdpForn.slice(0, 3).reduce((s, f) => s + r.fornFdp[f], 0);
+
+  fila.push(() => barra100("g-situacao", partes, r.base));
+  if (!lenteForn) fila.push(() => barrasH("g-fdp-area", areas.map(i => ({ nome: DIMS[areaDim][i], valor: areaVet[i], rotulo: brl(areaVet[i]) })), { cor: C.fdp, rotulo: "Fora da Política" }));
+
+  const tSit = isFinite(cob) ? `${pct(cob, 0)} com contrato - ${cob >= M.cobertura_min ? "dentro" : "abaixo"} da meta de ${pct(M.cobertura_min, 0)}` : "Sem gasto no período";
+  const tArea = areas.length ? `${esc(DIMS[areaDim][areas[0]])} concentra ${pct(areaVet[areas[0]] / (r.st[ST.FDP] || 1), 0)} do Fora da Política` : "Nenhum gasto Fora da Política no período";
+  const tSem = fdpForn.length ? `${brl(r.st[ST.FDP])} Fora da Política, ${pct(top3fdp / (r.st[ST.FDP] || 1), 0)} em ${Math.min(3, fdpForn.length)} fornecedor${fdpForn.length > 1 ? "es" : ""}` : "Nenhum fornecedor com gasto Fora da Política";
+  const tVenc = cts.length ? `${cts.length} contrato${cts.length > 1 ? "s vencem" : " vence"} em ${META.janela_vencimento_dias} dias - ${brl(risco)} em jogo` : `Nenhum contrato vence nos próximos ${META.janela_vencimento_dias} dias`;
+  const kysSelo = f => FORN.kys[f] === KYS_NEG ? `<span class="selo" data-nivel="critico">Negado</span>` : esc(DIMS.kys[FORN.kys[f]]);
+  const nc = r.st[ST.NC];
+
+  return cabCap(v) +
+    `<div class="kpis">` +
+    kpi(Object.assign({ rotulo: "Cobertura contratual", valor: pct(cob), sub: `${baseTxt()} · meta ≥ ${pct(M.cobertura_min, 0)}` }, meta(cob, M.cobertura_min, true))) +
+    kpi(Object.assign({ rotulo: "Fora da Política", valor: pct(fdp), sub: `${brl(r.st[ST.FDP])} · meta ≤ ${pct(M.fora_politica_max, 0)}` }, meta(fdp, M.fora_politica_max, false))) +
+    kpi({ rotulo: `Contratos vencendo em ${META.janela_vencimento_dias} dias`, valor: brl(risco), sub: `${cts.length} contratos · ${em90.length} em até 90 dias · spend dos últimos 12 meses` }) +
+    `</div><div class="grade">` +
+    cartao({ largo: lenteForn, id: "g-situacao", altura: "baixo", pergunta: "Quanto do gasto está coberto por contrato?", titulo: tSit, desc: `Situação contratual ${baseTxt()} · Baixo valor e Parcerias são permitidos sem contrato`,
+      corpo: `<div class="grafico baixo" id="g-situacao"></div>${nc ? `<p class="nota-qualidade">${brl(nc)} sem classificação na base (qualidade de dado)</p>` : ""}` }) +
+    (lenteForn ? "" : cartao({ id: "g-fdp-area", pergunta: lenteDirFoco ? "Em quais categorias está o Fora da Política?" : "Em quais áreas nasce o Fora da Política?", titulo: tArea, desc: "Top 10 · valores em R$" })) +
+    (lenteForn ? "" : cartao({ largo: true, pergunta: "Quais fornecedores recebem sem contrato?", titulo: tSem, desc: "Ordenado pelo valor Fora da Política · Baixo valor e Parcerias são permitidos",
+      corpo: tabela([{ t: "Fornecedor" }, { t: "Fora da Política", cls: "num" }, { t: "Baixo valor + Parcerias", cls: "num" }, { t: "% sem contrato", cls: "num" }, { t: "KYS", cls: "cen" }],
+        fdpForn.concat(semCtr.filter(f => !r.fornFdp[f])).slice(0, 25).map(f => {
+          const sc = r.forn[f] - r.fornSt[f * 5 + ST.COM];
+          return `<tr><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${r.fornFdp[f] ? brl(r.fornFdp[f]) : "-"}</td><td class="num">${brl(r.fornSt[f * 5 + ST.BAIXO] + r.fornSt[f * 5 + ST.PARC])}</td><td class="num">${pct(sc / r.forn[f], 0)}</td><td class="cen">${kysSelo(f)}</td></tr>`;
+        })) })) +
+    cartao({ largo: true, pergunta: "Quais contratos vencem em breve?", titulo: tVenc, desc: `Prazo contado a partir de hoje (${dataBR(HOJE.toISOString().slice(0, 10))}) · valor = spend dos últimos 12 meses no contrato`,
+      corpo: tabela([{ t: "Contrato" }, { t: "Descrição" }, { t: "Fornecedor" }, { t: "Vence em", cls: "cen" }, { t: "Vencimento", cls: "num" }, { t: "Spend 12 meses", cls: "num" }],
+        cts.map(c => `<tr><td class="forte">${esc(c.id)}</td><td>${esc(c.descricao)}</td><td>${esc(DIMS.fornecedor[c.fornecedor])}</td><td class="cen"><span class="selo" data-nivel="${nivelDias(c.dias)}">${c.dias} d</span></td><td class="num">${dataBR(c.data_fim)}</td><td class="num forte">${brl(c.spend_12m)}</td></tr>`)) }) +
+    `</div></div>`;
+}
+
+function cap4() {
+  const r = estado.his, v = VISTAS[4], M = META.metas;
+  const fs_ = ranking(r.forn);
+  const nForn = fs_.length;
+  const aprov = fs_.filter(f => FORN.kys[f] === KYS_OK).length;
+  const neg = fs_.filter(f => FORN.kys[f] === KYS_NEG);
+  const pk = nForn ? aprov / nForn : NaN;
+  const vNeg = neg.reduce((s, f) => s + r.forn[f], 0);
+  const altos = fs_.filter(f => FORN.risco[f] === RISCO_ALTO);
+  const pAlto = r.T ? r.riscoV[RISCO_ALTO] / r.T : NaN;
+  const semAv = fs_.filter(f => FORN.risco[f] === 3);
+  const atencao = fs_.filter(f => FORN.kys[f] === KYS_NEG || FORN.risco[f] === RISCO_ALTO);
+  const vAt = atencao.reduce((s, f) => s + r.forn[f], 0);
+  const snap = META.data_snapshot_fornecedores ? `posição de ${dataBR(META.data_snapshot_fornecedores)}` : "posição atual";
+  const lenteForn = fornecedorFoco() !== null;
+
+  if (lenteForn) {
+    const f = fornecedorFoco(), k = FORN.kys[f], rk = FORN.risco[f];
+    return cabCap(v) + `<div class="selos-grandes">` +
+      `<div class="selo-grande" data-nivel="${k === KYS_OK ? "bom" : k === KYS_NEG ? "critico" : "neutro"}"><div class="rot">KYS · ${esc(snap)}</div><div class="val">${esc(DIMS.kys[k])}</div></div>` +
+      `<div class="selo-grande" data-nivel="${["bom", "medio", "critico", "neutro"][rk]}"><div class="rot">Risco financeiro · ${esc(snap)}</div><div class="val">${esc(DIMS.risco[rk])}</div></div>` +
+      `<div class="selo-grande" data-nivel="neutro"><div class="rot">Spend no período</div><div class="val">${brl(r.T)}</div></div>` +
+      `</div></div>`;
+  }
+  fila.push(() => barra100("g-risco", DIMS.risco.map((s, i) => ({ nome: s, valor: r.riscoV[i], cor: C.risco[i], claro: i === 3 })), r.T));
+  return cabCap(v) +
+    `<div class="kpis">` +
+    kpi(Object.assign({ rotulo: "Fornecedores com KYS aprovado", valor: pct(pk), sub: `${aprov} de ${nForn} fornecedores · meta ≥ ${pct(M.kys_min, 0)}` }, meta(pk, M.kys_min, true))) +
+    kpi({ rotulo: "Pago a fornecedores com KYS negado", tom: vNeg ? "alerta" : "", valor: brl(vNeg), sub: `${neg.length} fornecedor${neg.length === 1 ? "" : "es"} · ${esc(snap)}` }) +
+    kpi({ rotulo: "Spend em risco financeiro alto", tom: "destaque", valor: pct(pAlto), sub: `${brl(r.riscoV[RISCO_ALTO])} em ${altos.length} fornecedores` }) +
+    kpi({ rotulo: "Sem avaliação de risco", valor: nf0.format(semAv.length), sub: `${brl(r.riscoV[3])} no período` }) +
+    `</div><div class="grade">` +
+    cartao({ largo: true, id: "g-risco", altura: "baixo", pergunta: "Como o gasto se distribui por risco financeiro?", titulo: `${pct(pAlto, 0)} do gasto está em fornecedores de risco alto`, desc: `Distribuição do spend por risco financeiro · ${esc(snap)} · sem meta definida` }) +
+    cartao({ largo: true, pergunta: "Quais fornecedores exigem atenção?", titulo: atencao.length ? `${atencao.length} fornecedor${atencao.length > 1 ? "es" : ""} com KYS negado ou risco alto receberam ${brl(vAt)}` : "Nenhum fornecedor com KYS negado ou risco alto recebeu no período", desc: `Ordenado pelo spend no período · ${esc(snap)}`,
+      corpo: tabela([{ t: "Fornecedor" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }, { t: "Spend", cls: "num" }, { t: "% com contrato", cls: "num" }],
+        atencao.slice(0, 30).map(f => `<tr><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="cen"><span class="selo" data-nivel="${FORN.kys[f] === KYS_NEG ? "critico" : "ok"}">${esc(DIMS.kys[FORN.kys[f]])}</span></td>` +
+          `<td class="cen"><span class="selo" data-nivel="${FORN.risco[f] === RISCO_ALTO ? "critico" : "neutro"}">${esc(DIMS.risco[FORN.risco[f]])}</span></td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${pct(r.fornSt[f * 5 + ST.COM] / r.forn[f], 0)}</td></tr>`)) }) +
+    `</div></div>`;
+}
+
+function cap5() {
+  const v = VISTAS[5], todos = sinais();
+  const lista = filtroSinal === "todos" ? todos : todos.filter(s => s.tipo === filtroSinal);
+  const tot = todos.reduce((s, x) => s + x.valor, 0);
+  const cont = t => todos.filter(s => s.tipo === t).length;
+  return cabCap(v) + cartao({ largo: true, pergunta: "Onde agir primeiro?",
+    titulo: todos.length ? `${todos.length} sinais somam ${brl(tot)} - comece por: ${esc(todos[0].texto)}` : "Nenhum sinal de atenção no recorte selecionado",
+    desc: "Valores podem se sobrepor entre sinais (um mesmo fornecedor pode aparecer como Fora da Política e com risco alto)",
+    corpo: `<div class="chips" id="chips-sinal"><button type="button" class="chip" data-tipo="todos" aria-pressed="${filtroSinal === "todos"}">Todos (${todos.length})</button>` +
+      Object.keys(TIPOS_SINAL).map(t => `<button type="button" class="chip" data-tipo="${t}" aria-pressed="${filtroSinal === t}">${TIPOS_SINAL[t].nome} (${cont(t)})</button>`).join("") + `</div>` +
+      (lista.length ? `<ul class="sinais">${lista.slice(0, 30).map(s => `<li class="sinal"><span class="sinal-icone" style="background:${TIPOS_SINAL[s.tipo].cor}" title="${TIPOS_SINAL[s.tipo].nome}">${TIPOS_SINAL[s.tipo].ic}</span><div class="sinal-texto">${esc(s.texto)}<small>${esc(TIPOS_SINAL[s.tipo].nome)} · ${esc(s.det)}</small></div><div class="sinal-valor">${brl(s.valor)}</div></li>`).join("")}</ul>` : `<div class="vazio">Nenhum sinal deste tipo</div>`)
+  }) + `</div>`;
+}
+
+const CAP_RENDER = { cap1, cap2, cap3, cap4, cap5 };
+
+function navCap(id) {
+  const i = VISTAS.findIndex(v => v.id === id);
+  const ant = VISTAS[i - 1], prox = VISTAS[i + 1];
+  return `<div class="nav-cap">${ant && ant.n ? `<button type="button" data-ir="${ant.id}">← ${ant.n}. ${esc(ant.nome)}</button>` : ""}${prox ? `<button type="button" class="prox" data-ir="${prox.id}">Próximo: ${prox.n}. ${esc(prox.nome)} →</button>` : ""}</div>`;
+}
+
+function renderHistoria() {
+  const el = document.getElementById("vista-historia");
+  if (estado.modo === "abas") el.innerHTML = CAP_RENDER[estado.vista]() + navCap(estado.vista);
+  else el.innerHTML = ["cap1", "cap2", "cap3", "cap4", "cap5"].map(c => CAP_RENDER[c]()).join("");
+  el.querySelectorAll("[data-ir]").forEach(b => b.addEventListener("click", () => irPara(b.dataset.ir, true)));
+  const chips = el.querySelector("#chips-sinal");
+  if (chips) chips.addEventListener("click", e => { const t = e.target.dataset.tipo; if (!t) return; filtroSinal = t; render(); });
+}
+
+/* ============================================================
+   11. Render geral e navegação
+   ============================================================ */
+function render() {
+  const t = performance.now();
+  fila = [];
+  const naHistoria = estado.vista !== "inicio";
+  document.getElementById("vista-inicio").hidden = naHistoria;
+  document.getElementById("vista-historia").hidden = !naHistoria;
+  if (naHistoria) renderHistoria(); else renderInicio();
+  limparOrfaos();
+  fila.forEach(f => f());
+  atualizarCabecalho();
+  console.info("[painel] render", estado.vista, Math.round(performance.now() - t), "ms");
+}
+
+function irPara(id, rolarTopo) {
+  const antes = estado.vista;
+  estado.vista = id;
+  const precisa = estado.modo === "abas" || antes === "inicio" || id === "inicio" || !document.getElementById("sec-" + id);
+  if (precisa) render(); else atualizarAbas();
+  if (estado.modo === "rolagem" && id !== "inicio") {
+    const alvo = document.getElementById("sec-" + id);
+    if (alvo) alvo.scrollIntoView({ behavior: precisa ? "auto" : "smooth", block: "start" });
+  } else if (rolarTopo || precisa) {
+    const ctx = document.getElementById("contexto");
+    if (window.scrollY > ctx.offsetTop) window.scrollTo({ top: ctx.offsetTop - 60 });
+  }
+  salvarHash();
+}
+
+function atualizarAbas() {
+  document.querySelectorAll(".aba").forEach(b => b.setAttribute("aria-selected", String(b.dataset.vista === estado.vista)));
+}
+
+let observador;
+function observarRolagem() {
+  if (observador) observador.disconnect();
+  observador = new IntersectionObserver(ents => {
+    if (estado.modo !== "rolagem" || estado.vista === "inicio") return;
+    const vis = ents.filter(e => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (vis.length) { estado.vista = vis[0].target.id.replace("sec-", ""); atualizarAbas(); salvarHash(); }
+  }, { rootMargin: "-130px 0px -55% 0px" });
+  document.querySelectorAll(".capitulo").forEach(c => observador.observe(c));
+}
+
+/* ============================================================
+   12. Controles: filtros, período, lente e foco
+   ============================================================ */
+function montarControles() {
+  const box = document.getElementById("filtros");
+  box.appendChild(dropdown({
+    key: "periodo", rotulo: "Período", cls: "periodo", busca: false,
+    opcoes: () => ({ itens: opcoesPeriodo().map((o, i) => ({ v: i, nome: o.nome })), ocultas: 0 }),
+    valor: () => opcoesPeriodo().findIndex(o => o.id === estado.periodo),
+    definir: v => { estado.periodo = opcoesPeriodo()[v === null ? 0 : v].id; atualizarTudo(); },
+    rotuloBotao: () => nomePeriodo(), ativo: () => estado.periodo !== "12m"
+  }));
+  FILTROS.forEach((f, pos) => box.appendChild(dropdown({
+    key: f.key, rotulo: f.nome, multi: true,
+    opcoes: (termo, rasc) => opcoesDim(f.key, pos, termo, rasc),
+    valor: () => estado.sel[f.key],
+    definir: v => { estado.sel[f.key] = v; atualizarTudo(); },
+    travado: () => travadoPeloFoco(f.key),
+    rotuloBotao: () => {
+      if (travadoPeloFoco(f.key)) return "🔒 " + rotulo(f.key, estado.foco);
+      const s = estado.sel[f.key];
+      if (!s) return "Todos";
+      return s.size === 1 ? rotulo(f.key, s.values().next().value) : s.size + " selecionados";
+    },
+    titulo: () => travadoPeloFoco(f.key) ? "Definido pelo foco escolhido abaixo" : (estado.sel[f.key] ? [...estado.sel[f.key]].map(i => rotulo(f.key, i)).join(", ") : "Todos"),
+    ativo: () => !!estado.sel[f.key]
+  })));
+  const limpar = document.createElement("button");
+  limpar.type = "button"; limpar.className = "limpar"; limpar.id = "limpar-filtros"; limpar.textContent = "Limpar filtros";
+  limpar.addEventListener("click", () => { FILTROS.forEach(f => { estado.sel[f.key] = null; }); estado.periodo = "12m"; atualizarTudo(); });
+  box.appendChild(limpar);
+
+  const lentes = document.getElementById("lentes");
+  Object.keys(LENTES).forEach(k => {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.lente = k; b.textContent = LENTES[k].nome;
+    b.addEventListener("click", () => { if (estado.lente === k) return; estado.lente = k; estado.foco = null; atualizarTudo(); if (estado.vista !== "inicio") irPara(estado.vista); });
+    lentes.appendChild(b);
+  });
+  document.getElementById("foco-caixa").appendChild(dropdown({
+    key: "foco", placeholder: "foco",
+    opcoes: termo => {
+      const r = estado.uni, L = estado.lente;
+      const vet = L === "categoria" ? r.cat : L === "diretoria" ? r.dir : L === "contrato" ? r.ctr : r.forn;
+      const o = opcoesDim(L, DIMS_DISP.indexOf(L), termo, null, vet);
+      o.todosRot = LENTES[L].todos;
+      return o;
+    },
+    valor: () => estado.foco,
+    definir: v => { definirFoco(v); if (estado.vista === "inicio" && v !== null) irPara("cap1"); else { atualizarTudo(); } },
+    rotuloBotao: () => focoNome(), ativo: () => estado.foco !== null
+  }));
+
+  document.addEventListener("mousedown", e => Object.values(ctrls).forEach(c => { if (!c.contem(e.target)) c.fechar(true); }));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") Object.values(ctrls).forEach(c => c.fechar(true)); });
+}
+
+function definirFoco(v) {
+  estado.foco = v;
+  aplicar();
+}
+
+function atualizarCabecalho() {
+  const r = estado.uni;
+  document.getElementById("resumo").innerHTML = `Spend <b>${brl(r.T)}</b> · <b>${nf0.format(ativos(r.forn))}</b> fornecedores · <b>${nf0.format(r.N)}</b> pagamentos`;
+  document.getElementById("contexto-periodo").innerHTML = `<b>${esc(nomePeriodo())}</b> · ${esc(estado.F.rot)}<br>${esc(compTxt())}`;
+  document.getElementById("migalha").innerHTML = `${esc(LENTES[estado.lente].nome)}: <b>${esc(focoNome())}</b>`;
+  document.querySelectorAll("[data-lente]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lente === estado.lente)));
+  document.querySelectorAll("[data-modo]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.modo === estado.modo)));
+  document.getElementById("limpar-filtros").hidden = !(FILTROS.some(f => estado.sel[f.key]) || estado.periodo !== "12m");
+  Object.values(ctrls).forEach(c => c.atualizar());
+  atualizarAbas();
+  if (estado.modo === "rolagem" && estado.vista !== "inicio") observarRolagem();
+}
+
+function atualizarTudo() {
+  aplicar();
+  render();
+  salvarHash();
+}
+
+/* ============================================================
+   13. Link da visão (hash) e fonte
+   ============================================================ */
+function salvarHash() {
+  const p = new URLSearchParams();
+  p.set("v", estado.vista); p.set("lente", estado.lente); p.set("per", estado.periodo); p.set("modo", estado.modo);
+  if (estado.foco !== null) p.set("foco", rotuloLink(estado.lente, estado.foco));
+  FILTROS.forEach(f => { if (estado.sel[f.key]) p.set(f.key, [...estado.sel[f.key]].map(i => rotuloLink(f.key, i)).join("|")); });
+  try { history.replaceState(null, "", "#" + p.toString()); } catch (e) {}
+}
+function lerHash() {
+  const p = new URLSearchParams((location.hash || "").slice(1));
+  if (LENTES[p.get("lente")]) estado.lente = p.get("lente");
+  if (opcoesPeriodo().some(o => o.id === p.get("per"))) estado.periodo = p.get("per");
+  if (p.get("modo") === "rolagem") estado.modo = "rolagem";
+  if (p.get("foco")) { const i = indicePorRotulo(estado.lente, p.get("foco")); if (i >= 0) estado.foco = i; }
+  FILTROS.forEach(f => {
+    if (!p.get(f.key)) return;
+    const s = new Set(p.get(f.key).split("|").map(n => indicePorRotulo(f.key, n)).filter(i => i >= 0));
+    if (s.size) estado.sel[f.key] = s;
+  });
+  if (VISTAS.some(v => v.id === p.get("v"))) estado.vista = p.get("v");
+}
+/* ============================================================
+   14. Inicialização
+   ============================================================ */
+function iniciar() {
+  document.title = `${META.titulo} · ${META.titulo_destaque}`;
+  document.getElementById("titulo").innerHTML = `${esc(META.titulo)} · <span>${esc(META.titulo_destaque)}</span>`;
+  document.getElementById("subtitulo").textContent = `${META.subtitulo} · dados até ${rotMes(META.ultimo_mes)}`;
+  document.getElementById("atualizacao").textContent = META.data_atualizacao ? "Base atualizada em " + dataBR(META.data_atualizacao) : "Atualização não disponível";
+  document.getElementById("rodape").textContent = META.rodape || "";
+
+  const nav = document.getElementById("abas");
+  VISTAS.forEach(v => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "aba"; b.dataset.vista = v.id; b.setAttribute("role", "tab");
+    b.innerHTML = (v.n ? `<span class="num">${v.n}</span>` : "") + esc(v.nome);
+    b.addEventListener("click", () => irPara(v.id, true));
+    nav.appendChild(b);
+  });
+  document.querySelectorAll("[data-modo]").forEach(b => b.addEventListener("click", () => {
+    if (estado.modo === b.dataset.modo) return;
+    estado.modo = b.dataset.modo; render(); if (estado.vista !== "inicio") irPara(estado.vista); salvarHash();
+  }));
+  document.getElementById("migalha").addEventListener("click", () => { const c = document.getElementById("contexto"); window.scrollTo({ top: c.offsetTop - 70, behavior: "smooth" }); });
+  document.getElementById("copiar-link").addEventListener("click", copiarLink);
+
+  let salvo = 1;
+  try { salvo = parseFloat(localStorage.getItem("painel-escala")) || 1; } catch (e) {}
+  if (ESCALAS.includes(salvo)) { estado.escala = salvo; document.documentElement.style.setProperty("--escala", salvo); }
+  document.querySelectorAll("[data-fonte]").forEach(b => b.addEventListener("click", () => definirEscala(Number(b.dataset.fonte))));
+
+  lerHash();
+  montarControles();
+  aplicar();
+  render();
+  if (estado.modo === "rolagem" && estado.vista !== "inicio") irPara(estado.vista);
+  let tmr;
+  window.addEventListener("resize", () => { clearTimeout(tmr); tmr = setTimeout(redimensionar, 120); });
+}
+
+window.PAINEL = { estado, aplicar, render, irPara, atualizarTudo, definirFoco };
+iniciar();
+}
+</script>
+<script>
+/*__INICIO_CARREGADOR__*/
+(function () {
+  const el = document.getElementById("spend-data");
+  const url = el.dataset.url;
+  if (!url) return painelApp();
+  const caixa = document.createElement("div");
+  caixa.className = "carregando";
+  caixa.setAttribute("role", "status");
+  caixa.textContent = "Carregando dados...";
+  document.body.appendChild(caixa);
+  const falhar = e => {
+    caixa.classList.add("erro");
+    caixa.textContent = `Não foi possível carregar os dados (${url}): ${e.message}. Atualize a página e, se o erro continuar, avise o responsável pelo painel`;
+  };
+  fetch(url + (url.includes("?") ? "&" : "?") + "v=" + Date.now(), { cache: "no-store", credentials: "same-origin" })
+    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+    .then(t => {
+      el.textContent = t;
+      caixa.textContent = "Montando o painel...";
+      requestAnimationFrame(() => setTimeout(() => {
+        try { painelApp(); caixa.remove(); } catch (e) { falhar(e); }
+      }, 0));
+    })
+    .catch(falhar);
+})();
+/*__FIM_CARREGADOR__*/
+</script>
+</body>
+</html>

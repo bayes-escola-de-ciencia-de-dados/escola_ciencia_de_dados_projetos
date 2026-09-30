@@ -1,0 +1,6 @@
+# 0017 - No SharePoint, o painel lê os dados de um arquivo JSON
+
+- **Data**: 2026-09-29
+- **Contexto**: O painel é publicado como .aspx numa biblioteca do SharePoint. Republicar o .aspx a cada atualização de dados exige liberar custom script no site. Foi considerado ler os dados de listas do SharePoint, com as agregações
+- **Decisão**: O .aspx fica fixo e, ao abrir, busca um `dados.json` (o mesmo JSON do [contrato de dados](../03_contrato_de_dados.md)) na mesma biblioteca, com o caminho definido por `--url-dados` (padrão: `dados.json`, na mesma pasta da página). Atualizar os dados é substituir esse arquivo. Listas foram descartadas: o fato tem centenas de milhares de linhas, a API devolve no máximo 5 mil itens por chamada, a gravação sofre limitação de taxa e o formato em lista perde a compactação colunar. O HTML com dados embutidos continua existindo como mockup, para testes locais e validação
+- **Consequências**: O template tem um carregador que usa os dados embutidos quando existem e, senão, busca o arquivo sem cache e mostra uma mensagem de erro se falhar. `gerar_painel.py` gera a pasta `saida/sharepoint/` com os dois .aspx e o `dados.json`. O .aspx só precisa ser republicado quando o layout mudar. Quem vê o painel precisa de leitura no local do JSON. Complementa a [0002](0002-template-canonico.md), que previa dados sempre embutidos

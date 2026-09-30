@@ -1,0 +1,1632 @@
+cnpj_fornecedor;nome_fornecedor;status_kys;risco_financeiro;data_snapshot
+50255870000154;Alfa Soluções Ltda;Aprovado;Baixo;2026-08-31
+50255870000295;Alfa Soluções Ltda;Aprovado;Baixo;2026-08-31
+65995407000170;Beta Soluções Ltda;Aprovado;Baixo;2026-08-31
+73860917000134;Gama Soluções Ltda;Aprovado;Baixo;2026-08-31
+68988174000122;Delta Soluções Ltda;Aprovado;Médio;2026-08-31
+22423394000114;Sigma Soluções Ltda;Aprovado;Médio;2026-08-31
+22423394000241;Sigma Soluções Ltda;Aprovado;Médio;2026-08-31
+40550650000135;Ômega Soluções Ltda;Aprovado;Baixo;2026-08-31
+40550650000217;Ômega Soluções Ltda;Aprovado;Baixo;2026-08-31
+79284892000179;Atlas Soluções Ltda;Aprovado;Baixo;2026-08-31
+28800525000180;Vértice Soluções Ltda;Negado;Médio;2026-08-31
+18037316000133;Horizonte Soluções Ltda;Aprovado;Médio;2026-08-31
+92135034000128;Prisma Soluções Ltda;Negado;Baixo;2026-08-31
+99364834000198;Núcleo Soluções Ltda;Aprovado;Baixo;2026-08-31
+81740805000141;Aurora Soluções Ltda;Aprovado;Baixo;2026-08-31
+14450255000130;Zênite Soluções Ltda;Aprovado;Alto;2026-08-31
+41147777000130;Órbita Soluções Ltda;Aprovado;Baixo;2026-08-31
+22380894000186;Vetor Soluções Ltda;Aprovado;Baixo;2026-08-31
+22380894000291;Vetor Soluções Ltda;Aprovado;Baixo;2026-08-31
+39648934000155;Pilar Soluções Ltda;Aprovado;Médio;2026-08-31
+70990269000134;Rota Soluções Ltda;Aprovado;Baixo;2026-08-31
+29071153000115;Elo Soluções Ltda;Aprovado;Médio;2026-08-31
+18234502000167;Farol Soluções Ltda;Aprovado;Baixo;2026-08-31
+18234502000264;Farol Soluções Ltda;Aprovado;Baixo;2026-08-31
+18234502000388;Farol Soluções Ltda;Aprovado;Baixo;2026-08-31
+71404459000115;Âncora Soluções Ltda;Aprovado;Médio;2026-08-31
+71404459000266;Âncora Soluções Ltda;Aprovado;Médio;2026-08-31
+21670231000185;Lume Soluções Ltda;Aprovado;Médio;2026-08-31
+21670231000293;Lume Soluções Ltda;Aprovado;Médio;2026-08-31
+20508019000192;Cume Soluções Ltda;Aprovado;Médio;2026-08-31
+23318849000164;Sol Soluções Ltda;Aprovado;Baixo;2026-08-31
+23318849000227;Sol Soluções Ltda;Aprovado;Baixo;2026-08-31
+61034556000167;Mar Soluções Ltda;Aprovado;Baixo;2026-08-31
+61034556000290;Mar Soluções Ltda;Aprovado;Baixo;2026-08-31
+45469721000198;Alfa Serviços Ltda;Aprovado;Baixo;2026-08-31
+45469721000230;Alfa Serviços Ltda;Aprovado;Baixo;2026-08-31
+95040312000120;Beta Serviços Ltda;Aprovado;Baixo;2026-08-31
+17112099000162;Gama Serviços Ltda;Aprovado;Médio;2026-08-31
+17112099000294;Gama Serviços Ltda;Aprovado;Médio;2026-08-31
+24553071000132;Delta Serviços Ltda;Negado;Baixo;2026-08-31
+57860228000164;Sigma Serviços Ltda;Aprovado;Médio;2026-08-31
+92298004000132;Ômega Serviços Ltda;Aprovado;Baixo;2026-08-31
+92298004000231;Ômega Serviços Ltda;Aprovado;Baixo;2026-08-31
+35602887000121;Atlas Serviços Ltda;Aprovado;Baixo;2026-08-31
+58430664000182;Vértice Serviços Ltda;Aprovado;Baixo;2026-08-31
+46816231000170;Horizonte Serviços Ltda;Aprovado;Baixo;2026-08-31
+77457934000126;Prisma Serviços Ltda;Aprovado;Baixo;2026-08-31
+28285072000130;Núcleo Serviços Ltda;Aprovado;Sem avaliação;2026-08-31
+28285072000241;Núcleo Serviços Ltda;Aprovado;Sem avaliação;2026-08-31
+20057705000155;Aurora Serviços Ltda;Aprovado;Baixo;2026-08-31
+20057705000294;Aurora Serviços Ltda;Aprovado;Baixo;2026-08-31
+47525346000151;Zênite Serviços Ltda;Aprovado;Baixo;2026-08-31
+32266689000172;Órbita Serviços Ltda;Aprovado;Baixo;2026-08-31
+52113593000133;Vetor Serviços Ltda;Aprovado;Baixo;2026-08-31
+88608956000143;Pilar Serviços Ltda;Aprovado;Baixo;2026-08-31
+26842780000148;Rota Serviços Ltda;Aprovado;Baixo;2026-08-31
+26842780000290;Rota Serviços Ltda;Aprovado;Baixo;2026-08-31
+79498482000118;Elo Serviços Ltda;Aprovado;Médio;2026-08-31
+79498482000228;Elo Serviços Ltda;Aprovado;Médio;2026-08-31
+19740333000176;Farol Serviços Ltda;Aprovado;Médio;2026-08-31
+19740333000220;Farol Serviços Ltda;Aprovado;Médio;2026-08-31
+58258469000187;Âncora Serviços Ltda;Aprovado;Sem avaliação;2026-08-31
+25087594000148;Lume Serviços Ltda;Aprovado;Sem avaliação;2026-08-31
+73023885000158;Cume Serviços Ltda;Aprovado;Baixo;2026-08-31
+73023885000290;Cume Serviços Ltda;Aprovado;Baixo;2026-08-31
+99915041000173;Sol Serviços Ltda;Aprovado;Baixo;2026-08-31
+89036101000184;Mar Serviços Ltda;Negado;Médio;2026-08-31
+89036101000258;Mar Serviços Ltda;Negado;Médio;2026-08-31
+44886436000186;Alfa Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+44886436000226;Alfa Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+38620038000177;Beta Tecnologia Ltda;Aprovado;Alto;2026-08-31
+23239273000122;Gama Tecnologia Ltda;Aprovado;Médio;2026-08-31
+23239273000289;Gama Tecnologia Ltda;Aprovado;Médio;2026-08-31
+53442332000198;Delta Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+53442332000246;Delta Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+94132487000120;Sigma Tecnologia Ltda;Aprovado;Médio;2026-08-31
+43695604000167;Ômega Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+36837611000125;Atlas Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+81881416000138;Vértice Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+84877410000137;Horizonte Tecnologia Ltda;Aprovado;Alto;2026-08-31
+87429801000136;Prisma Tecnologia Ltda;Aprovado;Sem avaliação;2026-08-31
+87429801000213;Prisma Tecnologia Ltda;Aprovado;Sem avaliação;2026-08-31
+54980217000142;Núcleo Tecnologia Ltda;Aprovado;Médio;2026-08-31
+64839620000163;Aurora Tecnologia Ltda;Aprovado;Médio;2026-08-31
+63697608000154;Zênite Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+18686684000182;Órbita Tecnologia Ltda;Aprovado;Médio;2026-08-31
+77838462000166;Vetor Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+35336070000195;Pilar Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+35336070000260;Pilar Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+45080169000173;Rota Tecnologia Ltda;Aprovado;Médio;2026-08-31
+45080169000217;Rota Tecnologia Ltda;Aprovado;Médio;2026-08-31
+30446039000167;Elo Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+92896098000139;Farol Tecnologia Ltda;Aprovado;Médio;2026-08-31
+92896098000227;Farol Tecnologia Ltda;Aprovado;Médio;2026-08-31
+45844445000131;Âncora Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+98234613000179;Lume Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+21060165000160;Cume Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+21060165000235;Cume Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+43496298000137;Sol Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+43496298000257;Sol Tecnologia Ltda;Aprovado;Baixo;2026-08-31
+78433163000132;Mar Tecnologia Ltda;Aprovado;Médio;2026-08-31
+97439594000196;Alfa Sistemas Ltda;Aprovado;Baixo;2026-08-31
+42702806000194;Beta Sistemas Ltda;Aprovado;Médio;2026-08-31
+69396155000167;Gama Sistemas Ltda;Aprovado;Baixo;2026-08-31
+60204176000126;Delta Sistemas Ltda;Aprovado;Alto;2026-08-31
+60204176000214;Delta Sistemas Ltda;Aprovado;Alto;2026-08-31
+60204176000374;Delta Sistemas Ltda;Aprovado;Alto;2026-08-31
+23595457000112;Sigma Sistemas Ltda;Aprovado;Baixo;2026-08-31
+23570759000183;Ômega Sistemas Ltda;Aprovado;Baixo;2026-08-31
+12872951000177;Atlas Sistemas Ltda;Aprovado;Baixo;2026-08-31
+12872951000256;Atlas Sistemas Ltda;Aprovado;Baixo;2026-08-31
+40743906000143;Vértice Sistemas Ltda;Aprovado;Baixo;2026-08-31
+12930232000156;Horizonte Sistemas Ltda;Aprovado;Baixo;2026-08-31
+50264026000151;Prisma Sistemas Ltda;Aprovado;Baixo;2026-08-31
+68795461000111;Núcleo Sistemas Ltda;Aprovado;Baixo;2026-08-31
+74294372000163;Aurora Sistemas Ltda;Aprovado;Sem avaliação;2026-08-31
+95031718000116;Zênite Sistemas Ltda;Aprovado;Baixo;2026-08-31
+95031718000211;Zênite Sistemas Ltda;Aprovado;Baixo;2026-08-31
+14997775000144;Órbita Sistemas Ltda;Aprovado;Baixo;2026-08-31
+81957829000123;Vetor Sistemas Ltda;Aprovado;Baixo;2026-08-31
+30938291000119;Pilar Sistemas Ltda;Aprovado;Baixo;2026-08-31
+74140409000158;Rota Sistemas Ltda;Aprovado;Baixo;2026-08-31
+74140409000251;Rota Sistemas Ltda;Aprovado;Baixo;2026-08-31
+76758560000167;Elo Sistemas Ltda;Aprovado;Médio;2026-08-31
+76758560000233;Elo Sistemas Ltda;Aprovado;Médio;2026-08-31
+92345617000153;Farol Sistemas Ltda;Aprovado;Baixo;2026-08-31
+58044423000192;Âncora Sistemas Ltda;Aprovado;Baixo;2026-08-31
+29244829000187;Lume Sistemas Ltda;Aprovado;Baixo;2026-08-31
+76873613000112;Cume Sistemas Ltda;Aprovado;Baixo;2026-08-31
+24183623000122;Sol Sistemas Ltda;Aprovado;Baixo;2026-08-31
+36586842000173;Mar Sistemas Ltda;Aprovado;Sem avaliação;2026-08-31
+75410037000130;Alfa Consultoria Ltda;Aprovado;Baixo;2026-08-31
+97590513000146;Beta Consultoria Ltda;Aprovado;Médio;2026-08-31
+97590513000219;Beta Consultoria Ltda;Aprovado;Médio;2026-08-31
+14930212000185;Gama Consultoria Ltda;Aprovado;Alto;2026-08-31
+14930212000298;Gama Consultoria Ltda;Aprovado;Alto;2026-08-31
+32299964000192;Delta Consultoria Ltda;Aprovado;Médio;2026-08-31
+32299964000277;Delta Consultoria Ltda;Aprovado;Médio;2026-08-31
+77626886000125;Sigma Consultoria Ltda;Aprovado;Baixo;2026-08-31
+77626886000246;Sigma Consultoria Ltda;Aprovado;Baixo;2026-08-31
+37541763000178;Ômega Consultoria Ltda;Aprovado;Baixo;2026-08-31
+85346614000140;Atlas Consultoria Ltda;Aprovado;Baixo;2026-08-31
+58139731000127;Vértice Consultoria Ltda;Aprovado;Médio;2026-08-31
+58139731000223;Vértice Consultoria Ltda;Aprovado;Médio;2026-08-31
+47779134000196;Horizonte Consultoria Ltda;Aprovado;Baixo;2026-08-31
+89285117000196;Prisma Consultoria Ltda;Aprovado;Baixo;2026-08-31
+89285117000233;Prisma Consultoria Ltda;Aprovado;Baixo;2026-08-31
+54444888000187;Núcleo Consultoria Ltda;Aprovado;Baixo;2026-08-31
+88419581000194;Aurora Consultoria Ltda;Aprovado;Médio;2026-08-31
+86055798000136;Zênite Consultoria Ltda;Aprovado;Baixo;2026-08-31
+11437436000159;Órbita Consultoria Ltda;Aprovado;Baixo;2026-08-31
+90591516000170;Vetor Consultoria Ltda;Aprovado;Baixo;2026-08-31
+22740016000166;Pilar Consultoria Ltda;Aprovado;Médio;2026-08-31
+40691936000173;Rota Consultoria Ltda;Aprovado;Baixo;2026-08-31
+33963997000113;Elo Consultoria Ltda;Aprovado;Baixo;2026-08-31
+67169809000122;Farol Consultoria Ltda;Aprovado;Baixo;2026-08-31
+67945545000193;Âncora Consultoria Ltda;Aprovado;Baixo;2026-08-31
+41004910000111;Lume Consultoria Ltda;Aprovado;Médio;2026-08-31
+48699326000158;Cume Consultoria Ltda;Aprovado;Baixo;2026-08-31
+12321213000133;Sol Consultoria Ltda;Aprovado;Baixo;2026-08-31
+12321213000279;Sol Consultoria Ltda;Aprovado;Baixo;2026-08-31
+84353470000158;Mar Consultoria Ltda;Aprovado;Baixo;2026-08-31
+81211205000137;Alfa Engenharia Ltda;Aprovado;Baixo;2026-08-31
+81211205000251;Alfa Engenharia Ltda;Aprovado;Baixo;2026-08-31
+63336488000190;Beta Engenharia Ltda;Aprovado;Baixo;2026-08-31
+93320277000158;Gama Engenharia Ltda;Aprovado;Alto;2026-08-31
+35057977000146;Delta Engenharia Ltda;Aprovado;Baixo;2026-08-31
+21761493000112;Sigma Engenharia Ltda;Aprovado;Médio;2026-08-31
+89364915000170;Ômega Engenharia Ltda;Aprovado;Médio;2026-08-31
+86885659000122;Atlas Engenharia Ltda;Aprovado;Médio;2026-08-31
+99582033000133;Vértice Engenharia Ltda;Aprovado;Baixo;2026-08-31
+99582033000237;Vértice Engenharia Ltda;Aprovado;Baixo;2026-08-31
+38955278000192;Horizonte Engenharia Ltda;Aprovado;Baixo;2026-08-31
+33076714000180;Prisma Engenharia Ltda;Aprovado;Baixo;2026-08-31
+54718042000169;Núcleo Engenharia Ltda;Aprovado;Médio;2026-08-31
+70881798000134;Aurora Engenharia Ltda;Aprovado;Baixo;2026-08-31
+35163253000196;Zênite Engenharia Ltda;Aprovado;Baixo;2026-08-31
+67764357000197;Órbita Engenharia Ltda;Aprovado;Baixo;2026-08-31
+45596687000174;Vetor Engenharia Ltda;Aprovado;Baixo;2026-08-31
+69697722000184;Pilar Engenharia Ltda;Aprovado;Alto;2026-08-31
+13421142000192;Rota Engenharia Ltda;Aprovado;Médio;2026-08-31
+41223932000159;Elo Engenharia Ltda;Aprovado;Alto;2026-08-31
+62523691000115;Farol Engenharia Ltda;Aprovado;Baixo;2026-08-31
+51167993000160;Âncora Engenharia Ltda;Aprovado;Baixo;2026-08-31
+81319583000143;Lume Engenharia Ltda;Aprovado;Baixo;2026-08-31
+54764428000120;Cume Engenharia Ltda;Aprovado;Médio;2026-08-31
+24940867000188;Sol Engenharia Ltda;Aprovado;Baixo;2026-08-31
+96614526000193;Mar Engenharia Ltda;Aprovado;Médio;2026-08-31
+32761300000119;Alfa Logística Ltda;Aprovado;Médio;2026-08-31
+33684152000113;Beta Logística Ltda;Aprovado;Médio;2026-08-31
+40978618000166;Gama Logística Ltda;Aprovado;Baixo;2026-08-31
+53682148000184;Delta Logística Ltda;Aprovado;Baixo;2026-08-31
+84413469000148;Sigma Logística Ltda;Aprovado;Médio;2026-08-31
+80512808000191;Ômega Logística Ltda;Aprovado;Baixo;2026-08-31
+33291442000156;Atlas Logística Ltda;Aprovado;Baixo;2026-08-31
+33291442000245;Atlas Logística Ltda;Aprovado;Baixo;2026-08-31
+73966720000114;Vértice Logística Ltda;Aprovado;Médio;2026-08-31
+93510545000173;Horizonte Logística Ltda;Aprovado;Baixo;2026-08-31
+59814114000177;Prisma Logística Ltda;Aprovado;Baixo;2026-08-31
+83369267000189;Núcleo Logística Ltda;Aprovado;Baixo;2026-08-31
+95090685000192;Aurora Logística Ltda;Aprovado;Médio;2026-08-31
+58702344000191;Zênite Logística Ltda;Aprovado;Baixo;2026-08-31
+48241015000167;Órbita Logística Ltda;Aprovado;Baixo;2026-08-31
+48241015000240;Órbita Logística Ltda;Aprovado;Baixo;2026-08-31
+94849589000178;Vetor Logística Ltda;Aprovado;Baixo;2026-08-31
+12972136000173;Pilar Logística Ltda;Aprovado;Médio;2026-08-31
+71078064000187;Rota Logística Ltda;Aprovado;Baixo;2026-08-31
+50951335000167;Elo Logística Ltda;Aprovado;Baixo;2026-08-31
+50951335000263;Elo Logística Ltda;Aprovado;Baixo;2026-08-31
+94781315000120;Farol Logística Ltda;Aprovado;Baixo;2026-08-31
+26513485000111;Âncora Logística Ltda;Aprovado;Médio;2026-08-31
+26069833000137;Lume Logística Ltda;Aprovado;Baixo;2026-08-31
+26069833000289;Lume Logística Ltda;Aprovado;Baixo;2026-08-31
+61695068000111;Cume Logística Ltda;Aprovado;Baixo;2026-08-31
+37537539000195;Sol Logística Ltda;Aprovado;Baixo;2026-08-31
+37537539000244;Sol Logística Ltda;Aprovado;Baixo;2026-08-31
+48213638000157;Mar Logística Ltda;Aprovado;Baixo;2026-08-31
+28261877000157;Alfa Digital Ltda;Aprovado;Baixo;2026-08-31
+86472036000185;Beta Digital Ltda;Aprovado;Baixo;2026-08-31
+81172865000127;Gama Digital Ltda;Aprovado;Baixo;2026-08-31
+31205948000143;Delta Digital Ltda;Aprovado;Baixo;2026-08-31
+31205948000297;Delta Digital Ltda;Aprovado;Baixo;2026-08-31
+63125603000137;Sigma Digital Ltda;Aprovado;Baixo;2026-08-31
+63125603000214;Sigma Digital Ltda;Aprovado;Baixo;2026-08-31
+55698939000111;Ômega Digital Ltda;Aprovado;Sem avaliação;2026-08-31
+75171348000124;Atlas Digital Ltda;Aprovado;Alto;2026-08-31
+75171348000226;Atlas Digital Ltda;Aprovado;Alto;2026-08-31
+20324076000112;Vértice Digital Ltda;Aprovado;Baixo;2026-08-31
+45530762000189;Horizonte Digital Ltda;Aprovado;Baixo;2026-08-31
+66973050000134;Prisma Digital Ltda;Aprovado;Baixo;2026-08-31
+66973050000236;Prisma Digital Ltda;Aprovado;Baixo;2026-08-31
+26584203000142;Núcleo Digital Ltda;Aprovado;Baixo;2026-08-31
+29585431000195;Aurora Digital Ltda;Aprovado;Baixo;2026-08-31
+29585431000271;Aurora Digital Ltda;Aprovado;Baixo;2026-08-31
+64339582000129;Zênite Digital Ltda;Negado;Médio;2026-08-31
+90364636000186;Órbita Digital Ltda;Aprovado;Baixo;2026-08-31
+90364636000297;Órbita Digital Ltda;Aprovado;Baixo;2026-08-31
+92468683000178;Vetor Digital Ltda;Aprovado;Médio;2026-08-31
+16084281000144;Pilar Digital Ltda;Aprovado;Médio;2026-08-31
+89757692000173;Rota Digital Ltda;Aprovado;Baixo;2026-08-31
+24831194000164;Elo Digital Ltda;Aprovado;Baixo;2026-08-31
+46089391000183;Farol Digital Ltda;Aprovado;Baixo;2026-08-31
+32033128000183;Âncora Digital Ltda;Aprovado;Alto;2026-08-31
+36362922000145;Lume Digital Ltda;Aprovado;Médio;2026-08-31
+26584498000127;Cume Digital Ltda;Aprovado;Médio;2026-08-31
+34436961000178;Sol Digital Ltda;Aprovado;Médio;2026-08-31
+37272561000135;Mar Digital Ltda;Aprovado;Baixo;2026-08-31
+37272561000251;Mar Digital Ltda;Aprovado;Baixo;2026-08-31
+25634907000159;Alfa Comercial Ltda;Aprovado;Baixo;2026-08-31
+25634907000298;Alfa Comercial Ltda;Aprovado;Baixo;2026-08-31
+88666006000132;Beta Comercial Ltda;Aprovado;Médio;2026-08-31
+88666006000283;Beta Comercial Ltda;Aprovado;Médio;2026-08-31
+23517811000170;Gama Comercial Ltda;Aprovado;Baixo;2026-08-31
+23517811000219;Gama Comercial Ltda;Aprovado;Baixo;2026-08-31
+23517811000382;Gama Comercial Ltda;Aprovado;Baixo;2026-08-31
+54265445000139;Delta Comercial Ltda;Aprovado;Médio;2026-08-31
+54265445000237;Delta Comercial Ltda;Aprovado;Médio;2026-08-31
+79016734000134;Sigma Comercial Ltda;Aprovado;Baixo;2026-08-31
+79016734000217;Sigma Comercial Ltda;Aprovado;Baixo;2026-08-31
+75698412000150;Ômega Comercial Ltda;Aprovado;Médio;2026-08-31
+69413370000187;Atlas Comercial Ltda;Aprovado;Sem avaliação;2026-08-31
+22323851000110;Vértice Comercial Ltda;Aprovado;Alto;2026-08-31
+22323851000221;Vértice Comercial Ltda;Aprovado;Alto;2026-08-31
+29716687000133;Horizonte Comercial Ltda;Aprovado;Baixo;2026-08-31
+11284393000128;Prisma Comercial Ltda;Aprovado;Médio;2026-08-31
+93889930000168;Núcleo Comercial Ltda;Aprovado;Baixo;2026-08-31
+67419002000178;Aurora Comercial Ltda;Aprovado;Médio;2026-08-31
+83702245000134;Zênite Comercial Ltda;Aprovado;Baixo;2026-08-31
+83702245000247;Zênite Comercial Ltda;Aprovado;Baixo;2026-08-31
+71032239000193;Órbita Comercial Ltda;Aprovado;Baixo;2026-08-31
+71032239000218;Órbita Comercial Ltda;Aprovado;Baixo;2026-08-31
+95330271000118;Vetor Comercial Ltda;Aprovado;Baixo;2026-08-31
+79142854000118;Pilar Comercial Ltda;Aprovado;Baixo;2026-08-31
+81735305000165;Rota Comercial Ltda;Aprovado;Médio;2026-08-31
+49001005000130;Elo Comercial Ltda;Aprovado;Baixo;2026-08-31
+85964343000174;Farol Comercial Ltda;Aprovado;Baixo;2026-08-31
+82012306000170;Âncora Comercial Ltda;Aprovado;Baixo;2026-08-31
+79111805000195;Lume Comercial Ltda;Aprovado;Baixo;2026-08-31
+79111805000256;Lume Comercial Ltda;Aprovado;Baixo;2026-08-31
+24663005000188;Cume Comercial Ltda;Aprovado;Baixo;2026-08-31
+92750645000139;Sol Comercial Ltda;Aprovado;Baixo;2026-08-31
+92750645000297;Sol Comercial Ltda;Aprovado;Baixo;2026-08-31
+24375078000177;Mar Comercial Ltda;Aprovado;Baixo;2026-08-31
+11061448000119;Alfa Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+33068074000194;Beta Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+33068074000227;Beta Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+67236503000195;Gama Soluções 2 Ltda;Aprovado;Alto;2026-08-31
+67278444000145;Delta Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+78636626000148;Sigma Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+78636626000282;Sigma Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+24925287000119;Ômega Soluções 2 Ltda;Aprovado;Médio;2026-08-31
+39020485000131;Atlas Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+82329674000124;Vértice Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+39174823000159;Horizonte Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+84757181000141;Prisma Soluções 2 Ltda;Aprovado;Médio;2026-08-31
+50031646000134;Núcleo Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+50031646000234;Núcleo Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+50031646000356;Núcleo Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+34892164000154;Aurora Soluções 2 Ltda;Aprovado;Médio;2026-08-31
+66257842000147;Zênite Soluções 2 Ltda;Aprovado;Alto;2026-08-31
+28120629000181;Órbita Soluções 2 Ltda;Aprovado;Médio;2026-08-31
+18703265000167;Vetor Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+24327349000149;Pilar Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+25207930000119;Rota Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+85768844000195;Elo Soluções 2 Ltda;Aprovado;Médio;2026-08-31
+73454627000140;Farol Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+96451584000126;Âncora Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+96451584000275;Âncora Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+11679658000110;Lume Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+29377533000128;Cume Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+46551462000116;Sol Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+51923116000138;Mar Soluções 2 Ltda;Aprovado;Baixo;2026-08-31
+57096713000124;Alfa Serviços 2 Ltda;Aprovado;Alto;2026-08-31
+57096713000282;Alfa Serviços 2 Ltda;Aprovado;Alto;2026-08-31
+95801983000131;Beta Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+95801983000252;Beta Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+52615675000157;Gama Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+44876450000150;Delta Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+38368150000168;Sigma Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+14958774000134;Ômega Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+24781501000188;Atlas Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+22917448000157;Vértice Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+92135003000177;Horizonte Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+30759939000117;Prisma Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+30759939000242;Prisma Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+90414111000168;Núcleo Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+47583566000182;Aurora Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+47583566000217;Aurora Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+61745448000115;Zênite Serviços 2 Ltda;Aprovado;Alto;2026-08-31
+61745448000235;Zênite Serviços 2 Ltda;Aprovado;Alto;2026-08-31
+32300836000169;Órbita Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+32300836000292;Órbita Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+35276508000155;Vetor Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+49364721000145;Pilar Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+20187194000157;Rota Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+63164894000142;Elo Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+63164894000296;Elo Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+95310647000121;Farol Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+20144440000163;Âncora Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+81444242000171;Lume Serviços 2 Ltda;Aprovado;Médio;2026-08-31
+85154661000178;Cume Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+69151478000127;Sol Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+32712281000192;Mar Serviços 2 Ltda;Aprovado;Baixo;2026-08-31
+40008767000131;Alfa Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+40008767000217;Alfa Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+87954991000146;Beta Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+44036004000115;Gama Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+44036004000275;Gama Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+22214289000112;Delta Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+77888358000198;Sigma Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+77888358000276;Sigma Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+96405621000127;Ômega Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+27866714000119;Atlas Tecnologia 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+90872708000162;Vértice Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+79059791000179;Horizonte Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+92201165000168;Prisma Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+55328876000152;Núcleo Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+93047518000189;Aurora Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+93047518000264;Aurora Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+93047518000315;Aurora Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+65792697000126;Zênite Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+86961015000175;Órbita Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+87333521000145;Vetor Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+54430467000198;Pilar Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+54430467000243;Pilar Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+66567720000140;Rota Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+48398062000151;Elo Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+48398062000222;Elo Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+70287482000110;Farol Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+70287482000249;Farol Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+64031251000135;Âncora Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+64031251000289;Âncora Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+40945386000151;Lume Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+18662038000198;Cume Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+56339401000137;Sol Tecnologia 2 Ltda;Aprovado;Médio;2026-08-31
+23091243000166;Mar Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+23091243000254;Mar Tecnologia 2 Ltda;Aprovado;Baixo;2026-08-31
+95718027000124;Alfa Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+42656345000114;Beta Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+59243110000111;Gama Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+15975810000161;Delta Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+60546546000162;Sigma Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+60546546000290;Sigma Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+39941034000193;Ômega Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+81135945000190;Atlas Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+32749526000170;Vértice Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+32749526000296;Vértice Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+60229589000177;Horizonte Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+52691274000170;Prisma Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+69731297000182;Núcleo Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+69731297000269;Núcleo Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+36972242000142;Aurora Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+28703494000130;Zênite Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+73493951000142;Órbita Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+90693192000157;Vetor Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+90693192000261;Vetor Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+90693192000323;Vetor Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+21104258000155;Pilar Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+54507318000175;Rota Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+78871512000169;Elo Sistemas 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+78871512000218;Elo Sistemas 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+51049583000194;Farol Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+83990784000192;Âncora Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+83990784000214;Âncora Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+43895960000119;Lume Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+19555101000116;Cume Sistemas 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+29997646000168;Sol Sistemas 2 Ltda;Aprovado;Médio;2026-08-31
+86104453000118;Mar Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+86104453000255;Mar Sistemas 2 Ltda;Aprovado;Baixo;2026-08-31
+74983722000166;Alfa Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+95117573000123;Beta Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+33472357000137;Gama Consultoria 2 Ltda;Aprovado;Médio;2026-08-31
+32751592000194;Delta Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+69197807000168;Sigma Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+17521502000158;Ômega Consultoria 2 Ltda;Aprovado;Médio;2026-08-31
+17521502000233;Ômega Consultoria 2 Ltda;Aprovado;Médio;2026-08-31
+53127265000139;Atlas Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+23242990000180;Vértice Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+23242990000292;Vértice Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+59652792000116;Horizonte Consultoria 2 Ltda;Negado;Médio;2026-08-31
+95643746000192;Prisma Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+63568371000170;Núcleo Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+87179575000131;Aurora Consultoria 2 Ltda;Negado;Baixo;2026-08-31
+90016351000177;Zênite Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+94297500000176;Órbita Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+76436234000139;Vetor Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+29476067000195;Pilar Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+81338649000117;Rota Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+97281396000122;Elo Consultoria 2 Ltda;Aprovado;Alto;2026-08-31
+39072917000136;Farol Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+82688796000142;Âncora Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+17919742000147;Lume Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+50485876000158;Cume Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+36114506000168;Sol Consultoria 2 Ltda;Aprovado;Baixo;2026-08-31
+56454257000136;Mar Consultoria 2 Ltda;Aprovado;Médio;2026-08-31
+56454257000218;Mar Consultoria 2 Ltda;Aprovado;Médio;2026-08-31
+43601995000135;Alfa Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+65708819000150;Beta Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+65708819000272;Beta Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+11248511000171;Gama Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+96584439000114;Delta Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+21683524000184;Sigma Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+19000171000195;Ômega Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+19000171000211;Ômega Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+44514259000165;Atlas Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+44514259000225;Atlas Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+44238602000169;Vértice Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+43814010000156;Horizonte Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+43814010000260;Horizonte Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+75954215000173;Prisma Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+75954215000287;Prisma Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+83042212000149;Núcleo Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+83042212000252;Núcleo Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+83042212000345;Núcleo Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+93408856000133;Aurora Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+93408856000291;Aurora Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+35655693000164;Zênite Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+49719844000190;Órbita Engenharia 2 Ltda;Negado;Médio;2026-08-31
+49719844000247;Órbita Engenharia 2 Ltda;Negado;Médio;2026-08-31
+78762056000147;Vetor Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+94584371000155;Pilar Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+94584371000272;Pilar Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+50027766000135;Rota Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+74537086000121;Elo Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+74537086000280;Elo Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+76211162000134;Farol Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+45081751000113;Âncora Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+33232095000196;Lume Engenharia 2 Ltda;Aprovado;Médio;2026-08-31
+81020788000167;Cume Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+52630383000145;Sol Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+52630383000260;Sol Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+44149742000116;Mar Engenharia 2 Ltda;Aprovado;Baixo;2026-08-31
+38490475000137;Alfa Logística 2 Ltda;Aprovado;Médio;2026-08-31
+38490475000239;Alfa Logística 2 Ltda;Aprovado;Médio;2026-08-31
+38490475000395;Alfa Logística 2 Ltda;Aprovado;Médio;2026-08-31
+95553686000119;Beta Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+95553686000235;Beta Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+22034811000170;Gama Logística 2 Ltda;Aprovado;Médio;2026-08-31
+37576746000156;Delta Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+11388917000137;Sigma Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+11388917000220;Sigma Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+37951065000136;Ômega Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+67440599000124;Atlas Logística 2 Ltda;Aprovado;Médio;2026-08-31
+40422834000155;Vértice Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+40422834000251;Vértice Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+58964287000171;Horizonte Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+32089833000188;Prisma Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+21900070000129;Núcleo Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+20188349000195;Aurora Logística 2 Ltda;Aprovado;Médio;2026-08-31
+20188349000256;Aurora Logística 2 Ltda;Aprovado;Médio;2026-08-31
+20188349000325;Aurora Logística 2 Ltda;Aprovado;Médio;2026-08-31
+71220348000150;Zênite Logística 2 Ltda;Aprovado;Médio;2026-08-31
+40605806000152;Órbita Logística 2 Ltda;Aprovado;Alto;2026-08-31
+40605806000215;Órbita Logística 2 Ltda;Aprovado;Alto;2026-08-31
+46985553000161;Vetor Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+46985553000223;Vetor Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+92659656000129;Pilar Logística 2 Ltda;Aprovado;Médio;2026-08-31
+31933348000144;Rota Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+87442384000142;Elo Logística 2 Ltda;Aprovado;Médio;2026-08-31
+44015759000172;Farol Logística 2 Ltda;Aprovado;Médio;2026-08-31
+29001613000120;Âncora Logística 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+11212278000138;Lume Logística 2 Ltda;Aprovado;Médio;2026-08-31
+82239508000171;Cume Logística 2 Ltda;Aprovado;Médio;2026-08-31
+14949116000129;Sol Logística 2 Ltda;Aprovado;Médio;2026-08-31
+35229880000194;Mar Logística 2 Ltda;Aprovado;Baixo;2026-08-31
+15878321000162;Alfa Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+15878321000251;Alfa Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+87169442000195;Beta Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+40215332000113;Gama Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+40215332000276;Gama Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+89339350000119;Delta Digital 2 Ltda;Aprovado;Alto;2026-08-31
+15109663000132;Sigma Digital 2 Ltda;Aprovado;Médio;2026-08-31
+31097373000198;Ômega Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+31097373000241;Ômega Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+10336077000136;Atlas Digital 2 Ltda;Aprovado;Médio;2026-08-31
+37527033000143;Vértice Digital 2 Ltda;Aprovado;Médio;2026-08-31
+56229413000151;Horizonte Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+24535990000120;Prisma Digital 2 Ltda;Aprovado;Médio;2026-08-31
+38108870000179;Núcleo Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+30308373000124;Aurora Digital 2 Ltda;Aprovado;Médio;2026-08-31
+79810785000169;Zênite Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+79810785000210;Zênite Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+79810785000394;Zênite Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+35012346000146;Órbita Digital 2 Ltda;Aprovado;Médio;2026-08-31
+35012346000250;Órbita Digital 2 Ltda;Aprovado;Médio;2026-08-31
+66629643000118;Vetor Digital 2 Ltda;Aprovado;Médio;2026-08-31
+66629643000295;Vetor Digital 2 Ltda;Aprovado;Médio;2026-08-31
+66629643000314;Vetor Digital 2 Ltda;Aprovado;Médio;2026-08-31
+71056470000185;Pilar Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+11819384000168;Rota Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+35139032000162;Elo Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+35139032000246;Elo Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+36457676000138;Farol Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+36457676000259;Farol Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+65127856000167;Âncora Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+71698548000121;Lume Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+37037488000184;Cume Digital 2 Ltda;Aprovado;Médio;2026-08-31
+37037488000281;Cume Digital 2 Ltda;Aprovado;Médio;2026-08-31
+89982479000115;Sol Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+89982479000290;Sol Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+49809700000197;Mar Digital 2 Ltda;Aprovado;Baixo;2026-08-31
+59092510000197;Alfa Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+73694564000137;Beta Comercial 2 Ltda;Negado;Médio;2026-08-31
+78685762000145;Gama Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+63997454000164;Delta Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+26760669000110;Sigma Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+86633281000139;Ômega Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+57774360000196;Atlas Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+57774360000232;Atlas Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+60024697000168;Vértice Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+60024697000283;Vértice Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+77990919000160;Horizonte Comercial 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+27755280000159;Prisma Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+27755280000282;Prisma Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+12725969000168;Núcleo Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+81441911000174;Aurora Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+81441911000296;Aurora Comercial 2 Ltda;Aprovado;Médio;2026-08-31
+42551303000116;Zênite Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+50002623000152;Órbita Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+86242577000179;Vetor Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+86242577000273;Vetor Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+66791081000154;Pilar Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+66791081000234;Pilar Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+81353924000142;Rota Comercial 2 Ltda;Negado;Baixo;2026-08-31
+77523143000186;Elo Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+84703361000157;Farol Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+84703361000249;Farol Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+59129899000113;Âncora Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+10288974000185;Lume Comercial 2 Ltda;Aprovado;Sem avaliação;2026-08-31
+37791482000128;Cume Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+37791482000227;Cume Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+20334537000170;Sol Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+55802741000170;Mar Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+55802741000226;Mar Comercial 2 Ltda;Aprovado;Baixo;2026-08-31
+16232403000165;Alfa Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+16232403000217;Alfa Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+23859886000127;Beta Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+37120444000124;Gama Soluções 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+99140216000173;Delta Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+99140216000261;Delta Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+65834496000174;Sigma Soluções 3 Ltda;Aprovado;Alto;2026-08-31
+65834496000228;Sigma Soluções 3 Ltda;Aprovado;Alto;2026-08-31
+74887104000170;Ômega Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+74887104000270;Ômega Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+35301022000152;Atlas Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+50798573000157;Vértice Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+90687816000165;Horizonte Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+84342731000136;Prisma Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+84342731000265;Prisma Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+45301450000122;Núcleo Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+97336438000158;Aurora Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+97336438000256;Aurora Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+63908977000195;Zênite Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+63908977000241;Zênite Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+85988313000118;Órbita Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+42348447000154;Vetor Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+91358442000121;Pilar Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+15455235000162;Rota Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+15455235000265;Rota Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+16979138000182;Elo Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+34395001000184;Farol Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+34395001000215;Farol Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+14563319000131;Âncora Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+33927709000151;Lume Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+96107802000166;Cume Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+96777424000128;Sol Soluções 3 Ltda;Aprovado;Médio;2026-08-31
+75300015000196;Mar Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+75300015000284;Mar Soluções 3 Ltda;Aprovado;Baixo;2026-08-31
+12169342000171;Alfa Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+65073224000114;Beta Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+76848381000184;Gama Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+87990297000165;Delta Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+61274126000152;Sigma Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+75505520000115;Ômega Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+87304299000168;Atlas Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+91574701000189;Vértice Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+91574701000214;Vértice Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+82071279000180;Horizonte Serviços 3 Ltda;Aprovado;Alto;2026-08-31
+18230959000121;Prisma Serviços 3 Ltda;Aprovado;Alto;2026-08-31
+18230959000254;Prisma Serviços 3 Ltda;Aprovado;Alto;2026-08-31
+97460316000137;Núcleo Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+95548482000120;Aurora Serviços 3 Ltda;Negado;Baixo;2026-08-31
+75776140000188;Zênite Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+75776140000284;Zênite Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+72980996000167;Órbita Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+72980996000238;Órbita Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+31320094000197;Vetor Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+65541541000169;Pilar Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+65541541000247;Pilar Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+55582610000127;Rota Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+84950930000162;Elo Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+83516022000151;Farol Serviços 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+22439832000160;Âncora Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+22439832000297;Âncora Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+88053960000136;Lume Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+49553293000161;Cume Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+49553293000243;Cume Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+54836505000128;Sol Serviços 3 Ltda;Aprovado;Baixo;2026-08-31
+30758797000187;Mar Serviços 3 Ltda;Aprovado;Médio;2026-08-31
+54718645000133;Alfa Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+56689528000143;Beta Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+92390987000196;Gama Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+85772088000190;Delta Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+85772088000217;Delta Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+67584017000195;Sigma Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+89595671000196;Ômega Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+75325754000167;Atlas Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+75325754000249;Atlas Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+75325754000352;Atlas Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+26143329000126;Vértice Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+26143329000219;Vértice Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+98163249000159;Horizonte Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+98163249000244;Horizonte Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+70268883000111;Prisma Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+70268883000272;Prisma Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+92229507000197;Núcleo Tecnologia 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+92229507000278;Núcleo Tecnologia 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+30116453000185;Aurora Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+51225924000188;Zênite Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+73658159000162;Órbita Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+47856529000192;Vetor Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+47856529000276;Vetor Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+47856529000350;Vetor Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+15577028000116;Pilar Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+15577028000230;Pilar Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+19257906000175;Rota Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+43944979000178;Elo Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+43944979000234;Elo Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+69334176000111;Farol Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+73712265000159;Âncora Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+21797019000135;Lume Tecnologia 3 Ltda;Negado;Médio;2026-08-31
+97042371000160;Cume Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+97042371000224;Cume Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+53032839000149;Sol Tecnologia 3 Ltda;Aprovado;Baixo;2026-08-31
+42219206000197;Mar Tecnologia 3 Ltda;Aprovado;Médio;2026-08-31
+40629141000134;Alfa Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+48539394000167;Beta Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+56527501000145;Gama Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+27361358000119;Delta Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+66560971000198;Sigma Sistemas 3 Ltda;Negado;Baixo;2026-08-31
+24797369000161;Ômega Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+24797369000241;Ômega Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+92850959000144;Atlas Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+99490439000143;Vértice Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+99490439000287;Vértice Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+89552437000117;Horizonte Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+93519687000127;Prisma Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+30268378000197;Núcleo Sistemas 3 Ltda;Aprovado;Alto;2026-08-31
+29547419000198;Aurora Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+37235333000156;Zênite Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+50886021000196;Órbita Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+50886021000216;Órbita Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+25060339000164;Vetor Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+87990001000198;Pilar Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+37900612000155;Rota Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+15565847000144;Elo Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+19814236000131;Farol Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+21923479000169;Âncora Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+70417619000149;Lume Sistemas 3 Ltda;Aprovado;Médio;2026-08-31
+88665668000137;Cume Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+67487010000125;Sol Sistemas 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+71332611000193;Mar Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+71332611000266;Mar Sistemas 3 Ltda;Aprovado;Baixo;2026-08-31
+56718352000168;Alfa Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+47639772000159;Beta Consultoria 3 Ltda;Negado;Baixo;2026-08-31
+47639772000291;Beta Consultoria 3 Ltda;Negado;Baixo;2026-08-31
+96839528000130;Gama Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+96839528000212;Gama Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+47036162000138;Delta Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+97210538000122;Sigma Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+97210538000244;Sigma Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+97210538000355;Sigma Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+77349368000127;Ômega Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+77349368000246;Ômega Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+77745370000164;Atlas Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+98453338000149;Vértice Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+76261156000129;Horizonte Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+76261156000226;Horizonte Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+34267595000143;Prisma Consultoria 3 Ltda;Aprovado;Alto;2026-08-31
+86265674000132;Núcleo Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+82633863000157;Aurora Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+82633863000222;Aurora Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+27805725000119;Zênite Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+77534888000193;Órbita Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+77534888000241;Órbita Consultoria 3 Ltda;Aprovado;Médio;2026-08-31
+61894679000167;Vetor Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+72467268000159;Pilar Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+25867305000130;Rota Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+84524227000112;Elo Consultoria 3 Ltda;Aprovado;Alto;2026-08-31
+19919350000125;Farol Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+51016936000115;Âncora Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+70916802000179;Lume Consultoria 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+91825246000173;Cume Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+97291235000198;Sol Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+97291235000262;Sol Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+97291235000372;Sol Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+17307343000145;Mar Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+17307343000237;Mar Consultoria 3 Ltda;Aprovado;Baixo;2026-08-31
+82759236000166;Alfa Engenharia 3 Ltda;Negado;Baixo;2026-08-31
+27315974000177;Beta Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+52771289000126;Gama Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+52771289000272;Gama Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+56242917000121;Delta Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+51855505000138;Sigma Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+51855505000269;Sigma Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+85931972000175;Ômega Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+60655756000112;Atlas Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+14609462000168;Vértice Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+14609462000286;Vértice Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+43942399000129;Horizonte Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+84069445000122;Prisma Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+46477752000135;Núcleo Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+84306645000141;Aurora Engenharia 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+57218455000169;Zênite Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+18126948000139;Órbita Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+18126948000237;Órbita Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+92235650000140;Vetor Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+92235650000244;Vetor Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+96125449000158;Pilar Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+82149159000151;Rota Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+46224415000117;Elo Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+98086245000179;Farol Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+29320707000120;Âncora Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+29320707000219;Âncora Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+26146372000120;Lume Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+26146372000280;Lume Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+62080017000131;Cume Engenharia 3 Ltda;Aprovado;Médio;2026-08-31
+62045629000156;Sol Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+50164329000116;Mar Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+50164329000216;Mar Engenharia 3 Ltda;Aprovado;Baixo;2026-08-31
+59860641000161;Alfa Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+88551960000139;Beta Logística 3 Ltda;Aprovado;Médio;2026-08-31
+88551960000249;Beta Logística 3 Ltda;Aprovado;Médio;2026-08-31
+61077318000162;Gama Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+75846742000193;Delta Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+75846742000213;Delta Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+21241511000174;Sigma Logística 3 Ltda;Aprovado;Médio;2026-08-31
+93413078000177;Ômega Logística 3 Ltda;Aprovado;Alto;2026-08-31
+93413078000226;Ômega Logística 3 Ltda;Aprovado;Alto;2026-08-31
+63520356000123;Atlas Logística 3 Ltda;Aprovado;Médio;2026-08-31
+44415377000178;Vértice Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+25912583000112;Horizonte Logística 3 Ltda;Aprovado;Médio;2026-08-31
+86862276000166;Prisma Logística 3 Ltda;Aprovado;Médio;2026-08-31
+86862276000227;Prisma Logística 3 Ltda;Aprovado;Médio;2026-08-31
+14084343000125;Núcleo Logística 3 Ltda;Aprovado;Alto;2026-08-31
+77618481000173;Aurora Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+39686474000164;Zênite Logística 3 Ltda;Aprovado;Médio;2026-08-31
+89081893000118;Órbita Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+89081893000262;Órbita Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+16786915000143;Vetor Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+16870116000142;Pilar Logística 3 Ltda;Aprovado;Médio;2026-08-31
+30431526000117;Rota Logística 3 Ltda;Aprovado;Alto;2026-08-31
+30431526000292;Rota Logística 3 Ltda;Aprovado;Alto;2026-08-31
+16489153000187;Elo Logística 3 Ltda;Aprovado;Médio;2026-08-31
+16489153000234;Elo Logística 3 Ltda;Aprovado;Médio;2026-08-31
+24225597000131;Farol Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+27321513000151;Âncora Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+27321513000227;Âncora Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+60733463000111;Lume Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+60733463000286;Lume Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+21316657000140;Cume Logística 3 Ltda;Aprovado;Médio;2026-08-31
+21316657000255;Cume Logística 3 Ltda;Aprovado;Médio;2026-08-31
+27278842000112;Sol Logística 3 Ltda;Aprovado;Médio;2026-08-31
+44252355000157;Mar Logística 3 Ltda;Aprovado;Baixo;2026-08-31
+23790550000174;Alfa Digital 3 Ltda;Aprovado;Alto;2026-08-31
+23790550000253;Alfa Digital 3 Ltda;Aprovado;Alto;2026-08-31
+43797862000158;Beta Digital 3 Ltda;Aprovado;Médio;2026-08-31
+14063441000139;Gama Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+89662838000132;Delta Digital 3 Ltda;Aprovado;Médio;2026-08-31
+61313337000150;Sigma Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+38994370000114;Ômega Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+88006401000136;Atlas Digital 3 Ltda;Aprovado;Médio;2026-08-31
+65578078000194;Vértice Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+37014608000182;Horizonte Digital 3 Ltda;Aprovado;Médio;2026-08-31
+37014608000219;Horizonte Digital 3 Ltda;Aprovado;Médio;2026-08-31
+37014608000374;Horizonte Digital 3 Ltda;Aprovado;Médio;2026-08-31
+16596211000170;Prisma Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+16596211000269;Prisma Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+99082787000126;Núcleo Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+33305865000127;Aurora Digital 3 Ltda;Aprovado;Médio;2026-08-31
+33305865000278;Aurora Digital 3 Ltda;Aprovado;Médio;2026-08-31
+33305865000350;Aurora Digital 3 Ltda;Aprovado;Médio;2026-08-31
+58455239000120;Zênite Digital 3 Ltda;Aprovado;Alto;2026-08-31
+27175316000182;Órbita Digital 3 Ltda;Aprovado;Médio;2026-08-31
+27175316000220;Órbita Digital 3 Ltda;Aprovado;Médio;2026-08-31
+12660457000160;Vetor Digital 3 Ltda;Aprovado;Médio;2026-08-31
+43703182000172;Pilar Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+82197904000134;Rota Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+35057609000117;Elo Digital 3 Ltda;Aprovado;Médio;2026-08-31
+57096934000170;Farol Digital 3 Ltda;Negado;Baixo;2026-08-31
+57096934000214;Farol Digital 3 Ltda;Negado;Baixo;2026-08-31
+57424091000156;Âncora Digital 3 Ltda;Aprovado;Médio;2026-08-31
+59708810000168;Lume Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+48993841000126;Cume Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+48993841000211;Cume Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+32276061000183;Sol Digital 3 Ltda;Aprovado;Médio;2026-08-31
+83909584000115;Mar Digital 3 Ltda;Aprovado;Baixo;2026-08-31
+11896764000183;Alfa Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+55300027000168;Beta Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+15567834000150;Gama Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+83568542000115;Delta Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+94742780000196;Sigma Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+63521119000163;Ômega Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+63521119000216;Ômega Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+86824496000198;Atlas Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+86824496000269;Atlas Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+35758409000157;Vértice Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+35758409000219;Vértice Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+35758409000343;Vértice Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+92544048000164;Horizonte Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+63098612000193;Prisma Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+63098612000213;Prisma Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+71530917000196;Núcleo Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+32517669000153;Aurora Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+41986889000121;Zênite Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+90903405000166;Órbita Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+90903405000265;Órbita Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+86988402000193;Vetor Comercial 3 Ltda;Aprovado;Alto;2026-08-31
+51935811000183;Pilar Comercial 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+51935811000212;Pilar Comercial 3 Ltda;Aprovado;Sem avaliação;2026-08-31
+63835907000176;Rota Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+38557267000180;Elo Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+18747215000122;Farol Comercial 3 Ltda;Aprovado;Alto;2026-08-31
+46549162000192;Âncora Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+28813288000148;Lume Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+28813288000214;Lume Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+44743622000146;Cume Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+44743622000288;Cume Comercial 3 Ltda;Aprovado;Médio;2026-08-31
+22755032000160;Sol Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+74887052000127;Mar Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+74887052000294;Mar Comercial 3 Ltda;Aprovado;Baixo;2026-08-31
+21829509000132;Alfa Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+21829509000256;Alfa Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+18262841000136;Beta Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+18357007000146;Gama Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+18357007000231;Gama Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+69628853000152;Delta Soluções 4 Ltda;Aprovado;Sem avaliação;2026-08-31
+20717328000169;Sigma Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+79114779000142;Ômega Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+79114779000253;Ômega Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+15223550000160;Atlas Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+60279701000118;Vértice Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+60279701000272;Vértice Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+44143428000115;Horizonte Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+44143428000254;Horizonte Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+13000511000141;Prisma Soluções 4 Ltda;Aprovado;Alto;2026-08-31
+21760051000122;Núcleo Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+20693880000152;Aurora Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+20693880000260;Aurora Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+97350811000179;Zênite Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+77563818000110;Órbita Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+83746041000121;Vetor Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+83746041000260;Vetor Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+52353437000145;Pilar Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+52353437000244;Pilar Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+62781800000160;Rota Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+69221818000188;Elo Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+69221818000297;Elo Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+53926963000178;Farol Soluções 4 Ltda;Aprovado;Alto;2026-08-31
+23961661000116;Âncora Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+45670277000128;Lume Soluções 4 Ltda;Aprovado;Médio;2026-08-31
+22961002000159;Cume Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+64707489000196;Sol Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+40804597000143;Mar Soluções 4 Ltda;Aprovado;Baixo;2026-08-31
+56755862000137;Alfa Serviços 4 Ltda;Aprovado;Alto;2026-08-31
+47541819000155;Beta Serviços 4 Ltda;Negado;Médio;2026-08-31
+92751172000163;Gama Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+64617171000184;Delta Serviços 4 Ltda;Negado;Baixo;2026-08-31
+64617171000243;Delta Serviços 4 Ltda;Negado;Baixo;2026-08-31
+83480900000139;Sigma Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+70984021000111;Ômega Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+48140477000163;Atlas Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+95483878000115;Vértice Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+61846262000176;Horizonte Serviços 4 Ltda;Aprovado;Médio;2026-08-31
+89969961000169;Prisma Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+89969961000284;Prisma Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+89969961000313;Prisma Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+11283607000119;Núcleo Serviços 4 Ltda;Aprovado;Alto;2026-08-31
+96553730000149;Aurora Serviços 4 Ltda;Aprovado;Alto;2026-08-31
+96553730000260;Aurora Serviços 4 Ltda;Aprovado;Alto;2026-08-31
+97322705000154;Zênite Serviços 4 Ltda;Aprovado;Médio;2026-08-31
+97322705000272;Zênite Serviços 4 Ltda;Aprovado;Médio;2026-08-31
+15332582000188;Órbita Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+31958430000129;Vetor Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+88037057000123;Pilar Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+88037057000274;Pilar Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+74751536000190;Rota Serviços 4 Ltda;Aprovado;Médio;2026-08-31
+29708296000171;Elo Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+29708296000228;Elo Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+71575374000129;Farol Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+98907895000192;Âncora Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+98907895000293;Âncora Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+33458128000146;Lume Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+93058885000125;Cume Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+35499795000160;Sol Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+35499795000250;Sol Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+19765316000141;Mar Serviços 4 Ltda;Aprovado;Baixo;2026-08-31
+84749137000171;Alfa Tecnologia 4 Ltda;Aprovado;Alto;2026-08-31
+91647523000165;Beta Tecnologia 4 Ltda;Aprovado;Médio;2026-08-31
+21361024000164;Gama Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+59322269000127;Delta Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+19055527000151;Sigma Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+78170907000172;Ômega Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+93142850000150;Atlas Tecnologia 4 Ltda;Aprovado;Médio;2026-08-31
+75174101000144;Vértice Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+75174101000265;Vértice Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+39763367000122;Horizonte Tecnologia 4 Ltda;Aprovado;Alto;2026-08-31
+51235545000149;Prisma Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+21081967000123;Núcleo Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+55849662000142;Aurora Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+21622315000168;Zênite Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+21622315000283;Zênite Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+79612297000136;Órbita Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+36183225000126;Vetor Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+36183225000273;Vetor Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+36183225000346;Vetor Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+49200909000181;Pilar Tecnologia 4 Ltda;Aprovado;Alto;2026-08-31
+53581609000178;Rota Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+84155445000154;Elo Tecnologia 4 Ltda;Aprovado;Médio;2026-08-31
+84155445000212;Elo Tecnologia 4 Ltda;Aprovado;Médio;2026-08-31
+69598626000163;Farol Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+69598626000260;Farol Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+69598626000372;Farol Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+44473298000144;Âncora Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+52095242000133;Lume Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+52095242000284;Lume Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+20292136000151;Cume Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+20292136000230;Cume Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+21845284000150;Sol Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+21845284000291;Sol Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+94006833000117;Mar Tecnologia 4 Ltda;Aprovado;Baixo;2026-08-31
+15620840000154;Alfa Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+13571746000156;Beta Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+16196166000138;Gama Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+44125796000191;Delta Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+24800834000163;Sigma Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+89564205000184;Ômega Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+89564205000285;Ômega Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+13300122000163;Atlas Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+43877695000167;Vértice Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+84565725000186;Horizonte Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+58606097000147;Prisma Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+63438540000164;Núcleo Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+81409368000158;Aurora Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+41145202000114;Zênite Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+69619687000124;Órbita Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+50205854000196;Vetor Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+50205854000297;Vetor Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+94396711000111;Pilar Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+94396711000234;Pilar Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+50276412000144;Rota Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+50250359000124;Elo Sistemas 4 Ltda;Aprovado;Alto;2026-08-31
+71184453000178;Farol Sistemas 4 Ltda;Aprovado;Médio;2026-08-31
+16309238000113;Âncora Sistemas 4 Ltda;Aprovado;Alto;2026-08-31
+16309238000287;Âncora Sistemas 4 Ltda;Aprovado;Alto;2026-08-31
+32937963000177;Lume Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+32937963000241;Lume Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+71231926000170;Cume Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+57906168000138;Sol Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+92406422000171;Mar Sistemas 4 Ltda;Aprovado;Baixo;2026-08-31
+27599361000130;Alfa Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+27599361000294;Alfa Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+42207701000131;Beta Consultoria 4 Ltda;Aprovado;Sem avaliação;2026-08-31
+33961181000169;Gama Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+50113319000139;Delta Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+50113319000224;Delta Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+78509551000113;Sigma Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+76274623000149;Ômega Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+34083637000143;Atlas Consultoria 4 Ltda;Negado;Médio;2026-08-31
+34083637000288;Atlas Consultoria 4 Ltda;Negado;Médio;2026-08-31
+82335097000187;Vértice Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+82335097000238;Vértice Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+54734748000119;Horizonte Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+54734748000242;Horizonte Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+64290546000161;Prisma Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+64290546000285;Prisma Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+64290546000373;Prisma Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+63559896000175;Núcleo Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+63559896000278;Núcleo Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+83372278000153;Aurora Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+17872220000152;Zênite Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+17872220000211;Zênite Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+48226444000126;Órbita Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+48226444000246;Órbita Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+47047776000135;Vetor Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+56301762000168;Pilar Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+50559558000190;Rota Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+64967080000142;Elo Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+43013042000133;Farol Consultoria 4 Ltda;Aprovado;Alto;2026-08-31
+62160395000184;Âncora Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+87743007000138;Lume Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+71008080000121;Cume Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+17628180000152;Sol Consultoria 4 Ltda;Aprovado;Médio;2026-08-31
+17930786000173;Mar Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+17930786000263;Mar Consultoria 4 Ltda;Aprovado;Baixo;2026-08-31
+74202388000116;Alfa Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+38928468000177;Beta Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+11821859000115;Gama Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+16184319000122;Delta Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+21988507000119;Sigma Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+21988507000298;Sigma Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+83473204000193;Ômega Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+61627268000140;Atlas Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+99593863000142;Vértice Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+34021041000188;Horizonte Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+34021041000212;Horizonte Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+19650952000120;Prisma Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+19650952000229;Prisma Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+19650952000361;Prisma Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+51995767000171;Núcleo Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+51995767000268;Núcleo Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+76986082000172;Aurora Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+76986082000238;Aurora Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+96318513000154;Zênite Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+14946513000114;Órbita Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+14946513000295;Órbita Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+47093147000160;Vetor Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+71741155000118;Pilar Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+79465151000147;Rota Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+79465151000231;Rota Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+60651073000130;Elo Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+85695197000157;Farol Engenharia 4 Ltda;Aprovado;Médio;2026-08-31
+91788482000189;Âncora Engenharia 4 Ltda;Aprovado;Médio;2026-08-31
+32748971000175;Lume Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+55916641000138;Cume Engenharia 4 Ltda;Negado;Baixo;2026-08-31
+63188493000145;Sol Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+98498269000193;Mar Engenharia 4 Ltda;Aprovado;Baixo;2026-08-31
+25340117000151;Alfa Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+25340117000279;Alfa Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+27798831000195;Beta Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+27798831000268;Beta Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+77201711000140;Gama Logística 4 Ltda;Aprovado;Médio;2026-08-31
+77201711000288;Gama Logística 4 Ltda;Aprovado;Médio;2026-08-31
+17313552000133;Delta Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+17313552000241;Delta Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+81300449000198;Sigma Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+85614453000161;Ômega Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+85614453000292;Ômega Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+24854288000131;Atlas Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+26319918000118;Vértice Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+51537819000196;Horizonte Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+31328445000186;Prisma Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+31289447000151;Núcleo Logística 4 Ltda;Aprovado;Alto;2026-08-31
+37971671000178;Aurora Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+37971671000215;Aurora Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+36743749000186;Zênite Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+36743749000252;Zênite Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+29197897000112;Órbita Logística 4 Ltda;Aprovado;Alto;2026-08-31
+29197897000241;Órbita Logística 4 Ltda;Aprovado;Alto;2026-08-31
+91302890000157;Vetor Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+67858252000189;Pilar Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+67858252000281;Pilar Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+49493432000161;Rota Logística 4 Ltda;Negado;Alto;2026-08-31
+40301608000176;Elo Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+40301608000260;Elo Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+95044878000192;Farol Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+95044878000217;Farol Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+90692241000147;Âncora Logística 4 Ltda;Aprovado;Alto;2026-08-31
+90692241000248;Âncora Logística 4 Ltda;Aprovado;Alto;2026-08-31
+40481168000118;Lume Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+43783414000153;Cume Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+51925200000191;Sol Logística 4 Ltda;Aprovado;Alto;2026-08-31
+22132508000192;Mar Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+22132508000214;Mar Logística 4 Ltda;Aprovado;Baixo;2026-08-31
+72452880000149;Alfa Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+72452880000277;Alfa Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+40398337000185;Beta Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+40398337000253;Beta Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+14703364000130;Gama Digital 4 Ltda;Aprovado;Alto;2026-08-31
+14703364000238;Gama Digital 4 Ltda;Aprovado;Alto;2026-08-31
+43454892000188;Delta Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+43454892000213;Delta Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+19344308000185;Sigma Digital 4 Ltda;Aprovado;Alto;2026-08-31
+33130723000144;Ômega Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+30790614000157;Atlas Digital 4 Ltda;Aprovado;Médio;2026-08-31
+30790614000240;Atlas Digital 4 Ltda;Aprovado;Médio;2026-08-31
+98777610000124;Vértice Digital 4 Ltda;Aprovado;Alto;2026-08-31
+98777610000267;Vértice Digital 4 Ltda;Aprovado;Alto;2026-08-31
+86319066000186;Horizonte Digital 4 Ltda;Aprovado;Médio;2026-08-31
+86319066000246;Horizonte Digital 4 Ltda;Aprovado;Médio;2026-08-31
+82182615000159;Prisma Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+82182615000232;Prisma Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+69547102000186;Núcleo Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+56327407000128;Aurora Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+81187672000119;Zênite Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+81187672000222;Zênite Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+78495949000121;Órbita Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+85166078000197;Vetor Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+86860140000197;Pilar Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+86860140000229;Pilar Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+84110731000168;Rota Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+13095063000197;Elo Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+13095063000238;Elo Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+88864944000189;Farol Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+95583575000143;Âncora Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+93920339000171;Lume Digital 4 Ltda;Aprovado;Sem avaliação;2026-08-31
+25583545000175;Cume Digital 4 Ltda;Aprovado;Baixo;2026-08-31
+50056345000156;Sol Digital 4 Ltda;Aprovado;Médio;2026-08-31
+73034320000173;Mar Digital 4 Ltda;Aprovado;Médio;2026-08-31
+73034320000212;Mar Digital 4 Ltda;Aprovado;Médio;2026-08-31
+70148928000169;Alfa Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+99005265000192;Beta Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+84821296000170;Gama Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+77000585000111;Delta Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+58041600000151;Sigma Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+54161582000151;Ômega Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+54161582000254;Ômega Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+13790228000151;Atlas Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+13790228000271;Atlas Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+46205799000111;Vértice Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+85019875000141;Horizonte Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+29350134000115;Prisma Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+37352619000159;Núcleo Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+37352619000213;Núcleo Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+88858798000197;Aurora Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+88858798000266;Aurora Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+67710230000114;Zênite Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+67740790000119;Órbita Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+79225169000173;Vetor Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+77118947000124;Pilar Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+61784065000185;Rota Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+61784065000237;Rota Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+82913420000136;Elo Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+82913420000254;Elo Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+84481959000153;Farol Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+26533226000166;Âncora Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+58812970000177;Lume Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+90042345000192;Cume Comercial 4 Ltda;Aprovado;Médio;2026-08-31
+49627738000122;Sol Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+49627738000292;Sol Comercial 4 Ltda;Aprovado;Baixo;2026-08-31
+79939947000137;Mar Comercial 4 Ltda;Aprovado;Alto;2026-08-31
+73255502000135;Alfa Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+73255502000283;Alfa Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+73255502000311;Alfa Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+47821746000155;Beta Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+26566033000113;Gama Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+98777810000175;Delta Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+63134423000145;Sigma Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+74839762000180;Ômega Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+70879792000115;Atlas Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+70879792000236;Atlas Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+94906967000174;Vértice Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+99925254000111;Horizonte Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+89435187000132;Prisma Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+89435187000248;Prisma Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+49128464000142;Núcleo Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+51958007000169;Aurora Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+51958007000238;Aurora Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+56904467000180;Zênite Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+76148609000133;Órbita Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+76148609000219;Órbita Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+62604353000143;Vetor Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+43446391000147;Pilar Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+43446391000273;Pilar Soluções 5 Ltda;Aprovado;Médio;2026-08-31
+73587453000141;Rota Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+26536501000158;Elo Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+12919975000191;Farol Soluções 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+84607881000133;Âncora Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+84607881000276;Âncora Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+52605981000176;Lume Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+13508693000165;Cume Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+13508693000281;Cume Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+76715653000142;Sol Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+74835030000187;Mar Soluções 5 Ltda;Aprovado;Baixo;2026-08-31
+77767242000117;Alfa Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+69412547000121;Beta Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+62328357000167;Gama Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+53263875000184;Delta Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+32589705000166;Sigma Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+32589705000284;Sigma Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+22308632000196;Ômega Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+62428182000112;Atlas Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+26549887000147;Vértice Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+26549887000249;Vértice Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+42681080000168;Horizonte Serviços 5 Ltda;Negado;Médio;2026-08-31
+42681080000219;Horizonte Serviços 5 Ltda;Negado;Médio;2026-08-31
+27150049000141;Prisma Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+34231805000117;Núcleo Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+14198662000151;Aurora Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+20116417000126;Zênite Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+46048365000192;Órbita Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+16568608000195;Vetor Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+84318474000160;Pilar Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+64454407000132;Rota Serviços 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+64454407000288;Rota Serviços 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+66686134000112;Elo Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+47421955000169;Farol Serviços 5 Ltda;Aprovado;Alto;2026-08-31
+39510300000120;Âncora Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+13954730000124;Lume Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+19778247000159;Cume Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+61599405000115;Sol Serviços 5 Ltda;Aprovado;Baixo;2026-08-31
+97246718000122;Mar Serviços 5 Ltda;Aprovado;Médio;2026-08-31
+31560499000127;Alfa Tecnologia 5 Ltda;Aprovado;Alto;2026-08-31
+31560499000236;Alfa Tecnologia 5 Ltda;Aprovado;Alto;2026-08-31
+38295940000176;Beta Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+38295940000213;Beta Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+56158936000164;Gama Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+56158936000230;Gama Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+48062997000124;Delta Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+68572191000141;Sigma Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+37688517000114;Ômega Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+52881040000111;Atlas Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+57533248000143;Vértice Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+36022380000159;Horizonte Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+36022380000280;Horizonte Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+50829576000158;Prisma Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+50829576000214;Prisma Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+49385869000145;Núcleo Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+17337774000187;Aurora Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+35372906000185;Zênite Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+66875449000186;Órbita Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+66875449000243;Órbita Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+88618771000145;Vetor Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+88618771000263;Vetor Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+86240970000153;Pilar Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+86240970000211;Pilar Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+26413931000182;Rota Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+46568070000136;Elo Tecnologia 5 Ltda;Aprovado;Alto;2026-08-31
+32330917000190;Farol Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+56169831000125;Âncora Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+56169831000231;Âncora Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+98581670000150;Lume Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+98581670000261;Lume Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+14563828000124;Cume Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+44342042000196;Sol Tecnologia 5 Ltda;Aprovado;Médio;2026-08-31
+78486024000177;Mar Tecnologia 5 Ltda;Aprovado;Baixo;2026-08-31
+61194264000148;Alfa Sistemas 5 Ltda;Aprovado;Alto;2026-08-31
+61194264000218;Alfa Sistemas 5 Ltda;Aprovado;Alto;2026-08-31
+35465620000162;Beta Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+80671417000124;Gama Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+12402302000120;Delta Sistemas 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+12402302000257;Delta Sistemas 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+12402302000345;Delta Sistemas 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+21254965000111;Sigma Sistemas 5 Ltda;Aprovado;Alto;2026-08-31
+21254965000268;Sigma Sistemas 5 Ltda;Aprovado;Alto;2026-08-31
+13887498000178;Ômega Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+13887498000276;Ômega Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+97103491000119;Atlas Sistemas 5 Ltda;Aprovado;Alto;2026-08-31
+86936350000110;Vértice Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+86936350000235;Vértice Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+40479140000178;Horizonte Sistemas 5 Ltda;Negado;Baixo;2026-08-31
+82315541000129;Prisma Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+82315541000268;Prisma Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+64650390000115;Núcleo Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+43365712000181;Aurora Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+29355048000177;Zênite Sistemas 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+74159989000168;Órbita Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+79346111000126;Vetor Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+95044342000115;Pilar Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+26249537000145;Rota Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+13647579000125;Elo Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+72282106000138;Farol Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+45598760000189;Âncora Sistemas 5 Ltda;Aprovado;Médio;2026-08-31
+92358483000179;Lume Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+92358483000249;Lume Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+92358483000312;Lume Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+51085574000120;Cume Sistemas 5 Ltda;Aprovado;Baixo;2026-08-31
+71689820000142;Sol Sistemas 5 Ltda;Aprovado;Médio;2026-08-31
+71689820000217;Sol Sistemas 5 Ltda;Aprovado;Médio;2026-08-31
+90620198000196;Mar Sistemas 5 Ltda;Aprovado;Médio;2026-08-31
+52946062000167;Alfa Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+52946062000287;Alfa Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+38242797000184;Beta Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+63392635000125;Gama Consultoria 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+27957340000120;Delta Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+86056883000143;Sigma Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+86056883000241;Sigma Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+75594344000134;Ômega Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+75594344000270;Ômega Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+77525579000181;Atlas Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+13425116000112;Vértice Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+74708614000165;Horizonte Consultoria 5 Ltda;Aprovado;Alto;2026-08-31
+27141337000194;Prisma Consultoria 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+62510182000112;Núcleo Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+25114962000140;Aurora Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+95698269000130;Zênite Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+95698269000216;Zênite Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+26875145000182;Órbita Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+26875145000221;Órbita Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+67891447000123;Vetor Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+45551488000118;Pilar Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+45647321000149;Rota Consultoria 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+50890376000173;Elo Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+16072852000195;Farol Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+95550285000191;Âncora Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+63849004000163;Lume Consultoria 5 Ltda;Aprovado;Alto;2026-08-31
+63849004000220;Lume Consultoria 5 Ltda;Aprovado;Alto;2026-08-31
+57972438000131;Cume Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+57972438000288;Cume Consultoria 5 Ltda;Aprovado;Médio;2026-08-31
+79882111000113;Sol Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+43865518000136;Mar Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+43865518000212;Mar Consultoria 5 Ltda;Aprovado;Baixo;2026-08-31
+74776982000144;Alfa Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+82598728000177;Beta Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+82598728000212;Beta Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+86956109000188;Gama Engenharia 5 Ltda;Aprovado;Médio;2026-08-31
+32191671000160;Delta Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+32191671000282;Delta Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+44341174000126;Sigma Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+89276745000133;Ômega Engenharia 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+89276745000283;Ômega Engenharia 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+28197733000162;Atlas Engenharia 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+91049348000167;Vértice Engenharia 5 Ltda;Aprovado;Alto;2026-08-31
+27212588000132;Horizonte Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+52252191000153;Prisma Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+52252191000267;Prisma Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+22267721000198;Núcleo Engenharia 5 Ltda;Negado;Baixo;2026-08-31
+96251156000185;Aurora Engenharia 5 Ltda;Aprovado;Alto;2026-08-31
+96251156000242;Aurora Engenharia 5 Ltda;Aprovado;Alto;2026-08-31
+73978872000152;Zênite Engenharia 5 Ltda;Aprovado;Médio;2026-08-31
+50849339000138;Órbita Engenharia 5 Ltda;Aprovado;Médio;2026-08-31
+54032185000182;Vetor Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+68006545000141;Pilar Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+68006545000214;Pilar Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+68006545000343;Pilar Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+47357800000149;Rota Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+91168690000157;Elo Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+44331257000117;Farol Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+44331257000235;Farol Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+11764987000168;Âncora Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+97254654000136;Lume Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+78528673000144;Cume Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+69660303000152;Sol Engenharia 5 Ltda;Aprovado;Alto;2026-08-31
+78086931000198;Mar Engenharia 5 Ltda;Aprovado;Baixo;2026-08-31
+34321383000150;Alfa Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+78700301000168;Beta Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+75508878000133;Gama Logística 5 Ltda;Aprovado;Médio;2026-08-31
+69506732000197;Delta Logística 5 Ltda;Aprovado;Médio;2026-08-31
+15779038000149;Sigma Logística 5 Ltda;Aprovado;Médio;2026-08-31
+67344607000155;Ômega Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+29651225000125;Atlas Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+57220637000110;Vértice Logística 5 Ltda;Aprovado;Alto;2026-08-31
+78191704000150;Horizonte Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+37147877000193;Prisma Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+98879643000117;Núcleo Logística 5 Ltda;Aprovado;Médio;2026-08-31
+84785207000198;Aurora Logística 5 Ltda;Aprovado;Médio;2026-08-31
+78682036000144;Zênite Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+44868684000195;Órbita Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+37599087000117;Vetor Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+44399753000181;Pilar Logística 5 Ltda;Aprovado;Médio;2026-08-31
+86121096000152;Rota Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+49132918000136;Elo Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+49132918000252;Elo Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+26599996000117;Farol Logística 5 Ltda;Aprovado;Médio;2026-08-31
+85871739000134;Âncora Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+69938674000163;Lume Logística 5 Ltda;Aprovado;Médio;2026-08-31
+53680335000121;Cume Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+53680335000286;Cume Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+94525618000151;Sol Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+94525618000250;Sol Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+54010749000160;Mar Logística 5 Ltda;Aprovado;Baixo;2026-08-31
+11356548000122;Alfa Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+59286610000120;Beta Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+77518901000175;Gama Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+77518901000237;Gama Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+79051883000144;Delta Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+79051883000273;Delta Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+79051883000351;Delta Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+27919616000174;Sigma Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+27919616000215;Sigma Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+27919616000396;Sigma Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+40504669000184;Ômega Digital 5 Ltda;Aprovado;Alto;2026-08-31
+24418897000179;Atlas Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+66394574000115;Vértice Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+96520742000134;Horizonte Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+50067340000156;Prisma Digital 5 Ltda;Aprovado;Médio;2026-08-31
+55923473000127;Núcleo Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+45468773000176;Aurora Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+44138490000179;Zênite Digital 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+32154685000153;Órbita Digital 5 Ltda;Aprovado;Médio;2026-08-31
+43916573000111;Vetor Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+84149075000136;Pilar Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+95652670000195;Rota Digital 5 Ltda;Aprovado;Médio;2026-08-31
+66665431000178;Elo Digital 5 Ltda;Aprovado;Médio;2026-08-31
+66665431000268;Elo Digital 5 Ltda;Aprovado;Médio;2026-08-31
+62258222000193;Farol Digital 5 Ltda;Aprovado;Médio;2026-08-31
+62258222000217;Farol Digital 5 Ltda;Aprovado;Médio;2026-08-31
+43909540000139;Âncora Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+23901323000183;Lume Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+18239829000151;Cume Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+61783615000158;Sol Digital 5 Ltda;Aprovado;Alto;2026-08-31
+61783615000238;Sol Digital 5 Ltda;Aprovado;Alto;2026-08-31
+61783615000323;Sol Digital 5 Ltda;Aprovado;Alto;2026-08-31
+24482333000144;Mar Digital 5 Ltda;Aprovado;Baixo;2026-08-31
+94449955000160;Alfa Comercial 5 Ltda;Aprovado;Alto;2026-08-31
+94449955000257;Alfa Comercial 5 Ltda;Aprovado;Alto;2026-08-31
+30377897000162;Beta Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+30377897000269;Beta Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+86503143000167;Gama Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+55164973000169;Delta Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+55164973000286;Delta Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+55164973000354;Delta Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+85027596000123;Sigma Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+85027596000277;Sigma Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+10473871000168;Ômega Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+65881525000159;Atlas Comercial 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+15103721000147;Vértice Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+17995419000175;Horizonte Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+99356827000184;Prisma Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+99356827000270;Prisma Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+21578505000138;Núcleo Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+21578505000296;Núcleo Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+60248943000126;Aurora Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+43257850000152;Zênite Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+73604097000157;Órbita Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+73604097000243;Órbita Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+50753614000125;Vetor Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+13564488000151;Pilar Comercial 5 Ltda;Aprovado;Sem avaliação;2026-08-31
+79555537000135;Rota Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+79555537000250;Rota Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+59811135000184;Elo Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+59811135000293;Elo Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+48766935000155;Farol Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+48766935000274;Farol Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+86025382000177;Âncora Comercial 5 Ltda;Aprovado;Médio;2026-08-31
+95631060000174;Lume Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+69646749000152;Cume Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+69646749000219;Cume Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+89228908000166;Sol Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+89228908000225;Sol Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+58250464000137;Mar Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+58250464000272;Mar Comercial 5 Ltda;Aprovado;Baixo;2026-08-31
+75458754000144;Alfa Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+75458754000220;Alfa Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+78354043000194;Beta Soluções 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+78354043000229;Beta Soluções 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+74947200000117;Gama Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+55880603000190;Delta Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+80782996000132;Sigma Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+38100596000135;Ômega Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+38100596000253;Ômega Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+37141232000152;Atlas Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+37141232000241;Atlas Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+40163638000177;Vértice Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+40163638000296;Vértice Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+19099345000180;Horizonte Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+61305982000121;Prisma Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+61305982000251;Prisma Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+47700923000188;Núcleo Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+33770616000177;Aurora Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+62114511000119;Zênite Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+11026133000159;Órbita Soluções 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+11026133000234;Órbita Soluções 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+16974816000125;Vetor Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+16974816000275;Vetor Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+97582637000163;Pilar Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+39805328000130;Rota Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+57136087000162;Elo Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+82542795000179;Farol Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+23175957000129;Âncora Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+81371368000130;Lume Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+81371368000244;Lume Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+44286526000134;Cume Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+44286526000278;Cume Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+94576637000158;Sol Soluções 6 Ltda;Aprovado;Médio;2026-08-31
+83399587000112;Mar Soluções 6 Ltda;Aprovado;Baixo;2026-08-31
+66528534000190;Alfa Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+44842100000149;Beta Serviços 6 Ltda;Negado;Baixo;2026-08-31
+83285136000131;Gama Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+83285136000223;Gama Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+38234688000150;Delta Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+36638622000124;Sigma Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+12403191000185;Ômega Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+41729588000117;Atlas Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+56270001000132;Vértice Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+67649637000194;Horizonte Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+67649637000292;Horizonte Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+32187511000137;Prisma Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+75799063000171;Núcleo Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+18712630000175;Aurora Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+18712630000273;Aurora Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+30344773000183;Zênite Serviços 6 Ltda;Aprovado;Alto;2026-08-31
+26242336000131;Órbita Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+82946627000145;Vetor Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+82946627000269;Vetor Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+37912782000115;Pilar Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+37912782000291;Pilar Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+96888106000180;Rota Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+96888106000293;Rota Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+22403375000116;Elo Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+30878159000148;Farol Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+30878159000267;Farol Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+25318379000165;Âncora Serviços 6 Ltda;Aprovado;Alto;2026-08-31
+25318379000297;Âncora Serviços 6 Ltda;Aprovado;Alto;2026-08-31
+55408752000142;Lume Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+55408752000227;Lume Serviços 6 Ltda;Aprovado;Médio;2026-08-31
+10683181000141;Cume Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+62651605000137;Sol Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+14424907000191;Mar Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+14424907000274;Mar Serviços 6 Ltda;Aprovado;Baixo;2026-08-31
+97413198000138;Alfa Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+12267692000191;Beta Tecnologia 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+72290637000159;Gama Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+70677652000169;Delta Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+37448613000122;Sigma Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+12731495000180;Ômega Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+78723430000167;Atlas Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+76879128000148;Vértice Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+76879128000267;Vértice Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+45604180000137;Horizonte Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+90570291000128;Prisma Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+66796349000110;Núcleo Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+10202635000130;Aurora Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+77951589000117;Zênite Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+27601491000126;Órbita Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+27821854000192;Vetor Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+27821854000239;Vetor Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+27821854000387;Vetor Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+82161381000133;Pilar Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+86020493000197;Rota Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+86020493000279;Rota Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+81770614000160;Elo Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+99538113000177;Farol Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+23822963000195;Âncora Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+23822963000290;Âncora Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+88991484000133;Lume Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+67691340000126;Cume Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+67691340000250;Cume Tecnologia 6 Ltda;Aprovado;Baixo;2026-08-31
+85784634000111;Sol Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+85784634000230;Sol Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+40908512000170;Mar Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+40908512000233;Mar Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+40908512000354;Mar Tecnologia 6 Ltda;Aprovado;Médio;2026-08-31
+93992000000131;Alfa Sistemas 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+93992000000281;Alfa Sistemas 6 Ltda;Aprovado;Sem avaliação;2026-08-31
+59567041000185;Beta Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+36958584000186;Gama Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+36958584000294;Gama Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+10466092000181;Delta Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+42513366000152;Sigma Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+99708789000132;Ômega Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+38166796000110;Atlas Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+38166796000296;Atlas Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+31553783000198;Vértice Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+31553783000291;Vértice Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+92096543000194;Horizonte Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+79219576000133;Prisma Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+79219576000272;Prisma Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+51960204000179;Núcleo Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+52133682000133;Aurora Sistemas 6 Ltda;Aprovado;Alto;2026-08-31
+52133682000254;Aurora Sistemas 6 Ltda;Aprovado;Alto;2026-08-31
+74916137000190;Zênite Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+74916137000272;Zênite Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+79092098000158;Órbita Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+70458150000147;Vetor Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+70458150000274;Vetor Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+28514780000189;Pilar Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+61144173000128;Rota Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+49108237000178;Elo Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+49108237000227;Elo Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+91351562000186;Farol Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+58556568000180;Âncora Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+40156715000160;Lume Sistemas 6 Ltda;Aprovado;Médio;2026-08-31
+52180113000194;Cume Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+52180113000243;Cume Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+47894593000192;Sol Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+51923310000185;Mar Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+51923310000260;Mar Sistemas 6 Ltda;Aprovado;Baixo;2026-08-31
+24641189000174;Alfa Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+71028039000123;Beta Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+71028039000239;Beta Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+29161549000144;Gama Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+29161549000246;Gama Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+56396560000163;Delta Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+91896395000178;Sigma Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+78073719000169;Ômega Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+67931081000113;Atlas Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+67931081000293;Atlas Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+49725297000150;Vértice Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+49725297000266;Vértice Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+36337709000115;Horizonte Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+36337709000288;Horizonte Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+28054378000131;Prisma Consultoria 6 Ltda;Aprovado;Alto;2026-08-31
+61271897000177;Núcleo Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+32003374000130;Aurora Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+32003374000213;Aurora Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+24646007000118;Zênite Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+64875232000112;Órbita Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+64875232000290;Órbita Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+69826324000156;Vetor Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+69826324000236;Vetor Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+83469538000132;Pilar Consultoria 6 Ltda;Aprovado;Alto;2026-08-31
+90748168000128;Rota Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+87652162000126;Elo Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+19098834000122;Farol Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+47133599000176;Âncora Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+47133599000273;Âncora Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+71462070000130;Lume Consultoria 6 Ltda;Aprovado;Médio;2026-08-31
+39444894000111;Cume Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+49014053000156;Sol Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
+16674474000132;Mar Consultoria 6 Ltda;Aprovado;Baixo;2026-08-31
