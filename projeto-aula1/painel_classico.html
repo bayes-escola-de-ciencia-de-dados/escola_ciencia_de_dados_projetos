@@ -1115,6 +1115,24 @@ function barrasShare(id, itens) {
   }));
 }
 
+function colunasCat(id, itens, opc) {
+  opc = opc || {};
+  const tot = itens.reduce((t, x) => t + x.valor, 0);
+  if (!tot) return vazio(id);
+  const u = unidade(Math.max(...itens.map(x => x.valor)));
+  const fmt = v => opc.qtd ? nf0.format(v) : brl(v);
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: fs(30), bottom: 8, containLabel: true },
+    tooltip: tip(p => { const x = itens[p.dataIndex]; return tooltipHtml(x.nome, [{ cor: x.cor, rotulo: opc.rotulo || "Spend", valor: fmt(x.valor) }, { rotulo: "Participação", valor: pct(x.valor / tot) }]); }),
+    xAxis: eixoCat(itens.map(x => x.nome), { axisLabel: { color: C.texto2, fontSize: fs(12), fontWeight: 600 } }),
+    yAxis: opc.qtd
+      ? eixoValor(opc.qtd, { minInterval: 1, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => nf0.format(v) } })
+      : eixoValorV(Math.max(...itens.map(x => x.valor))),
+    series: [{ type: "bar", barMaxWidth: 72, data: itens.map(x => ({ value: x.valor, itemStyle: { color: x.cor, borderRadius: [4, 4, 0, 0] } })),
+      label: { show: true, position: "top", color: C.texto, fontSize: fs(12), fontWeight: 600, formatter: p => `${opc.qtd ? nf0.format(p.value) : fmtRotulo(u)(p.value)} · ${pct(p.value / tot, 0)}` } }]
+  }));
+}
+
 function barrasDiv(id, itens) {
   if (!itens.length) return vazio(id, "Sem variação para comparar");
   const inv = itens.slice().reverse();
@@ -1487,6 +1505,11 @@ function vRiscos() {
   fila.push(() => gauge("g-gauge", pk, M.kys_min));
   fila.push(() => rosca("g-rosca", DIMS.kys.map((k, i) => ({ nome: k, valor: r.kysV[i], cor: coresKys[i] })), r.T, [pct(r.T ? r.kysV[KYS_OK] / r.T : NaN, 1), "do spend aprovado"]));
   aposRender.push(() => ligarBusca("busca-risco"));
+  const nRisco = DIMS.risco.map((_, i) => fs_.filter(f => FORN.risco[f] === i).length);
+  const vis = DIMS.risco.map((_, i) => i).filter(i => i < 3 || nRisco[i] > 0);
+  fila.push(() => colunasCat("g-risco-n", vis.map(i => ({ nome: DIMS.risco[i], valor: nRisco[i], cor: C.risco[i] })), { qtd: "fornecedores", rotulo: "Fornecedores" }));
+  fila.push(() => colunasCat("g-risco-v", vis.map(i => ({ nome: DIMS.risco[i], valor: r.riscoV[i], cor: C.risco[i] }))));
+  const pAltoN = fs_.length ? nRisco[RISCO_ALTO] / fs_.length : NaN, pAltoV = r.T ? r.riscoV[RISCO_ALTO] / r.T : NaN;
   return secao("Riscos", `KYS e risco financeiro dos fornecedores que recebem pagamento · ${esc(snap)} · ${ctx()}`) +
     `<div class="kpis">` +
     kpi(Object.assign({ rotulo: "Fornecedores com KYS aprovado", valor: pct(pk), sub: `${aprov} de ${fs_.length} fornecedores · meta ≥ ${pct(M.kys_min, 0)}` }, meta(pk, M.kys_min, true))) +
@@ -1495,6 +1518,8 @@ function vRiscos() {
     `</div><div class="grade">` +
     cartao({ id: "g-gauge", titulo: "Fornecedores com KYS aprovado", desc: "% dos fornecedores com pagamento no período · vermelho abaixo de 85%, amarelo até a meta" }) +
     cartao({ id: "g-rosca", titulo: "Spend por situação de KYS", desc: "Quanto do dinheiro vai para fornecedores aprovados e negados · valores em R$" }) +
+    cartao({ id: "g-risco-n", titulo: `Fornecedores por risco financeiro: ${nf0.format(nRisco[RISCO_ALTO])} com risco alto (${pct(pAltoN, 0)})`, desc: `Quantidade de fornecedores com pagamento no período em cada nível de risco · rótulo: quantidade · % dos ${nf0.format(fs_.length)} fornecedores` }) +
+    cartao({ id: "g-risco-v", titulo: `Spend por risco financeiro: ${brl(r.riscoV[RISCO_ALTO])} em risco alto (${pct(pAltoV, 0)})`, desc: "Quanto foi pago no período a fornecedores de cada nível de risco · rótulo: valor em R$ mi ou mil (unidade do eixo) · % do spend" }) +
     cartao({ largo: true, titulo: `Fornecedores com risco · ${esc(recorteCategoria())}`, desc: "KYS diferente de aprovado ou risco financeiro médio ou alto · ordenado por gravidade e spend",
       corpo: busca("busca-risco", "Buscar fornecedor...", `${comRisco.length} fornecedores com risco`) +
         tabela([{ t: "Fornecedor" }, { t: "Categoria principal" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }, { t: "Spend", cls: "num" }, { t: "% com contrato", cls: "num" }],
