@@ -329,13 +329,13 @@ const VISTAS = [
   { id: "tendencias", nome: "Tendências" },
   { id: "fornecedores", nome: "Fornecedores" },
   { id: "categorias", nome: "Categorias" },
-  { id: "pareto", nome: "Pareto & Concentração" },
-  { id: "contrato", nome: "Com / Sem Contrato" },
   { id: "contratos", nome: "Contratos" },
+  { id: "contrato", nome: "Com / Sem Contrato" },
+  { id: "pareto", nome: "Concentração de Fornecedores" },
   { id: "riscos", nome: "Riscos" },
-  { id: "insights", nome: "Insights" },
+  { id: "insights", nome: "Insights", desativada: true },
   { id: "glossario", nome: "Glossário" }
-];
+].filter(v => !v.desativada);
 const LENTES = {
   categoria: { nome: "Categoria", plural: "categorias", todos: "Todas as categorias" },
   diretoria: { nome: "Diretoria", plural: "diretorias", todos: "Todas as diretorias" },
@@ -1076,13 +1076,13 @@ function colunasFYF(id, f) {
     legend: { top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 12, itemGap: 16, textStyle: { color: C.texto2, fontSize: fs(12) } },
     tooltip: tip(p => p.dataIndex < k
       ? tooltipHtml(rot[p.dataIndex], [{ cor: C.anterior, rotulo: "Spend no ano", valor: brl(f.anos[p.dataIndex].v) }])
-      : tooltipHtml(rot[k], [{ cor: C.atual, rotulo: `Realizado (${f.rotMeses})`, valor: brl(f.ytd) }].concat(f.n < 12 ? [{ cor: C.fora, rotulo: `Projeção (${12 - f.n} meses)`, valor: brl(f.proj) }, { rotulo: "FYF", valor: brl(f.valor) }] : []))),
+      : tooltipHtml(rot[k], [{ cor: C.atual, rotulo: `Realizado (${f.rotMeses})`, valor: brl(f.ytd) }].concat(f.n < 12 ? [{ cor: C.fora, rotulo: `Projeção FYF (${12 - f.n} meses)`, valor: brl(f.proj) }, { rotulo: "FYF", valor: brl(f.valor) }] : []))),
     xAxis: eixoCat(rot),
     yAxis: eixoValorV(Math.max(f.valor, ...f.anos.map(a => a.v))),
     series: [
       { name: "Anos fechados", type: "bar", stack: "a", barMaxWidth: 64, data: f.anos.map(a => a.v).concat([null]), itemStyle: { color: C.anterior, borderRadius: [4, 4, 0, 0] }, label: rot_("top", C.texto2) },
       { name: `Realizado ${f.ano} (${f.rotMeses})`, type: "bar", stack: "a", barMaxWidth: 64, data: nulos(k).concat([f.ytd]), itemStyle: { color: C.atual, borderRadius: f.n === 12 ? [4, 4, 0, 0] : 0 }, label: rot_(f.n === 12 ? "top" : "inside", f.n === 12 ? C.texto : "#fff") },
-      { name: "Projeção (regra de três)", type: "bar", stack: "a", barMaxWidth: 64, data: nulos(k).concat([f.n < 12 ? f.proj : null]), itemStyle: { color: C.fora, borderColor: C.atual, borderWidth: 1, borderType: "dashed", borderRadius: [4, 4, 0, 0] },
+      { name: "Projeção FYF", type: "bar", stack: "a", barMaxWidth: 64, data: nulos(k).concat([f.n < 12 ? f.proj : null]), itemStyle: { color: C.fora, borderColor: C.atual, borderWidth: 1, borderType: "dashed", borderRadius: [4, 4, 0, 0] },
         label: { show: true, position: "top", color: C.texto, fontSize: fs(12), fontWeight: 700, formatter: () => "FYF " + fmtRotulo(u)(f.valor) } }
     ]
   }));
@@ -1103,9 +1103,7 @@ function barrasShare(id, itens) {
       { rotulo: "Spend no período atual", valor: brl(x.v) }]); }),
     xAxis: eixoValor("variação de participação no spend (p.p.)", { min: -m, max: m, nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) },
       axisLabel: { color: C.texto3, fontSize: fs(11), showMinLabel: false, showMaxLabel: false, formatter: v => (v > 0 ? "+" : "") + nf1.format(v * 100).replace(",0", "") } }),
-    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: { width: fs(200), overflow: "truncate", lineHeight: fs(14),
-      formatter: (v, i) => `{n|${v}}\n{s|${pct(inv[i].a, 1)} → ${pct(inv[i].b, 1)} do spend}`,
-      rich: { n: { color: C.texto2, fontSize: fs(11.5), align: "right" }, s: { color: C.texto3, fontSize: fs(10), align: "right" } } } }),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: rotY(200) }),
     series: [{
       type: "bar", barMaxWidth: 18,
       data: inv.map(x => ({ value: x.b - x.a, itemStyle: { color: x.b >= x.a ? C.serie : C.fdp, borderRadius: x.b >= x.a ? [0, 4, 4, 0] : [4, 0, 0, 4] }, label: { position: x.b >= x.a ? "right" : "left" } })),
@@ -1313,8 +1311,7 @@ function vTendencias() {
     kpi({ rotulo: "Novos fornecedores", valor: nf0.format(novos.length), sub: `${brl(vNovos)} pagos a fornecedores sem pagamento no período anterior` }) +
     `</div><div class="grade">` +
     cartao({ largo: true, id: "g-mm", titulo: "Spend mês a mês: período atual vs anterior", desc: "Cada mês comparado ao mesmo mês do período anterior · valores em R$" }) +
-    (fy ? cartao({ largo: true, id: "g-fyf", titulo: fy.n === 12 ? `Spend por ano: ${fy.ano} fechado em ${brl(fy.valor)}` : `FYF ${fy.ano}: ${brl(fy.valor)}${isFinite(fy.varAnt) ? ` (${sinal(fy.varAnt)} vs ${fy.ano - 1})` : ""}`,
-      desc: `${fy.n === 12 ? "Ano completo" : `Regra de três: spend de ${fy.rotMeses}/${fy.ano} ÷ ${fy.n} × 12`} · ${esc(fyfBase(fy))} · respeita os filtros e ignora o Período · valores em R$` }) : "") +
+    (fy ? cartao({ largo: true, id: "g-fyf", titulo: fy.n === 12 ? `Spend por ano: ${fy.ano} fechado em ${brl(fy.valor)}` : `FYF ${fy.ano}: ${brl(fy.valor)}${isFinite(fy.varAnt) ? ` (${sinal(fy.varAnt)} vs ${fy.ano - 1})` : ""}` }) : "") +
     cartao({ id: "g-vcat", altura: "alto", titulo: "Categorias que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
     cartao({ id: "g-vforn", altura: "alto", titulo: "Fornecedores que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
     cartao({ largo: true, titulo: "Novos fornecedores no período", desc: "Fornecedores com pagamento no período e sem pagamento no período anterior",
@@ -1359,8 +1356,7 @@ function vFornecedores() {
     kpi({ rotulo: "Top 10 fornecedores", valor: pct(r.T ? top10 / r.T : NaN, 0), sub: "do spend no período" }) +
     `</div><div class="grade">` + (fu !== null ? quemPaga : "") +
     cartao({ id: "g-top", altura: "alto", titulo: "Top 15 fornecedores por spend", desc: "Valores em R$ e % do spend" }) +
-    cartao({ id: "g-share", altura: "alto", titulo: "Quem ganhou e quem perdeu participação entre os 10 maiores",
-      desc: `Participação = % do spend total do recorte. Barra à direita do eixo: o fornecedor ganhou participação; à esquerda: perdeu. Comparação com ${esc(F.rotP || "o período anterior")} · <span class="legenda-mini"><i style="background:${C.serie}"></i>ganhou</span><span class="legenda-mini"><i style="background:${C.fdp}"></i>perdeu</span> · abaixo do nome: participação antes → agora` }) +
+    cartao({ id: "g-share", altura: "alto", titulo: "Quem ganhou e quem perdeu participação entre os 10 maiores" }) +
     (fu === null ? quemPaga : "") +
     cartao({ largo: true, titulo: "Fornecedores", desc: "Ordenado por spend no período · clique em um fornecedor para filtrar o painel por ele",
       corpo: busca("busca-forn", "Buscar fornecedor...", `${ord.length} fornecedores`) +
@@ -1407,7 +1403,7 @@ function vPareto() {
     return `<tr><td class="forte">${esc(DIMS.categoria[c])}</td><td class="num forte">${brl(r.cat[c])}</td><td class="num">${nf0.format(o.length)}</td><td>${o.length ? esc(DIMS.fornecedor[o[0]]) : "-"}</td><td class="num">${o.length ? pct(fatia[o[0]] / r.cat[c], 0) : "-"}</td><td class="num">${nf0.format(q.n)}</td></tr>`;
   });
   fila.push(() => barrasH("g-p20", top20, { larguraRotulo: 220 }));
-  return secao("Pareto & Concentração", `Quantos fornecedores concentram o spend, no total e em cada categoria · ${ctx()}`) +
+  return secao("Concentração de Fornecedores", `Quantos fornecedores concentram o spend, no total e em cada categoria · ${ctx()}`) +
     `<div class="kpis">` +
     kpi({ rotulo: "Concentram 80% do spend", tom: "destaque", valor: `${nf0.format(p80.n)} fornecedores`, sub: `${pct(p80.base ? p80.n / p80.base : NaN, 0)} dos ${nf0.format(p80.base)} fornecedores` }) +
     kpi({ rotulo: "Concentram 50% do spend", valor: `${nf0.format(p50.n)} fornecedores`, sub: `${pct(p50.base ? p50.n / p50.base : NaN, 1)} dos fornecedores` }) +
