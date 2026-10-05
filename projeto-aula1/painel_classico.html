@@ -96,8 +96,8 @@ button { font: inherit; color: inherit; }
 
 .filtros { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px 12px; padding: 12px 28px 14px; }
 .filtros-rotulo { font-size: .78rem; font-weight: 700; color: rgba(255, 255, 255, .85); padding-bottom: 8px; }
-.filtro { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 130px; flex: 0 1 150px; }
-.filtro.periodo { flex-basis: 200px; }
+.filtro { position: relative; display: flex; flex-direction: column; gap: 3px; min-width: 120px; flex: 0 1 138px; }
+.filtro.periodo { flex-basis: 180px; }
 .filtro > label { font-size: .72rem; font-weight: 600; color: rgba(255, 255, 255, .78); }
 .filtro-botao { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 32px; padding: 0 10px; background: #fff; color: var(--cor-texto); border: 1px solid transparent; border-radius: var(--raio-sm); font-size: .84rem; cursor: pointer; text-align: left; }
 .filtro-botao:hover { border-color: var(--cor-destaque); }
@@ -349,9 +349,10 @@ const FILTROS = [
   { key: "sub2", nome: "Subcategoria 2" },
   { key: "sub3", nome: "Subcategoria 3" },
   { key: "diretoria", nome: "Diretoria" },
+  { key: "fornecedor", nome: "Fornecedor" },
   { key: "contrato", nome: "Contrato" }
 ];
-const DIMS_DISP = FILTROS.map(f => f.key).concat(["fornecedor"]);
+const DIMS_DISP = [...new Set(FILTROS.map(f => f.key).concat(["fornecedor"]))];
 const ST = { COM: 0, BAIXO: 1, PARC: 2, FDP: 3, NC: 4 };
 const KYS_OK = 0, KYS_NEG = 1, RISCO_ALTO = 2;
 const ESCALAS = [0.875, 1, 1.125, 1.25, 1.375];
@@ -515,7 +516,7 @@ function cubo(pass) {
     sub1: new Float64Array(DIMS.sub1.length), sub3: new Float64Array(DIMS.sub3.length), sub3F: new Int32Array(DIMS.sub3.length).fill(-1),
     kysV: new Float64Array(4), riscoV: new Float64Array(4),
     ctr: new Float64Array(nK), ctrP: new Float64Array(nK),
-    catForn: new Float64Array(nC * nF), mesFdp: new Float64Array(MESES.length), mesBase: new Float64Array(MESES.length)
+    catForn: new Float64Array(nC * nF), fornDir: new Float64Array(nF * nD), mesFdp: new Float64Array(MESES.length), mesBase: new Float64Array(MESES.length)
   };
   for (let j = 0, n = idx.length; j < n; j++) {
     const i = idx[j], m = cM[i], v = cV[i];
@@ -526,7 +527,7 @@ function cubo(pass) {
       r.T += v; r.N += cN[i]; r.ctr[cK[i]] += v;
       if (!cE || cE[i]) { r.base += v; r.st[s] += v; }
       r.forn[f] += v; r.fornSt[f * 5 + s] += v;
-      r.cat[c] += v; r.dir[d] += v; r.sub1[cS1[i]] += v; r.sub3[s3] += v; r.catForn[c * nF + f] += v;
+      r.cat[c] += v; r.dir[d] += v; r.sub1[cS1[i]] += v; r.sub3[s3] += v; r.catForn[c * nF + f] += v; r.fornDir[f * nD + d] += v;
       const sf = r.sub3F[s3]; if (sf === -1) r.sub3F[s3] = f; else if (sf !== f) r.sub3F[s3] = -2;
       if (s === ST.FDP) { r.catFdp[c] += v; r.dirFdp[d] += v; }
       r.kysV[kys[f]] += v; r.riscoV[risco[f]] += v;
@@ -625,6 +626,8 @@ function eixoValor(nome, extra) {
 }
 const unidade = max => max >= 1e6 ? { d: 1e6, n: "R$ mi" } : { d: 1e3, n: "R$ mil" };
 const fmtEixo = u => v => nf1.format(v / u.d).replace(",0", "");
+const fmtRotulo = u => v => { const x = v / u.d; return !v ? "" : x >= 10 ? nf0.format(x) : nf1.format(x); };
+const rotuloTopo = (u, cor) => ({ show: true, position: "top", distance: 3, color: cor || C.texto2, fontSize: fs(10), formatter: p => fmtRotulo(u)(p.value) });
 const eixoMiH = (max = 1e6) => { const u = unidade(max); return eixoValor(u.n, { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
 const eixoValorV = max => { const u = unidade(max); return eixoValor(u.n, { axisLabel: { color: C.texto3, fontSize: fs(11), formatter: fmtEixo(u) } }); };
 const eixoPctH = () => eixoValor("% do gasto", { nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) }, axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => pct(v, 0) } });
@@ -739,7 +742,9 @@ function evolucao(id, r) {
     tooltip: Object.assign(tip(ps => { const x = dados[ps[0].dataIndex]; return tooltipHtml(rotMes(x.m), [{ cor: corDe[x.tipo], rotulo: x.tipo === "atual" ? "Período selecionado" : x.tipo === "anterior" ? "Período de comparação" : "Fora da comparação", valor: brl(x.v) }]); }), { trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(0,13,60,.05)" } } }),
     xAxis: eixoCat(dados.map(x => rotMes(x.m)), { axisLabel: { color: C.texto3, fontSize: fs(11), hideOverlap: true } }),
     yAxis: eixoValorV(Math.max(...dados.map(x => x.v))),
-    series: [{ type: "bar", barCategoryGap: "22%", data: dados.map(x => ({ value: x.v, itemStyle: { color: corDe[x.tipo], borderRadius: [3, 3, 0, 0] } })) }]
+    labelLayout: { hideOverlap: true },
+    series: [{ type: "bar", barCategoryGap: "22%", data: dados.map(x => ({ value: x.v, itemStyle: { color: corDe[x.tipo], borderRadius: [3, 3, 0, 0] } })),
+      label: rotuloTopo(unidade(Math.max(...dados.map(x => x.v))), C.texto2) }]
   }));
 }
 
@@ -999,13 +1004,13 @@ function opcoesDim(key, dispPos, termo, rascunho, ordenarPor) {
     const marc = rascunho && rascunho.has && rascunho.has(i);
     if (ordenarPor && key === "contrato" && i === 0) continue;
     if (ordenarPor ? !(ordenarPor[i] > 0) : (!disp[i] && !marc)) { ocultas++; continue; }
-    if (termo && rotulo(key, i).toLowerCase().indexOf(termo) < 0 && !(key === "contrato" && DIMS.fornecedor[CTR.fornecedor[i]].toLowerCase().indexOf(termo) >= 0)) continue;
+    if (termo && rotulo(key, i).toLowerCase().indexOf(termo) < 0 && !(key === "contrato" && DIMS.fornecedor[CTR.fornecedor[i]].toLowerCase().indexOf(termo) >= 0) && !(key === "fornecedor" && String(FORN.raiz[i]).indexOf(termo.replace(/\D/g, "") || "x") >= 0)) continue;
     itens.push(i);
   }
   if (ordenarPor) itens.sort((a, b) => ordenarPor[b] - ordenarPor[a]);
   else itens.sort((a, b) => rotulo(key, a).localeCompare(rotulo(key, b), "pt-BR"));
   const nomeOpc = i => key === "contrato" ? rotulo(key, i) : DIMS[key][i];
-  const extra = i => ordenarPor ? brl(ordenarPor[i]) : key === "contrato" && i ? esc(DIMS.fornecedor[CTR.fornecedor[i]]) : esc(contexto(key, i));
+  const extra = i => ordenarPor ? brl(ordenarPor[i]) : key === "contrato" && i ? esc(DIMS.fornecedor[CTR.fornecedor[i]]) : key === "fornecedor" ? "raiz " + esc(FORN.raiz[i]) : esc(contexto(key, i));
   return { itens: itens.map(i => ({ v: i, nome: nomeOpc(i), extra: extra(i) })), ocultas };
 }
 
@@ -1051,10 +1056,62 @@ function colunasComparadas(id, rot, atual, anterior, nomeA, nomeB) {
     tooltip: Object.assign(tip(ps => tooltipHtml(rot[ps[0].dataIndex], ps.map(p => ({ cor: p.color, rotulo: p.seriesName, valor: brl(p.value) })).concat([{ rotulo: "Variação", valor: sinal(var_(ps[ps.length - 1].value, ps[0].value)) }]))), { trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(0,13,60,.05)" } } }),
     xAxis: eixoCat(rot),
     yAxis: eixoValorV(Math.max(...atual, ...anterior)),
+    labelLayout: { hideOverlap: true },
     series: [
-      { name: nomeB, type: "bar", data: anterior, barMaxWidth: 22, itemStyle: { color: C.anterior, borderRadius: [3, 3, 0, 0] } },
-      { name: nomeA, type: "bar", data: atual, barMaxWidth: 22, itemStyle: { color: C.atual, borderRadius: [3, 3, 0, 0] } }
+      { name: nomeB, type: "bar", data: anterior, barMaxWidth: 22, itemStyle: { color: C.anterior, borderRadius: [3, 3, 0, 0] }, label: rotuloTopo(unidade(Math.max(...atual, ...anterior)), C.texto3) },
+      { name: nomeA, type: "bar", data: atual, barMaxWidth: 22, itemStyle: { color: C.atual, borderRadius: [3, 3, 0, 0] }, label: rotuloTopo(unidade(Math.max(...atual, ...anterior)), C.texto) }
     ]
+  }));
+}
+
+function colunasFYF(id, f) {
+  if (!f || !(f.valor > 0)) return vazio(id, "Sem gasto no ano para projetar");
+  const k = f.anos.length;
+  const rot = f.anos.map(a => String(a.ano)).concat([f.n === 12 ? String(f.ano) : `${f.ano} (FYF)`]);
+  const u = unidade(Math.max(f.valor, ...f.anos.map(a => a.v)));
+  const nulos = n => Array(n).fill(null);
+  const rot_ = (pos, cor) => ({ show: true, position: pos, color: cor, fontSize: fs(11), fontWeight: 600, formatter: p => fmtRotulo(u)(p.value) });
+  desenhar(id, base({
+    grid: { left: 8, right: 16, top: fs(40), bottom: 8, containLabel: true },
+    legend: { top: 0, left: 0, icon: "roundRect", itemWidth: 12, itemHeight: 12, itemGap: 16, textStyle: { color: C.texto2, fontSize: fs(12) } },
+    tooltip: tip(p => p.dataIndex < k
+      ? tooltipHtml(rot[p.dataIndex], [{ cor: C.anterior, rotulo: "Spend no ano", valor: brl(f.anos[p.dataIndex].v) }])
+      : tooltipHtml(rot[k], [{ cor: C.atual, rotulo: `Realizado (${f.rotMeses})`, valor: brl(f.ytd) }].concat(f.n < 12 ? [{ cor: C.fora, rotulo: `Projeção (${12 - f.n} meses)`, valor: brl(f.proj) }, { rotulo: "FYF", valor: brl(f.valor) }] : []))),
+    xAxis: eixoCat(rot),
+    yAxis: eixoValorV(Math.max(f.valor, ...f.anos.map(a => a.v))),
+    series: [
+      { name: "Anos fechados", type: "bar", stack: "a", barMaxWidth: 64, data: f.anos.map(a => a.v).concat([null]), itemStyle: { color: C.anterior, borderRadius: [4, 4, 0, 0] }, label: rot_("top", C.texto2) },
+      { name: `Realizado ${f.ano} (${f.rotMeses})`, type: "bar", stack: "a", barMaxWidth: 64, data: nulos(k).concat([f.ytd]), itemStyle: { color: C.atual, borderRadius: f.n === 12 ? [4, 4, 0, 0] : 0 }, label: rot_(f.n === 12 ? "top" : "inside", f.n === 12 ? C.texto : "#fff") },
+      { name: "Projeção (regra de três)", type: "bar", stack: "a", barMaxWidth: 64, data: nulos(k).concat([f.n < 12 ? f.proj : null]), itemStyle: { color: C.fora, borderColor: C.atual, borderWidth: 1, borderType: "dashed", borderRadius: [4, 4, 0, 0] },
+        label: { show: true, position: "top", color: C.texto, fontSize: fs(12), fontWeight: 700, formatter: () => "FYF " + fmtRotulo(u)(f.valor) } }
+    ]
+  }));
+}
+
+const linhaZero = () => ({ silent: true, symbol: "none", data: [{ xAxis: 0 }], lineStyle: { color: C.texto2, type: "solid", width: 1.5 }, label: { show: false } });
+
+function barrasShare(id, itens) {
+  if (!itens.length) return vazio(id, "Sem período anterior para comparar");
+  const inv = itens.slice().reverse();
+  const m = Math.max(0.005, ...inv.map(x => Math.abs(x.b - x.a))) * 1.45;
+  desenhar(id, base({
+    grid: gradeH(200, { right: fs(24) }),
+    tooltip: tip(p => { const x = inv[p.dataIndex]; return tooltipHtml(x.nome, [
+      { cor: x.b >= x.a ? C.serie : C.fdp, rotulo: "Variação de participação", valor: pp(x.b - x.a) },
+      { rotulo: "Participação no período anterior", valor: pct(x.a) },
+      { rotulo: "Participação no período atual", valor: pct(x.b) },
+      { rotulo: "Spend no período atual", valor: brl(x.v) }]); }),
+    xAxis: eixoValor("variação de participação no spend (p.p.)", { min: -m, max: m, nameLocation: "middle", nameGap: fs(26), nameTextStyle: { color: C.texto3, fontSize: fs(11) },
+      axisLabel: { color: C.texto3, fontSize: fs(11), showMinLabel: false, showMaxLabel: false, formatter: v => (v > 0 ? "+" : "") + nf1.format(v * 100).replace(",0", "") } }),
+    yAxis: eixoCat(inv.map(x => x.nome), { axisLabel: { width: fs(200), overflow: "truncate", lineHeight: fs(14),
+      formatter: (v, i) => `{n|${v}}\n{s|${pct(inv[i].a, 1)} → ${pct(inv[i].b, 1)} do spend}`,
+      rich: { n: { color: C.texto2, fontSize: fs(11.5), align: "right" }, s: { color: C.texto3, fontSize: fs(10), align: "right" } } } }),
+    series: [{
+      type: "bar", barMaxWidth: 18,
+      data: inv.map(x => ({ value: x.b - x.a, itemStyle: { color: x.b >= x.a ? C.serie : C.fdp, borderRadius: x.b >= x.a ? [0, 4, 4, 0] : [4, 0, 0, 4] }, label: { position: x.b >= x.a ? "right" : "left" } })),
+      label: { show: true, color: C.texto2, fontSize: fs(11), fontWeight: 600, formatter: p => pp(inv[p.dataIndex].b - inv[p.dataIndex].a) },
+      markLine: linhaZero()
+    }]
   }));
 }
 
@@ -1072,7 +1129,8 @@ function barrasDiv(id, itens) {
     series: [{
       type: "bar", barMaxWidth: 18,
       data: inv.map(x => ({ value: x.delta, itemStyle: { color: x.delta >= 0 ? C.serie : C.fdp, borderRadius: x.delta >= 0 ? [0, 4, 4, 0] : [4, 0, 0, 4] }, label: { position: x.delta >= 0 ? "right" : "left" } })),
-      label: { show: true, color: C.texto2, fontSize: fs(11), formatter: p => isFinite(inv[p.dataIndex].pct) ? sinal(inv[p.dataIndex].pct, 0) : "novo" }
+      label: { show: true, color: C.texto2, fontSize: fs(11), formatter: p => isFinite(inv[p.dataIndex].pct) ? sinal(inv[p.dataIndex].pct, 0) : "novo" },
+      markLine: linhaZero()
     }]
   }));
 }
@@ -1086,6 +1144,7 @@ function linhaPct(id, rot, vals, alvo) {
     yAxis: eixoValor("% do spend", { max: v => Math.min(1, Math.max(0.2, Math.ceil(v.max * 10) / 10)), axisLabel: { color: C.texto3, fontSize: fs(11), formatter: v => pct(v, 0) } }),
     series: [{
       type: "line", data: vals, smooth: 0.3, smoothMonotone: "x", symbol: "circle", symbolSize: 6,
+      label: { show: true, position: "top", distance: 6, color: C.texto2, fontSize: fs(10), formatter: p => pct(p.value, 0) }, labelLayout: { hideOverlap: true },
       lineStyle: { color: C.fdp, width: 2 }, itemStyle: { color: C.fdp, borderColor: C.sup, borderWidth: 2 }, areaStyle: { color: "rgba(255,98,0,.10)" },
       markLine: { silent: true, symbol: "none", data: [{ yAxis: alvo }], lineStyle: { color: C.texto3, type: "dashed", width: 1.5 }, label: { position: "insideEndTop", color: C.texto3, fontSize: fs(11), formatter: "meta " + pct(alvo, 0) } }
     }]
@@ -1127,6 +1186,35 @@ function rosca(id, partes, total, centro) {
   }));
 }
 
+const diasMes = m => new Date(+m.slice(0, 4), +m.slice(5, 7), 0).getDate();
+const UF = (() => { const d = META.data_atualizacao || ""; return d.slice(0, 7) === META.ultimo_mes && +d.slice(8, 10) < diasMes(META.ultimo_mes) ? U - 1 : U; })();
+function fyf(r) {
+  if (UF < 0) return null;
+  const ano = +MESES[UF].slice(0, 4), n = +MESES[UF].slice(5), i0 = idxMes(ano + "-01");
+  if (i0 < 0) return null;
+  let ytd = 0;
+  for (let i = i0; i <= UF; i++) ytd += r.mes[i];
+  const anos = [];
+  for (let a = +MESES[0].slice(0, 4); a < ano; a++) {
+    const j0 = idxMes(a + "-01"), j1 = idxMes(a + "-12");
+    if (j0 < 0 || j1 < 0) continue;
+    let v = 0;
+    for (let i = j0; i <= j1; i++) v += r.mes[i];
+    anos.push({ ano: a, v });
+  }
+  const valor = ytd / n * 12, ult = anos[anos.length - 1];
+  const ant = ult && ult.ano === ano - 1 ? ult.v : NaN;
+  return { ano, n, ytd, valor, proj: valor - ytd, ant, varAnt: var_(valor, ant), anos: anos.slice(-4), rotMeses: n === 1 ? "jan" : `jan a ${MN[n - 1]}` };
+}
+const fyfBase = f => `base: ${f.n} ${f.n === 1 ? "mês fechado" : "meses fechados"} (${f.rotMeses}/${f.ano})${f.n <= 2 ? " · projeção instável no início do ano" : ""}`;
+const fornUnico = () => estado.sel.fornecedor && estado.sel.fornecedor.size === 1 ? estado.sel.fornecedor.values().next().value : null;
+function pagadores(r, f) {
+  const nD = DIMS.diretoria.length;
+  let n = 0, top = -1, tv = 0;
+  for (let d = 0; d < nD; d++) { const v = r.fornDir[f * nD + d]; if (v > 0) { n++; if (v > tv) { tv = v; top = d; } } }
+  return { n, top, tv };
+}
+
 /* ============================================================
    11. Abas do painel clássico
    ============================================================ */
@@ -1161,12 +1249,14 @@ function vExecutivo() {
   fila.push(() => barra100("g-sit", DIMS.status.map((s, i) => ({ nome: s, valor: r.st[i], cor: C.status[i], claro: i === ST.BAIXO || i === ST.PARC })), r.base));
   fila.push(() => barrasH("g-forn", ranking(r.forn, 10).map(f => ({ nome: DIMS.fornecedor[f], valor: r.forn[f], rotulo: shareRot(r.forn[f], r.T) }))));
   fila.push(() => barrasH("g-cat", ranking(r.cat, 10).map(c => ({ nome: DIMS.categoria[c], valor: r.cat[c], rotulo: shareRot(r.cat[c], r.T) }))));
+  const fy = fyf(r);
   return secao("Visão Executiva", `Leitura rápida do spend: evolução, situação contratual, fornecedores e categorias · ${ctx()}`) +
     `<div class="kpis">` +
     kpi({ rotulo: "Spend no período", valor: brl(r.T), sub: ctx() }) +
     kpi({ rotulo: "Variação", tom: "destaque", valor: sinal(vt), sub: esc(compTxt()) }) +
     kpi({ rotulo: "Fornecedores com pagamento", valor: nf0.format(ativos(r.forn)), sub: `${nf0.format(r.N)} pagamentos · valor médio ${brl(r.N ? r.T / r.N : 0)}` }) +
     kpi({ rotulo: "Concentração", tom: "destaque", valor: `${nf0.format(p80.n)} fornecedores`, sub: `${pct(p80.base ? p80.n / p80.base : NaN, 0)} dos fornecedores concentram 80% do spend` }) +
+    (fy ? kpi({ rotulo: fy.n === 12 ? `Spend ${fy.ano} (fechado)` : `FYF ${fy.ano}`, valor: brl(fy.valor), sub: `${isFinite(fy.varAnt) ? sinal(fy.varAnt) + " vs " + (fy.ano - 1) + " · " : ""}${esc(fyfBase(fy))}` }) : "") +
     `</div><div class="grade">` +
     cartao({ largo: true, id: "g-evo", titulo: "Evolução mensal do spend", desc: `<span class="legenda-mini"><i style="background:${C.atual}"></i>Período selecionado</span><span class="legenda-mini"><i style="background:${C.anterior}"></i>Período de comparação</span><span class="legenda-mini"><i style="background:${C.fora}"></i>Demais meses</span> · valores em R$` }) +
     cartao({ largo: true, id: "g-sit", altura: "baixo", titulo: "Situação contratual do spend", desc: `${baseTxt()} · Baixo valor e Parcerias são permitidos sem contrato` }) +
@@ -1193,7 +1283,9 @@ function vTendencias() {
   const ant = Array.from({ length: n }, (_, k) => r.mes[F.p0 + k]);
   const novos = ranking(r.forn).filter(f => !r.fornP[f]);
   const vNovos = novos.reduce((s, f) => s + r.forn[f], 0);
+  const fy = fyf(r);
   fila.push(() => colunasComparadas("g-mm", rot, atual, ant, F.rot, F.rotP));
+  fila.push(() => colunasFYF("g-fyf", fy));
   fila.push(() => barrasDiv("g-vcat", variacoes(r.cat, r.catP, c => DIMS.categoria[c], 6)));
   fila.push(() => barrasDiv("g-vforn", variacoes(r.forn, r.fornP, f => DIMS.fornecedor[f], 6)));
   return cab + `<div class="kpis">` +
@@ -1203,6 +1295,8 @@ function vTendencias() {
     kpi({ rotulo: "Novos fornecedores", valor: nf0.format(novos.length), sub: `${brl(vNovos)} pagos a fornecedores sem pagamento no período anterior` }) +
     `</div><div class="grade">` +
     cartao({ largo: true, id: "g-mm", titulo: "Spend mês a mês: período atual vs anterior", desc: "Cada mês comparado ao mesmo mês do período anterior · valores em R$" }) +
+    (fy ? cartao({ largo: true, id: "g-fyf", titulo: fy.n === 12 ? `Spend por ano: ${fy.ano} fechado em ${brl(fy.valor)}` : `FYF ${fy.ano}: ${brl(fy.valor)}${isFinite(fy.varAnt) ? ` (${sinal(fy.varAnt)} vs ${fy.ano - 1})` : ""}`,
+      desc: `${fy.n === 12 ? "Ano completo" : `Regra de três: spend de ${fy.rotMeses}/${fy.ano} ÷ ${fy.n} × 12`} · ${esc(fyfBase(fy))} · respeita os filtros e ignora o Período · valores em R$` }) : "") +
     cartao({ id: "g-vcat", altura: "alto", titulo: "Categorias que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
     cartao({ id: "g-vforn", altura: "alto", titulo: "Fornecedores que mais cresceram e caíram", desc: "Variação em R$ vs período anterior · rótulo = variação %" }) +
     cartao({ largo: true, titulo: "Novos fornecedores no período", desc: "Fornecedores com pagamento no período e sem pagamento no período anterior",
@@ -1214,22 +1308,46 @@ function vTendencias() {
 function vFornecedores() {
   const r = estado.his, F = estado.F, ord = ranking(r.forn);
   const top10 = ord.slice(0, 10).reduce((s, f) => s + r.forn[f], 0);
-  const hal = F.prevOk && r.Tp ? ord.slice(0, 10).map(f => ({ nome: DIMS.fornecedor[f], a: r.fornP[f] / r.Tp, b: r.forn[f] / r.T })) : [];
+  const hal = F.prevOk && r.Tp ? ord.slice(0, 10).map(f => ({ nome: DIMS.fornecedor[f], a: r.fornP[f] / r.Tp, b: r.forn[f] / r.T, v: r.forn[f] })) : [];
   fila.push(() => barrasH("g-top", ord.slice(0, 15).map(f => ({ nome: DIMS.fornecedor[f], valor: r.forn[f], rotulo: shareRot(r.forn[f], r.T) }))));
-  fila.push(() => halteres("g-share", hal));
-  aposRender.push(() => ligarBusca("busca-forn"));
+  fila.push(() => barrasShare("g-share", hal));
+  aposRender.push(() => {
+    ligarBusca("busca-forn");
+    document.querySelectorAll("#vista tr[data-forn]").forEach(tr => {
+      const abrir = () => { estado.sel.fornecedor = new Set([+tr.dataset.forn]); atualizarTudo(); window.scrollTo({ top: 0 }); };
+      tr.addEventListener("click", abrir);
+      tr.addEventListener("keydown", e => { if (e.key === "Enter") abrir(); });
+    });
+    const v = document.getElementById("voltar-forn");
+    if (v) v.addEventListener("click", () => { estado.sel.fornecedor = null; atualizarTudo(); });
+  });
+  const fu = fornUnico();
+  let quemPaga;
+  if (fu !== null) {
+    const dirs = ranking(r.dir), pg = pagadores(r, fu);
+    fila.push(() => barrasH("g-pagadores", dirs.slice(0, 15).map(d => ({ nome: DIMS.diretoria[d], valor: r.dir[d], rotulo: shareRot(r.dir[d], r.T),
+      extra: F.prevOk ? [{ rotulo: "Período anterior", valor: brl(r.dirP[d]) }, { rotulo: "Variação", valor: isFinite(var_(r.dir[d], r.dirP[d])) ? sinal(var_(r.dir[d], r.dirP[d])) : "novo" }] : [] }))));
+    quemPaga = cartao({ largo: true, id: "g-pagadores", altura: dirs.length > 8 ? "alto" : "", titulo: `Quem paga ${esc(DIMS.fornecedor[fu])}: ${nf0.format(dirs.length)} ${dirs.length === 1 ? "diretoria" : "diretorias"}${pg.top >= 0 ? `, ${esc(DIMS.diretoria[pg.top])} com ${pct(pg.tv / r.T, 0)}` : ""}`,
+      desc: `Diretorias que pagaram o fornecedor no período · valores em R$ e % do spend do fornecedor · <button type="button" class="btn" id="voltar-forn">← Todos os fornecedores</button>` });
+  } else {
+    const linhas = ord.slice(0, 30).map(f => { const pg = pagadores(r, f); return `<tr class="clicavel" tabindex="0" data-forn="${f}"><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${nf0.format(pg.n)}</td><td>${pg.top >= 0 ? esc(DIMS.diretoria[pg.top]) : "-"}</td><td class="num">${pct(pg.tv / r.forn[f], 0)}</td></tr>`; });
+    quemPaga = cartao({ largo: true, titulo: "Quem paga cada fornecedor", desc: "30 maiores fornecedores do recorte · clique em um fornecedor (ou use o filtro Fornecedor) para ver todas as diretorias que o pagam",
+      corpo: tabela([{ t: "Fornecedor" }, { t: "Spend", cls: "num" }, { t: "Diretorias", cls: "num" }, { t: "Diretoria principal" }, { t: "% da principal", cls: "num" }], linhas) });
+  }
   return secao("Fornecedores", `Quem recebe o spend, com que share e como isso mudou · ${ctx()}`) +
     `<div class="kpis">` +
     kpi({ rotulo: "Fornecedores com pagamento", valor: nf0.format(ord.length), sub: ctx() }) +
     kpi({ rotulo: "Maior fornecedor", tom: "destaque", valor: ord.length ? pct(r.forn[ord[0]] / r.T, 0) : "-", sub: ord.length ? esc(DIMS.fornecedor[ord[0]]) : "" }) +
     kpi({ rotulo: "Top 10 fornecedores", valor: pct(r.T ? top10 / r.T : NaN, 0), sub: "do spend no período" }) +
-    `</div><div class="grade">` +
+    `</div><div class="grade">` + (fu !== null ? quemPaga : "") +
     cartao({ id: "g-top", altura: "alto", titulo: "Top 15 fornecedores por spend", desc: "Valores em R$ e % do spend" }) +
-    cartao({ id: "g-share", altura: "alto", titulo: "Mudança de share dos 10 maiores", desc: `<span class="legenda-mini"><i class="aro"></i>${esc(F.rotP || "período anterior")}</span><span class="legenda-mini"><i class="ponto" style="background:${C.serie}"></i>ganhou</span><span class="legenda-mini"><i class="ponto" style="background:${C.fdp}"></i>perdeu</span> · % do spend` }) +
-    cartao({ largo: true, titulo: "Fornecedores", desc: "Ordenado por spend no período",
+    cartao({ id: "g-share", altura: "alto", titulo: "Quem ganhou e quem perdeu participação entre os 10 maiores",
+      desc: `Participação = % do spend total do recorte. Barra à direita do eixo: o fornecedor ganhou participação; à esquerda: perdeu. Comparação com ${esc(F.rotP || "o período anterior")} · <span class="legenda-mini"><i style="background:${C.serie}"></i>ganhou</span><span class="legenda-mini"><i style="background:${C.fdp}"></i>perdeu</span> · abaixo do nome: participação antes → agora` }) +
+    (fu === null ? quemPaga : "") +
+    cartao({ largo: true, titulo: "Fornecedores", desc: "Ordenado por spend no período · clique em um fornecedor para filtrar o painel por ele",
       corpo: busca("busca-forn", "Buscar fornecedor...", `${ord.length} fornecedores`) +
         tabela([{ t: "#", cls: "num" }, { t: "Fornecedor" }, { t: "Spend", cls: "num" }, { t: "Share", cls: "num" }, { t: "Variação", cls: "num" }, { t: "% com contrato", cls: "num" }, { t: "KYS", cls: "cen" }, { t: "Risco financeiro", cls: "cen" }],
-          ord.slice(0, 300).map((f, k) => { const v = var_(r.forn[f], r.fornP[f]); return `<tr data-nome="${esc(DIMS.fornecedor[f].toLowerCase())}"><td class="num">${k + 1}</td><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${pct(r.forn[f] / r.T)}</td>` +
+          ord.slice(0, 300).map((f, k) => { const v = var_(r.forn[f], r.fornP[f]); return `<tr class="clicavel" tabindex="0" data-forn="${f}" data-nome="${esc((DIMS.fornecedor[f] + " " + FORN.raiz[f]).toLowerCase())}"><td class="num">${k + 1}</td><td class="forte">${esc(DIMS.fornecedor[f])}</td><td class="num forte">${brl(r.forn[f])}</td><td class="num">${pct(r.forn[f] / r.T)}</td>` +
             `<td class="num ${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${F.prevOk ? (isFinite(v) ? sinal(v) : "novo") : "-"}</td><td class="num">${pct(r.fornSt[f * 5 + ST.COM] / r.forn[f], 0)}</td><td class="cen">${seloKys(f)}</td><td class="cen">${seloRisco(f)}</td></tr>`; })) }) +
     `</div>`;
 }
@@ -1405,6 +1523,7 @@ const GLOSSARIO = [
   ["Spend", "Soma dos pagamentos (valor bruto nominal) no período, pela data de pagamento"],
   ["Período", "Últimos 12 meses (padrão), YTD do ano vigente ou ano fechado. Sempre comparado ao período anterior de mesmo tamanho"],
   ["Variação", "Spend do período ÷ spend do período anterior - 1"],
+  ["FYF", "Full Year Forecast: projeção do spend do ano vigente pela regra de três - spend de janeiro até o último mês fechado ÷ número de meses × 12. Mês em andamento não entra. Respeita os filtros e ignora o Período"],
   ["Fornecedor", "Agrupado pela raiz do CNPJ (8 primeiros dígitos), com o nome da matriz"],
   ["Share", "Participação de um item no spend do recorte"],
   ["Concentração 80%", "Menor número de fornecedores cuja soma atinge 80% do spend"],
