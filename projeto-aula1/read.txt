@@ -1,0 +1,36 @@
+import pandas as pd
+
+pd.set_option('display.width', 250, 'display.max_columns', 20)
+
+BASES = 'dados_simulados/'
+ler = dict(sep=';', decimal=',', encoding='utf-8-sig', low_memory=False, dtype={'pasta': str}, date_format='%d/%m/%Y')
+pastas = pd.read_csv(BASES + 'pastas.csv', parse_dates=['data_entrada', 'data_encerramento'], **ler)
+mov = pd.read_csv(BASES + 'movimentacoes.csv', parse_dates=['data_movimentacao_pasta'], **ler)
+pastas['escritorio_responsavel'] = pastas.escritorio_responsavel.str.upper().str.strip()
+mov['escritorio'] = mov.escritorio.str.upper().str.strip()
+
+ativas = pastas[pastas.situacao_pasta.str.upper() != 'ENCERRAMENTO TOTAL']
+print('Estoque atual:', len(ativas), '\n', ativas.segmento.value_counts(), '\n')
+
+share = ativas.escritorio_responsavel.value_counts(normalize=True).mul(100).round(1)
+print('Share atual (%):\n', share.head(15), '\nDemais escritórios:', share.iloc[15:].sum().round(1), '\n')
+
+share_uf = ativas.groupby('uf').escritorio_responsavel.value_counts(normalize=True)
+print(pd.DataFrame({
+    'pastas': ativas.groupby('uf').size(),
+    'escritórios': ativas.groupby('uf').escritorio_responsavel.nunique(),
+    'maior escritório': ativas.groupby('uf').escritorio_responsavel.agg(lambda s: s.mode()[0]),
+    'share do maior (%)': share_uf.groupby('uf').max() * 100,
+    'HHI': (share_uf ** 2).groupby('uf').sum() * 10000,
+}).sort_values('pastas', ascending=False).round(0).head(10), '\n')
+
+meses = pd.date_range('2023-09-01', '2026-10-01', freq='MS') + pd.offsets.MonthEnd()
+estoque = pd.Series([((pastas.data_entrada <= m) & ~(pastas.data_encerramento <= m)).sum() for m in meses], index=meses.strftime('%m/%y'))
+print('Estoque no fim do mês:\n', estoque.iloc[::6], '\n')
+print(pd.DataFrame({'entradas': pastas.data_entrada.dt.year.value_counts(), 'encerramentos': pastas.data_encerramento.dt.year.value_counts()}).sort_index().loc[2023:2026].rename(index=int).astype(int), '\n')
+
+perdeu = mov[mov.situacao_movimentacao == 'Perdeu'].copy()
+perdeu['lote'] = perdeu.groupby(['data_movimentacao_pasta', 'escritorio']).pasta.transform('size') >= 50
+print('% das pastas da base que já foram transferidas:', round(perdeu.pasta.nunique() / len(pastas) * 100, 1))
+print('% das transferências feitas em lote:', round(perdeu.lote.mean() * 100, 1))
+print(perdeu[perdeu.lote].groupby([perdeu.data_movimentacao_pasta.dt.date, 'escritorio']).size())
